@@ -35,8 +35,9 @@ The app follows MVI (Model-View-Intent) with a clean-architecture module split. 
 ```
 app/
   common/    shared app entry point, navigation, DI wiring (KMP)
-  android/   Android application shell
-  ios/       SwiftUI host for the Compose iOS framework (Xcode project)
+  android/   Android application
+  desktop/   desktop (JVM) application
+  ios/       SwiftUI host for the shared Compose UI
 core/
   authentication/  biometric abstraction with per-platform actuals
   designsystem/    theme, typography, icons, shared components
@@ -47,46 +48,67 @@ feature/
   home/            home screen (placeholder)
   analytics/       analytics (not yet implemented)
   profile/         profile (not yet implemented)
+plugins/           ktfmt plugin for the build
+templates/         shared module configuration
 ```
 
-Navigation is declared in `app/common/.../navigation/Navigation.kt`. Modules are wired with the Gradle convention plugins in `convention-plugins/`.
+Navigation is declared in `app/common/.../navigation/Navigation.kt`.
+
+The project builds with [Kotlin Toolchain](https://kotlin-toolchain.org/) rather than Gradle. Each module has a `module.yaml`, shared settings live in `templates/`, and versions live in `gradle/libs.versions.toml`.
 
 ## Requirements
 
-- JDK 21 or newer (Gradle provisions JDK 25 for its daemon through the foojay toolchain resolver)
-- Android Studio (for Android) and Xcode (for iOS), with the Kotlin Multiplatform plugin if you use Android Studio
-- Android SDK with compile SDK 37 (min SDK 24)
-- A Mac with Xcode for the iOS target
+- macOS, Linux or Windows. The `./kotlin` wrapper downloads the Kotlin Toolchain and its own JDK on first run.
+- Android SDK with compile SDK 37 (min SDK 24). Point `ANDROID_HOME` at an existing SDK, or let the toolchain provision one.
+- A Mac with Xcode for the iOS target. Run `sudo xcodebuild -runFirstLaunch` once after installing or updating Xcode.
+- Optional: IntelliJ IDEA or Android Studio with the Kotlin Toolchain plugin.
 
 ## Getting started
 
-Clone the repository and open the project root in Android Studio or IntelliJ IDEA. Gradle syncs on open.
+Clone the repository and run commands from its root.
+
+**Build everything**
+
+```bash
+./kotlin build
+```
 
 **Android**
 
 ```bash
-./gradlew :app:android:assembleDebug
+./kotlin run -m android
 ```
 
-Or run the `app:android` configuration from Android Studio.
+This installs and starts the app on a connected device or emulator.
 
 **Desktop**
 
 ```bash
-./gradlew :app:common:run
+./kotlin run -m desktop
 ```
+
+Add `--compose-hot-reload` to update the UI while the app runs.
 
 **iOS**
 
-Open `app/ios/Walenje.xcodeproj` in Xcode and run the `Walenje` scheme on a simulator or device. The Xcode build phase builds the shared `common` framework through Gradle.
+```bash
+./kotlin run -m ios
+```
+
+Or open `app/ios/module.xcodeproj` in Xcode and run the `app` scheme.
+
+**Formatting and checks**
+
+```bash
+./kotlin do ktfmtFormat
+./kotlin check
+```
 
 **Cleaning build output**
 
 ```bash
 ./cleanup.sh
 ```
-
-This removes Gradle, Xcode, and IDE artifacts. It is a local helper and is not required for normal builds.
 
 ## Screenshots
 

@@ -12,9 +12,10 @@ and biometrics work; Home, Analytics and Profile are placeholders.
 
 | Path | Role |
 |---|---|
-| `app/common` | Shared app entry (`App.kt`), navigation graph, Koin wiring, desktop `main` and iOS `MainViewController` |
-| `app/android` | Android application shell (`MainActivity`, `MainApplication`) |
-| `app/ios` | SwiftUI host for the `common` framework (Xcode project) |
+| `app/common` | Shared app entry (`App.kt`), navigation graph, Koin wiring and iOS `MainViewController` |
+| `app/android` | Android application (`MainActivity`, `MainApplication`, manifest, launcher resources) |
+| `app/desktop` | Desktop application (`main.kt`) |
+| `app/ios` | SwiftUI host; Swift imports the shared code from the `KotlinModules` framework |
 | `core/authentication` | `Biometrics` expect/actual per platform |
 | `core/designsystem` | Material 3 theme, Montserrat typography, icons, shared components |
 | `core/ui` | Shared UI pieces such as the PIN keypad and its ViewModel |
@@ -22,10 +23,23 @@ and biometrics work; Home, Analytics and Profile are placeholders.
 | `feature/onboarding` | Welcome, secure-wallet and PIN setup screens (package `feature.welcome`) |
 | `feature/home`, `feature/analytics`, `feature/profile` | Placeholders |
 
-Packages live under `kambi.victor.walenje`. Shared build configuration is in the Gradle convention plugins under
-`convention-plugins/conventions/src/main/kotlin/` (`walenje-kmp`, `walenje-cmp-base`, `walenje-kmp-library`,
-`walenje-application-feature`, `walenje-koin`, `walenje-kotlinx`, `walenje-logger`, `walenje-format-code`).
-Versions live only in `gradle/libs.versions.toml`.
+Packages live under `kambi.victor.walenje`.
+
+## Build
+
+The build uses [Kotlin Toolchain](https://kotlin-toolchain.org/) (the `./kotlin` wrapper, pinned to 0.13.0), not
+Gradle. Use the `kotlin-tooling-kotlin-toolchain` skill for YAML syntax.
+
+- `project.yaml` lists the modules and the local plugins. Each module has a `module.yaml`.
+- Shared configuration lives in `templates/*.module-template.yaml`, applied with `apply:`. `base` (Kotlin 2.4.21,
+  JVM 21, Compose 1.12.2, formatters) goes on every module; `android`, `cmp`, `kotlinx`, `koin`, `logger` and
+  `feature` go where needed. Change a setting in the template, not in each module.
+- Versions live only in `gradle/libs.versions.toml`. Reference them as `$libs.<key>`; never write Maven
+  coordinates into a `module.yaml`.
+- Sources: `src/` is common code, `src@android/`, `src@ios/` and `src@jvm/` are platform code, `test/` is common
+  tests, `composeResources/` holds Compose resources.
+- `plugins/ktfmt` is a vendored local plugin (see the source note in its `module.yaml`).
+- `MIGRATION_PLAN.md` records the move from Gradle and what was dropped.
 
 ## Architecture rules
 
@@ -36,35 +50,39 @@ Versions live only in `gradle/libs.versions.toml`.
   `viewModelOf`. The app-level configuration is `createKoinConfiguration()` in `app/common/.../di/`.
 - **Navigation.** Type-safe `@Serializable` routes in `app/common/.../navigation/Navigation.kt`. Screens take
   navigation callbacks; they never receive a `NavController`.
-- **UI.** Shared UI lives in `commonMain` and goes through `core/designsystem` (theme, `Text`, `Button`, icons).
+- **UI.** Shared UI lives in common `src/` and goes through `core/designsystem` (theme, `Text`, `Button`, icons).
   Don't hard-code colours, fonts or sizes in feature code.
-- **Platform code.** Keep Android, iOS and JVM APIs in `androidMain`, `iosMain` and `jvmMain` behind `expect`/`actual`.
-  Never put `Context` or other Android types in `commonMain`.
+- **Platform code.** Keep Android, iOS and JVM APIs in `src@android/`, `src@ios/` and `src@jvm/` behind
+  `expect`/`actual`. Never put `Context` or other Android types in common `src/`.
 - **Logging.** Use Kermit through the module's `internal val logger`. Don't use `println`.
 
 ## Code style
 
-- ktfmt, Google style, max width 100, unused imports removed (`walenje-format-code`). `./gradlew build` reformats,
-  so commit the formatted result.
-- ktlint (`android_studio` style) with Slack's compose-lints rules, configured in `.editorconfig`. `@Composable`
-  functions are PascalCase.
+- ktfmt, Google style, max width 100, unused imports removed. It runs as a check in `./kotlin check` and never
+  reformats during a build, so run `./kotlin do ktfmtFormat` before committing. `@Composable` functions are
+  PascalCase. ktlint is not used: it disagrees with ktfmt's output.
 - Two-space indentation, trailing commas allowed.
 
 ## Commands
 
-The JDK comes from Gradle's daemon toolchain (`gradle/gradle-daemon-jvm.properties`). The convention build needs
-JDK 21 or newer.
+The wrapper downloads the CLI and provisions its own JDK. Set `ANDROID_HOME` (for example
+`~/Library/Android/sdk`) to reuse an installed Android SDK. iOS needs Xcode with its first-launch setup done
+(`sudo xcodebuild -runFirstLaunch`).
 
 ```sh
-./gradlew build                                   # compile all targets and format
-./gradlew ktlintCheck                             # lint
-./gradlew :app:android:assembleDebug              # Android APK
-./gradlew :app:common:run                         # desktop app
-./gradlew :app:common:linkDebugFrameworkIosSimulatorArm64   # iOS framework; run app/ios/Walenje.xcodeproj in Xcode
-./cleanup.sh                                      # remove build, Xcode and IDE output
+./kotlin build                       # compile and link everything
+./kotlin build -p jvm -p android     # skip the iOS targets
+./kotlin check                       # tests plus the ktfmt check
+./kotlin do ktfmtFormat              # format sources (add -m <module> for one module)
+./kotlin run -m desktop              # desktop app (add --compose-hot-reload for Hot Reload)
+./kotlin run -m android              # install and start on a device or emulator
+./kotlin run -m ios                  # iOS simulator; or open app/ios/module.xcodeproj in Xcode
+./kotlin show dependencies -m <module>
+./cleanup.sh                         # remove build and IDE output
 ```
 
-There are no tests yet. When you add them, put them in `commonTest` with `kotlin.test`.
+Module names in `-m` are directory names (`common`, `designsystem`, `onboarding`, ...). There are no tests yet.
+When you add them, put them in the module's `test/` directory with `kotlin.test`.
 
 ## Git
 

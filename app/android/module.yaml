@@ -1,0 +1,22 @@
+product: android/app
+
+apply:
+  - //templates/base.module-template.yaml
+  - //templates/android.module-template.yaml
+
+dependencies:
+  - //app/common
+  - //core/authentication
+  - $libs.androidx.activity.compose
+  - $libs.androidx.appcompat
+
+settings:
+  android:
+    namespace: kambi.victor.walenje
+    applicationId: kambi.victor.walenje
+    targetSdk: 37
+    versionCode: 1
+    versionName: "1.0"
+    resourcePackaging:
+      excludes:
+        - /META-INF/{AL2.0,LGPL2.1}

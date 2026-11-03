@@ -1,10 +1,6 @@
 #!/bin/sh
+# Remove build output and IDE state. Not needed for normal builds.
 rm -rf .idea
-./gradlew clean
-rm -rf .gradle
 rm -rf build
-rm -rf */build
-rm -rf app/ios/Walenje.xcworkspace
-rm -rf app/ios/Pods
-rm -rf app/ios/Walenje.xcodeproj/project.xcworkspace
-rm -rf app/ios/Walenje.xcodeproj/xcuserdata
+rm -rf app/ios/module.xcodeproj/project.xcworkspace/xcuserdata
+rm -rf app/ios/module.xcodeproj/xcuserdata

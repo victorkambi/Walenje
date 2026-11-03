@@ -1,0 +1,14 @@
+product:
+  type: kmp/lib
+  platforms: [android, iosArm64, iosSimulatorArm64, jvm]
+
+apply:
+  - //templates/base.module-template.yaml
+  - //templates/android.module-template.yaml
+  - //templates/cmp.module-template.yaml
+  - //templates/kotlinx.module-template.yaml
+  - //templates/logger.module-template.yaml
+
+settings:
+  android:
+    namespace: kambi.victor.walenje.core.utils

@@ -1,0 +1,14 @@
+# Vendored from https://github.com/Heapy/ktc-ktfmt/tree/39432a5ed8ccbcb1af5a7870ba3549f4f51e4585/plugins/ktfmt
+# (Apache-2.0, see LICENSE). Change: dependency moved to the version catalog.
+product: jvm/amper-plugin
+
+pluginInfo:
+  id: ktfmt
+  settingsClass: io.heapy.ktc.plugins.ktfmt.KtfmtSettings
+
+dependencies:
+  - $libs.ktfmt
+
+settings:
+  jvm:
+    release: 17

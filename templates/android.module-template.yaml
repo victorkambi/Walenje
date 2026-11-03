@@ -1,0 +1,6 @@
+# Android SDK levels for the KMP libraries and the Android app (was walenje-kmp-library).
+settings:
+  android:
+    compileSdk: 37
+    minSdk: 24
+    buildToolsVersion: 36.1.0

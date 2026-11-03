@@ -1,0 +1,17 @@
+modules:
+  - app/android
+  - app/common
+  - app/desktop
+  - app/ios
+  - core/authentication
+  - core/designsystem
+  - core/ui
+  - core/utils
+  - feature/analytics
+  - feature/home
+  - feature/onboarding
+  - feature/profile
+  - plugins/ktfmt
+
+plugins:
+  - //plugins/ktfmt

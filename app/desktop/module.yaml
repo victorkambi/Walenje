@@ -1,0 +1,14 @@
+product: jvm/app
+
+apply:
+  - //templates/base.module-template.yaml
+
+dependencies:
+  - //app/common
+  - //core/authentication
+  - $compose.desktop.currentOs
+  - $libs.kotlinx.coroutines.swing
+
+settings:
+  jvm:
+    mainClass: kambi.victor.walenje.MainKt
