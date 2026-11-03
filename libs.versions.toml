@@ -28,6 +28,7 @@ compose-lifecycle = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runti
 foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-plugin" }
 graphics-shapes = { group = "org.jetbrains.androidx.graphics", name = "graphics-shapes", version.ref = "graphics-shapes" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }

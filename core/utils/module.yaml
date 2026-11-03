@@ -9,6 +9,9 @@ apply:
   - //templates/kotlinx.module-template.yaml
   - //templates/logger.module-template.yaml
 
+test-dependencies:
+  - $libs.kotlinx.coroutines.test
+
 settings:
   android:
     namespace: kambi.victor.walenje.core.utils
