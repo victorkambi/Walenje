@@ -59,6 +59,9 @@ skill. Gradle baseline: commit `2c99a4a` on `main` (all targets green, iOS and d
 
 `gradle.properties` (`org.gradle.*`, `android.*`, `kotlin.*` flags), `local.properties` (stays untracked), the
 `gradle/wrapper/`, `gradlew*` and the `[plugins]`/`[bundles]` catalog sections. There is no CI to rewrite.
+Afterwards the catalog moved from `gradle/libs.versions.toml` to the root `libs.versions.toml`, and the
+`gradle-skills` plugin was disabled. The Toolchain still runs Gradle 9.5.0 internally for Android builds, using
+`~/.gradle`; that's expected and needs no project files.
 
 ## Test plan
 

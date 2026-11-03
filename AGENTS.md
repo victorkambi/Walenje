@@ -34,7 +34,7 @@ Gradle. Use the `kotlin-tooling-kotlin-toolchain` skill for YAML syntax.
 - Shared configuration lives in `templates/*.module-template.yaml`, applied with `apply:`. `base` (Kotlin 2.4.21,
   JVM 21, Compose 1.12.2, formatters) goes on every module; `android`, `cmp`, `kotlinx`, `koin`, `logger` and
   `feature` go where needed. Change a setting in the template, not in each module.
-- Versions live only in `gradle/libs.versions.toml`. Reference them as `$libs.<key>`; never write Maven
+- Versions live only in `libs.versions.toml`. Reference them as `$libs.<key>`; never write Maven
   coordinates into a `module.yaml`.
 - Sources: `src/` is common code, `src@android/`, `src@ios/` and `src@jvm/` are platform code, `test/` is common
   tests, `composeResources/` holds Compose resources.

@@ -6,9 +6,9 @@
   there are no akili specs, the default branch is `main` (not `production`), and the Tajji skills
   (`sceptre-ui`, `implement-feature`, `spec-check`) don't apply. Unlike Tajji repos, you push here: land finished
   work with the flow in `AGENTS.md` > Git (rebase, fast-forward into `main`, push `main`, delete the branch).
-- Skill plugins are enabled in `.claude/settings.json`: `kotlin-agent-skills`, `gradle-skills`, `android-skills`.
+- Skill plugins are enabled in `.claude/settings.json`: `kotlin-agent-skills`, `android-skills`.
   - Build configuration: `kotlin-tooling-kotlin-toolchain`. The project builds with Kotlin Toolchain, not Gradle,
-    so skip `gradle-skills`, `kotlin-tooling-agp9-migration` and android-skills' AGP or Gradle guidance.
+    so skip `kotlin-tooling-agp9-migration` and android-skills' AGP or Gradle guidance.
   - Porting a Gradle plugin or writing a local plugin: `kotlin-tooling-gradle-to-kotlin-toolchain-plugin` and
     `kotlin-tooling-kotlin-toolchain-plugin-authoring`.
   - Navigation and UI follow `AGENTS.md`, not android-skills' navigation or Material guidance.

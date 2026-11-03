@@ -54,7 +54,7 @@ templates/         shared module configuration
 
 Navigation is declared in `app/common/.../navigation/Navigation.kt`.
 
-The project builds with [Kotlin Toolchain](https://kotlin-toolchain.org/) rather than Gradle. Each module has a `module.yaml`, shared settings live in `templates/`, and versions live in `gradle/libs.versions.toml`.
+The project builds with [Kotlin Toolchain](https://kotlin-toolchain.org/) rather than Gradle. Each module has a `module.yaml`, shared settings live in `templates/`, and versions live in `libs.versions.toml`.
 
 ## Requirements
 
