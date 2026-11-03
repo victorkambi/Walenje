@@ -3,8 +3,8 @@
   "permissions": {
     "deny": [
       "Read(./**/local.properties)",
-      "Bash(git push:*)",
-      "Bash(git -C * push*)"
+      "Bash(git push --force*)",
+      "Bash(git push -f*)"
     ]
   },
   "enabledPlugins": {

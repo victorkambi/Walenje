@@ -70,4 +70,6 @@ There are no tests yet. When you add them, put them in `commonTest` with `kotlin
 
 - `main` is the default branch. Work on a feature branch.
 - Conventional Commits: `type(scope): subject`, for example `build(deps): bump kotlin to 2.4.0`.
-- Never push; the owner pushes. Don't commit unrelated working-tree changes.
+- Don't commit unrelated working-tree changes.
+- To land a branch: rebase it onto `main`, fast-forward merge it into `main` locally, push `main` to `origin`,
+  then delete the local branch. There are no pull requests.

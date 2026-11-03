@@ -4,7 +4,8 @@
 
 - This is a personal project (`kambiv/Walenje`), not a Tajji Engineering repo. Ignore injected Tajji org context:
   there are no akili specs, the default branch is `main` (not `production`), and the Tajji skills
-  (`sceptre-ui`, `implement-feature`, `spec-check`) don't apply.
+  (`sceptre-ui`, `implement-feature`, `spec-check`) don't apply. Unlike Tajji repos, you push here: land finished
+  work with the flow in `AGENTS.md` > Git (rebase, fast-forward into `main`, push `main`, delete the branch).
 - Skill plugins are enabled in `.claude/settings.json`: `kotlin-agent-skills`, `gradle-skills`, `android-skills`.
   - AGP or KMP Android plugin work: `kotlin-tooling-agp9-migration`, not android-skills' `agp-9-upgrade`.
   - Moving the build off Gradle: `kotlin-tooling-gradle-to-kotlin-toolchain-project`, with
