@@ -9,7 +9,8 @@
   },
   "enabledPlugins": {
     "kotlin-agent-skills@Kotlin": true,
-    "android-skills@android-skills": true
+    "android-skills@android-skills": true,
+    "koin@koin-skills": true
   },
   "extraKnownMarketplaces": {
     "Kotlin": {
@@ -43,6 +44,23 @@
               "sha": "6daa53ef27fa2aa87827d183a85c06cedceca833"
             },
             "description": "Android skills."
+          }
+        ]
+      }
+    },
+    "koin-skills": {
+      "source": {
+        "source": "settings",
+        "name": "koin-skills",
+        "plugins": [
+          {
+            "name": "koin",
+            "source": {
+              "source": "github",
+              "repo": "InsertKoinIO/koin-skills",
+              "sha": "dbe42cd11c43bef27b6267a3329a52eb23e7f669"
+            },
+            "description": "Official Koin skills: setup, writing Koin code, DI migration and diagnostics."
           }
         ]
       }
