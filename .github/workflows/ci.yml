@@ -15,23 +15,29 @@ permissions:
 
 jobs:
   build:
-    # macOS for the iOS targets; the image also ships the Android SDK (ANDROID_HOME) and a full JDK
-    # (JAVA_HOME), which the ktfmt plugin needs for its worker.
+    # macOS for the iOS and macOS targets; the image also ships the Android SDK (ANDROID_HOME).
     runs-on: macos-26
     timeout-minutes: 60
-    env:
-      KOTLIN_CLI_NO_WELCOME_BANNER: "1"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      # Restore and save separately so a failed or cancelled run still leaves the downloads cached.
-      - name: Restore Kotlin Toolchain downloads
-        id: toolchain-cache
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      # JetBrains Runtime 25 matches gradle/gradle-daemon-jvm.properties, so Gradle doesn't download
+      # another JDK for its daemon or the jvmToolchain(25) compilations.
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
         with:
-          path: ~/Library/Caches/JetBrains/Kotlin
-          key: kotlin-toolchain-${{ runner.os }}-${{ hashFiles('kotlin', 'libs.versions.toml', 'project.yaml', '**/module.yaml', 'templates/*.yaml') }}
-          restore-keys: kotlin-toolchain-${{ runner.os }}-
+          distribution: jetbrains
+          java-version: "25"
+
+      # Caches ~/.gradle (dependencies, wrapper, build cache) between runs.
+      - uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+
+      # The Kotlin/Native compiler and its LLVM toolchain (about 3 GB), keyed on the Kotlin version.
+      - name: Cache Kotlin/Native
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml') }}
+          restore-keys: konan-${{ runner.os }}-
 
       - name: Finish Xcode first-launch setup
         run: xcodebuild -runFirstLaunch
@@ -41,23 +47,16 @@ jobs:
           xcodebuild -version
           xcrun simctl list runtimes
 
-      # The iOS app is left out: building it runs downloadIosPlatform, which silently downloads the iOS
-      # platform (several GB) when the runner's Xcode lacks one, and stalled the step past its timeout.
-      # `./kotlin check` still compiles, links and tests every module for the iOS simulator.
-      - name: Build
-        timeout-minutes: 30
-        run: ./kotlin build -p jvm -p android -p macosArm64
-
-      - name: Test and check formatting
-        timeout-minutes: 30
-        run: ./kotlin check
-
-      - name: Package the macOS app
-        run: scripts/macos-app.sh
-
-      - name: Save Kotlin Toolchain downloads
-        if: always() && steps.toolchain-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ~/Library/Caches/JetBrains/Kotlin
-          key: ${{ steps.toolchain-cache.outputs.cache-primary-key }}
+      # Specific debug and test tasks, never `build`: it would also link release binaries for every
+      # Apple target, the slowest Kotlin/Native work. The iOS app itself is built by Xcode, which
+      # can need a multi-GB iOS platform download on the runner, so CI stops at its framework.
+      - name: Build, test and check formatting
+        timeout-minutes: 45
+        run: >-
+          ./gradlew -Pwalenje.apple=true --continue
+          :app:android:assembleDebug
+          :app:desktop:jvmJar
+          :app:common:linkDebugFrameworkIosSimulatorArm64
+          :app:macos:assembleMacosAppDebug
+          jvmTest testAndroidHostTest iosSimulatorArm64Test macosArm64Test
+          ktfmtCheck
