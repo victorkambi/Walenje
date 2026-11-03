@@ -39,3 +39,6 @@ jobs:
 
       - name: Test and check formatting
         run: ./kotlin check
+
+      - name: Package the macOS app
+        run: scripts/macos-app.sh

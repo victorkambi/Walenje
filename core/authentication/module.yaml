@@ -1,6 +1,6 @@
 product:
   type: kmp/lib
-  platforms: [android, iosArm64, iosSimulatorArm64, jvm]
+  platforms: [android, iosArm64, iosSimulatorArm64, jvm, macosArm64]
 
 apply:
   - //templates/base.module-template.yaml

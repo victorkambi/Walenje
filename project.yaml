@@ -3,6 +3,7 @@ modules:
   - app/common
   - app/desktop
   - app/ios
+  - app/macos
   - core/authentication
   - core/designsystem
   - core/ui

@@ -12,7 +12,7 @@ Walenje is a personal finance tracker built as a Kotlin Multiplatform app with C
 
 **Implemented**
 - Onboarding: welcome screen, "secure your wallet" explainer, and PIN setup with confirmation
-- Biometric authentication on Android, iOS, and desktop (JVM)
+- Biometric authentication on Android and macOS (Touch ID); iOS and desktop (JVM) use placeholders for now
 - Material 3 theming with light and dark color schemes and Montserrat typography
 
 **Planned**
@@ -22,7 +22,7 @@ Walenje is a personal finance tracker built as a Kotlin Multiplatform app with C
 
 ## Tech stack
 
-- [Kotlin](https://kotlinlang.org/) 2.4 and [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) for shared logic across Android, iOS, and desktop
+- [Kotlin](https://kotlinlang.org/) 2.4 and [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) for shared logic across Android, iOS, macOS, and desktop
 - [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform) for UI, with [Material 3](https://m3.material.io/components) components
 - [Compose Navigation](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html) with type-safe, serializable routes
 - [Koin](https://github.com/InsertKoinIO/koin) for dependency injection
@@ -40,6 +40,7 @@ app/
   android/   Android application
   desktop/   desktop (JVM) application
   ios/       SwiftUI host for the shared Compose UI
+  macos/     native macOS application (no JVM)
 core/
   authentication/  biometric abstraction with per-platform actuals
   designsystem/    theme, typography, icons, shared components
@@ -99,6 +100,14 @@ Add `--compose-hot-reload` to update the UI while the app runs.
 
 Or open `app/ios/module.xcodeproj` in Xcode and run the `app` scheme.
 
+**macOS (native)**
+
+```bash
+scripts/macos-app.sh --open
+```
+
+This builds the Kotlin/Native app and packages it with its resources as `build/macos/Walenje.app`. Unlock uses Touch ID.
+
 **Formatting and checks**
 
 ```bash
@@ -111,6 +120,8 @@ Or open `app/ios/module.xcodeproj` in Xcode and run the `app` scheme.
 ```bash
 ./cleanup.sh
 ```
+
+This removes build output, Xcode user data and Kotlin/Native temp files. Add `--ide` to also remove `.idea`, and `--deep` to clear the Kotlin Toolchain download cache.
 
 ## Screenshots
 

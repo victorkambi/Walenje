@@ -5,7 +5,7 @@ Guidance for coding agents working in this repository. Read `README.md` for the 
 ## What this is
 
 Walenje is a personal finance tracker: a Kotlin Multiplatform app with a Compose Multiplatform UI that targets
-Android, iOS and desktop (JVM). It is in early development. Onboarding (welcome, secure-wallet explainer, PIN setup)
+Android, iOS, macOS (native) and desktop (JVM). It is in early development. Onboarding (welcome, secure-wallet explainer, PIN setup)
 and biometrics work; Home, Analytics and Profile are placeholders.
 
 ## Modules
@@ -16,6 +16,7 @@ and biometrics work; Home, Analytics and Profile are placeholders.
 | `app/android` | Android application (`MainActivity`, `MainApplication`, manifest, launcher resources) |
 | `app/desktop` | Desktop application (`main.kt`) |
 | `app/ios` | SwiftUI host; Swift imports the shared code from the `KotlinModules` framework |
+| `app/macos` | Native macOS app (Kotlin/Native + Compose for macOS, `main.kt`); packaged by `scripts/macos-app.sh` |
 | `core/authentication` | `Biometrics` expect/actual per platform |
 | `core/designsystem` | Material 3 theme, Montserrat typography, icons, shared components |
 | `core/ui` | Shared UI pieces such as the PIN keypad and its ViewModel |
@@ -52,8 +53,9 @@ Gradle. Use the `kotlin-tooling-kotlin-toolchain` skill for YAML syntax.
   navigation callbacks; they never receive a `NavController`.
 - **UI.** Shared UI lives in common `src/` and goes through `core/designsystem` (theme, `Text`, `Button`, icons).
   Don't hard-code colours, fonts or sizes in feature code.
-- **Platform code.** Keep Android, iOS and JVM APIs in `src@android/`, `src@ios/` and `src@jvm/` behind
-  `expect`/`actual`. Never put `Context` or other Android types in common `src/`.
+- **Platform code.** Keep Android, iOS, macOS and JVM APIs in `src@android/`, `src@ios/`, `src@macos/` and
+  `src@jvm/` behind `expect`/`actual`. Every shared module targets all five platforms, so a new `expect` needs an
+  `actual` for each. Never put `Context` or other Android types in common `src/`.
 - **Logging.** Use Kermit through the module's `internal val logger`. Don't use `println`.
 
 ## Code style
@@ -78,11 +80,15 @@ The wrapper downloads the CLI and provisions its own JDK. Set `ANDROID_HOME` (fo
 ./kotlin run -m desktop              # desktop app (add --compose-hot-reload for Hot Reload)
 ./kotlin run -m android              # install and start on a device or emulator
 ./kotlin run -m ios                  # iOS simulator; or open app/ios/module.xcodeproj in Xcode
+scripts/macos-app.sh --open          # native macOS app as build/macos/Walenje.app
 ./kotlin show dependencies -m <module>
-./cleanup.sh                         # remove build and IDE output
+./cleanup.sh                         # build output, Xcode user data, Kotlin/Native temp leftovers
+./cleanup.sh --ide --deep            # also .idea and the Toolchain download cache
 ```
 
-Module names in `-m` are directory names (`common`, `designsystem`, `onboarding`, ...).
+Module names in `-m` are directory names (`common`, `designsystem`, `onboarding`, ...). Don't use
+`./kotlin run -m macos`: the bare executable can't find its Compose resources (fonts, icons), so build the macOS app
+with `scripts/macos-app.sh`, which bundles them.
 
 ## Tests and CI
 
