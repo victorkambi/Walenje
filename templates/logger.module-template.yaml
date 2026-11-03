@@ -1,3 +1,0 @@
-# Kermit logging, exposed to dependents (was walenje-logger).
-dependencies:
-  - $libs.kotlin.logging: exported

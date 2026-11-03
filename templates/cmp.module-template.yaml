@@ -1,9 +1,0 @@
-# Compose Multiplatform UI and lifecycle libraries (was walenje-cmp-base).
-dependencies:
-  - $libs.foundation
-  - $libs.material3
-  - $libs.runtime
-  - $libs.ui
-  - $libs.compose.lifecycle
-  - $libs.androidx.lifecycle.runtime.compose
-  - $libs.androidx.lifecycle.viewmodel

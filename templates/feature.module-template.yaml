@@ -1,7 +1,0 @@
-# Feature modules: design system, navigation and the core modules (was walenje-application-feature).
-dependencies:
-  - //core/designsystem
-  - $libs.compose.navigation
-  - //core/ui: exported
-  - //core/utils: exported
-  - //core/authentication: exported

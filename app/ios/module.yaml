@@ -1,8 +1,0 @@
-product: ios/app
-
-apply:
-  - //templates/base.module-template.yaml
-
-dependencies:
-  - //app/common
-  - $libs.ui
