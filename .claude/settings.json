@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "deny": [
+      "Read(./**/local.properties)",
+      "Bash(git push:*)",
+      "Bash(git -C * push*)"
+    ]
+  },
+  "enabledPlugins": {
+    "gradle-skills@gradle-skills": true,
+    "kotlin-agent-skills@Kotlin": true,
+    "android-skills@android-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "gradle-skills": {
+      "source": {
+        "source": "settings",
+        "name": "gradle-skills",
+        "plugins": [
+          {
+            "name": "gradle-skills",
+            "source": {
+              "source": "github",
+              "repo": "gradle/gradle-skills",
+              "sha": "b26b14955e3a3ada5d1e90a4e08e2f10b2b54b5d"
+            },
+            "description": "Gradle skills: build best-practices audit and wrapper upgrade."
+          }
+        ]
+      }
+    },
+    "Kotlin": {
+      "source": {
+        "source": "settings",
+        "name": "Kotlin",
+        "plugins": [
+          {
+            "name": "kotlin-agent-skills",
+            "source": {
+              "source": "github",
+              "repo": "Kotlin/kotlin-agent-skills",
+              "sha": "087f5689c1934135ed58718cdf524525e452b7e9"
+            },
+            "description": "JetBrains Kotlin tooling skills.",
+            "strict": false
+          }
+        ]
+      }
+    },
+    "android-skills": {
+      "source": {
+        "source": "settings",
+        "name": "android-skills",
+        "plugins": [
+          {
+            "name": "android-skills",
+            "source": {
+              "source": "github",
+              "repo": "android/skills",
+              "sha": "6daa53ef27fa2aa87827d183a85c06cedceca833"
+            },
+            "description": "Android skills."
+          }
+        ]
+      }
+    }
+  }
+}
