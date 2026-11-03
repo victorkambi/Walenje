@@ -41,22 +41,18 @@ fun WalenjeNavGraph(
       SecureYourWalletScreen(onNavigateToNext = { navController.navigate(Route.SetPin) })
     }
     composable<Route.SetPin>(
-      enterTransition = {
-        slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Up)
-      }
+      enterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Up) }
     ) {
       SetPinScreen(
         onNavigateBack = { navController.navigateUp() },
         onNavigateToHomeScreen = {
           navController.popBackStack(Route.Welcome, true)
           navController.navigate(Route.Home)
-        }
+        },
       )
     }
     composable<Route.Home>(
-      enterTransition = {
-        slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-      }
+      enterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left) }
     ) {
       HomeScreen(onNavigateBack = { navController.navigateUp() })
     }

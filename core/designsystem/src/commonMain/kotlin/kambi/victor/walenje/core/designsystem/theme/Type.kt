@@ -29,16 +29,17 @@ fun montserratTypography(): Typography {
       bodySmall = bodySmall.copy(fontFamily = montserratFont),
       labelLarge = labelLarge.copy(fontFamily = montserratFont),
       labelMedium = labelMedium.copy(fontFamily = montserratFont),
-      labelSmall = labelSmall.copy(fontFamily = montserratFont)
+      labelSmall = labelSmall.copy(fontFamily = montserratFont),
     )
   }
 }
 
 @Composable
-fun montserratFamily(): FontFamily = FontFamily(
-  Font(Res.font.Montserrat, FontWeight.Light),
-  Font(Res.font.Montserrat, FontWeight.Normal),
-  Font(Res.font.Montserrat, FontWeight.Medium),
-  Font(Res.font.Montserrat, FontWeight.SemiBold),
-  Font(Res.font.Montserrat, FontWeight.Bold)
-)
+fun montserratFamily(): FontFamily =
+  FontFamily(
+    Font(Res.font.Montserrat, FontWeight.Light),
+    Font(Res.font.Montserrat, FontWeight.Normal),
+    Font(Res.font.Montserrat, FontWeight.Medium),
+    Font(Res.font.Montserrat, FontWeight.SemiBold),
+    Font(Res.font.Montserrat, FontWeight.Bold),
+  )

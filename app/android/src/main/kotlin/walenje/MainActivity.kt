@@ -9,9 +9,9 @@ import kambi.victor.walenje.core.authentication.BiometricPromptManager
 class MainActivity : AppCompatActivity() {
   private val biometrics by lazy { BiometricPromptManager(this) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent { App(biometrics = biometrics) }
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
+    setContent { App(biometrics = biometrics) }
+  }
 }

@@ -45,7 +45,7 @@ private val lightScheme =
     surfaceContainerLow = surfaceContainerLowLight,
     surfaceContainer = surfaceContainerLight,
     surfaceContainerHigh = surfaceContainerHighLight,
-    surfaceContainerHighest = surfaceContainerHighestLight
+    surfaceContainerHighest = surfaceContainerHighestLight,
   )
 
 private val darkScheme =
@@ -84,7 +84,7 @@ private val darkScheme =
     surfaceContainerLow = surfaceContainerLowDark,
     surfaceContainer = surfaceContainerDark,
     surfaceContainerHigh = surfaceContainerHighDark,
-    surfaceContainerHighest = surfaceContainerHighestDark
+    surfaceContainerHighest = surfaceContainerHighestDark,
   )
 
 private val mediumContrastLightColorScheme =
@@ -123,7 +123,7 @@ private val mediumContrastLightColorScheme =
     surfaceContainerLow = surfaceContainerLowLightMediumContrast,
     surfaceContainer = surfaceContainerLightMediumContrast,
     surfaceContainerHigh = surfaceContainerHighLightMediumContrast,
-    surfaceContainerHighest = surfaceContainerHighestLightMediumContrast
+    surfaceContainerHighest = surfaceContainerHighestLightMediumContrast,
   )
 
 private val highContrastLightColorScheme =
@@ -162,7 +162,7 @@ private val highContrastLightColorScheme =
     surfaceContainerLow = surfaceContainerLowLightHighContrast,
     surfaceContainer = surfaceContainerLightHighContrast,
     surfaceContainerHigh = surfaceContainerHighLightHighContrast,
-    surfaceContainerHighest = surfaceContainerHighestLightHighContrast
+    surfaceContainerHighest = surfaceContainerHighestLightHighContrast,
   )
 
 private val mediumContrastDarkColorScheme =
@@ -201,7 +201,7 @@ private val mediumContrastDarkColorScheme =
     surfaceContainerLow = surfaceContainerLowDarkMediumContrast,
     surfaceContainer = surfaceContainerDarkMediumContrast,
     surfaceContainerHigh = surfaceContainerHighDarkMediumContrast,
-    surfaceContainerHighest = surfaceContainerHighestDarkMediumContrast
+    surfaceContainerHighest = surfaceContainerHighestDarkMediumContrast,
   )
 
 private val highContrastDarkColorScheme =
@@ -240,7 +240,7 @@ private val highContrastDarkColorScheme =
     surfaceContainerLow = surfaceContainerLowDarkHighContrast,
     surfaceContainer = surfaceContainerDarkHighContrast,
     surfaceContainerHigh = surfaceContainerHighDarkHighContrast,
-    surfaceContainerHighest = surfaceContainerHighestDarkHighContrast
+    surfaceContainerHighest = surfaceContainerHighestDarkHighContrast,
   )
 
 @Immutable
@@ -258,6 +258,6 @@ fun WalenjeTheme(content: @Composable () -> Unit) {
     colorScheme = lightScheme,
     motionScheme = MotionScheme.expressive(),
     typography = montserratTypography(),
-    content = content
+    content = content,
   )
 }
