@@ -34,10 +34,14 @@ jobs:
       - name: Finish Xcode first-launch setup
         run: xcodebuild -runFirstLaunch
 
+      # iosArm64 (device) is skipped: signing the device app needs an Apple identity the runner doesn't have,
+      # and xcodebuild waits on it instead of failing.
       - name: Build
-        run: ./kotlin build
+        timeout-minutes: 30
+        run: ./kotlin build -p jvm -p android -p iosSimulatorArm64 -p macosArm64
 
       - name: Test and check formatting
+        timeout-minutes: 30
         run: ./kotlin check
 
       - name: Package the macOS app
