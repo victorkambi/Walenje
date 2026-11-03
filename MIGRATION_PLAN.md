@@ -1,10 +1,41 @@
-# Gradle → Kotlin Toolchain migration
+# Build tool migrations
+
+## Kotlin Toolchain → Gradle (2026-11-04)
+
+Walenje is back on Gradle. Measured on the development Mac, Kotlin Toolchain 0.13.0 cost about 6.3 GB for this
+project alone (its own Kotlin/Native compiler, two JDKs, a separate Maven cache, a download cache, and an internal
+Gradle 9.5.0 for Android) and could share none of it with the Gradle caches the Tajji repositories need. Gradle
+with Tajji central's exact versions reuses `~/.gradle/caches/9.8.2`, `~/.konan` and the JetBrains Runtime 25 JDK.
+
+| Area | Now |
+|---|---|
+| Versions | Gradle 9.8.2, AGP 9.5.0, Kotlin 2.4.21, Compose 1.12.2: the same as central |
+| Build logic | Flat `build-logic` included build (as central) instead of the old nested `convention-plugins/conventions` |
+| JDK | Daemon and toolchain on JetBrains Runtime 25 (central's `gradle-daemon-jvm.properties`) |
+| Apple targets | Opt-in with `-Pwalenje.apple=true`, like central's `tajji.ios` |
+| Formatting | ktfmt through `com.ncorti.ktfmt.gradle`, pinned to ktfmt 0.64. Check only: the old build ran `ktfmtFormat` on every `build`. Central uses ktlint; Walenje keeps ktfmt because ktlint contradicts its Google style |
+| Kept from the Toolchain period | native macOS app (now bundled by `:app:macos:assembleMacosApp{Debug,Release}`), `commonTest` tests on every platform, CI, Touch ID biometrics, separate `app/desktop` module (with Hot Reload and installers again) |
+| iOS | `app/ios/Walenje.xcodeproj` restored; the build phase runs `embedAndSignAppleFrameworkForXcode`, the framework is `common` again |
+
+A `gradle-best-practices` audit of the result led to: the wrapper pins `distributionSha256Sum` (the restored
+`gradle-wrapper.jar` is byte-identical to Gradle 9.8.2's), repositories are declared in settings with content
+filters and `FAIL_ON_PROJECT_REPOS`, catalog aliases name their libraries (`compose-ui`, `kermit`, ...), and two
+redundant dependencies are gone. Accepted: nested project paths (`:core:ui`) create empty `:app`, `:core` and
+`:feature` projects, as in central, because flat names would change every `projects.*` accessor and the
+path-derived namespaces; `:app:macos` refers to the Compose plugin's `macosArm64AggregateResources` task by name
+because the plugin exposes no typed handle.
+
+Known: `./gradlew :app:android:tasks --all` fails because AGP 9.5 registers Compose Preview tasks that can't be
+configured for this app. Builds never create them. The ktfmt plugin calls `Configuration.setVisible`, which
+Gradle 11 removes.
+
+## Gradle → Kotlin Toolchain (2026-11-03)
 
 Walenje moves from Gradle (AGP 9.5, Gradle 9.8.2, convention plugins in `convention-plugins/`) to
 [Kotlin Toolchain](https://kotlin-toolchain.org/) 0.13.0, using the `kotlin-tooling-gradle-to-kotlin-toolchain-project`
 skill. Gradle baseline: commit `2c99a4a` on `main` (all targets green, iOS and desktop smoke-tested).
 
-## Feasibility (checked against the 0.13.0 docs and a scratch `kotlin init`)
+### Feasibility (checked against the 0.13.0 docs and a scratch `kotlin init`)
 
 | Need | Toolchain | Result |
 |---|---|---|
@@ -16,9 +47,9 @@ skill. Gradle baseline: commit `2c99a4a` on `main` (all targets green, iOS and d
 | Desktop installers (Dmg/Msi/Deb via `nativeDistributions`) | none | **Dropped**: no Toolchain equivalent; never used in CI or releases |
 | Compose Hot Reload | `./kotlin run --compose-hot-reload` | Supported (new; the Gradle plugin was declared but never applied) |
 
-## Inventory
+### Inventory
 
-### Plugins
+#### Plugins
 
 | Gradle plugin | Decision |
 |---|---|
@@ -33,7 +64,7 @@ skill. Gradle baseline: commit `2c99a4a` on `main` (all targets green, iOS and d
 | `org.gradle.toolchains.foojay-resolver-convention`, daemon JVM criteria | Dropped: the Toolchain provisions its JDK |
 | `TYPESAFE_PROJECT_ACCESSORS` | `//path/to/module` dependencies |
 
-### Convention plugins → templates (`templates/`)
+#### Convention plugins → templates (`templates/`)
 
 | Convention | Template | Used by |
 |---|---|---|
@@ -45,7 +76,7 @@ skill. Gradle baseline: commit `2c99a4a` on `main` (all targets green, iOS and d
 | `walenje-logger` | `logger` | all KMP libs except designsystem |
 | `walenje-application-feature` | `feature` | features |
 
-### Modules
+#### Modules
 
 | Gradle | Toolchain | Notes |
 |---|---|---|
@@ -55,7 +86,7 @@ skill. Gradle baseline: commit `2c99a4a` on `main` (all targets green, iOS and d
 | `app/ios` (Xcode project) | `app/ios` (`ios/app`) | Swift and assets → `src/`, new `module.xcodeproj` (bundle id `kambi.victor.Walenje`, iOS 26.2), self-contained `Info.plist` |
 | `:core:*`, `:feature:*` | same paths (`kmp/lib`) | `commonMain/kotlin` → `src/`, `androidMain/kotlin` → `src@android/`, `iosMain/kotlin` → `src@ios/`, `jvmMain/kotlin` → `src@jvm/`, `commonMain/composeResources` → `composeResources/` |
 
-### Other Gradle-only config that drops
+#### Other Gradle-only config that drops
 
 `gradle.properties` (`org.gradle.*`, `android.*`, `kotlin.*` flags), `local.properties` (stays untracked), the
 `gradle/wrapper/`, `gradlew*` and the `[plugins]`/`[bundles]` catalog sections. There is no CI to rewrite.
@@ -63,7 +94,7 @@ Afterwards the catalog moved from `gradle/libs.versions.toml` to the root `libs.
 `gradle-skills` plugin was disabled. The Toolchain still runs Gradle 9.5.0 internally for Android builds, using
 `~/.gradle`; that's expected and needs no project files.
 
-## Test plan
+### Test plan
 
 - [x] `./kotlin show modules` lists all 13 modules (12 app modules + `ktfmt`)
 - [x] `./kotlin build -p jvm -p android` succeeds (Android APK and desktop JAR)

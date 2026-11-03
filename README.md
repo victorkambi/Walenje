@@ -51,54 +51,43 @@ feature/
   home/            home screen (placeholder)
   analytics/       analytics (not yet implemented)
   profile/         profile (not yet implemented)
-plugins/           ktfmt plugin for the build
-templates/         shared module configuration
+build-logic/       Gradle convention plugins shared by the modules
 ```
 
 Navigation is declared in `app/common/.../navigation/Navigation.kt`.
 
-The project builds with [Kotlin Toolchain](https://kotlin-toolchain.org/) rather than Gradle. Each module has a `module.yaml`, shared settings live in `templates/`, and versions live in `libs.versions.toml`.
+The project builds with Gradle. Shared module configuration lives in convention plugins under `build-logic/`, and versions live in `gradle/libs.versions.toml`.
 
 ## Requirements
 
-- macOS, Linux or Windows. The `./kotlin` wrapper downloads the Kotlin Toolchain and its own JDK on first run.
-- Android SDK with compile SDK 37 (min SDK 24). Point `ANDROID_HOME` at an existing SDK, or let the toolchain provision one.
-- A Mac with Xcode for the iOS target. Run `sudo xcodebuild -runFirstLaunch` once after installing or updating Xcode.
-- Optional: IntelliJ IDEA or Android Studio with the Kotlin Toolchain plugin.
+- JDK 21 or newer to start Gradle. The Gradle daemon and the compilers run on JetBrains Runtime 25, which Gradle downloads if it isn't installed.
+- Android SDK with compile SDK 37 (min SDK 24), with `ANDROID_HOME` pointing at it.
+- A Mac with Xcode for the iOS and macOS targets. Run `sudo xcodebuild -runFirstLaunch` once after installing or updating Xcode.
+- Optional: Android Studio or IntelliJ IDEA.
 
 ## Getting started
 
-Clone the repository and run commands from its root.
-
-**Build everything**
-
-```bash
-./kotlin build
-```
+Clone the repository and run commands from its root. iOS and macOS targets are opt-in: pass `-Pwalenje.apple=true` to build or test them.
 
 **Android**
 
 ```bash
-./kotlin run -m android
+./gradlew :app:android:installDebug
 ```
 
-This installs and starts the app on a connected device or emulator.
+This builds the app and installs it on a connected device or emulator.
 
 **Desktop**
 
 ```bash
-./kotlin run -m desktop
+./gradlew :app:desktop:run
 ```
 
-Add `--compose-hot-reload` to update the UI while the app runs.
+Use `:app:desktop:hotRunJvm` instead to update the UI while the app runs (Compose Hot Reload), or `:app:desktop:packageDmg` for an installer.
 
 **iOS**
 
-```bash
-./kotlin run -m ios
-```
-
-Or open `app/ios/module.xcodeproj` in Xcode and run the `app` scheme.
+Open `app/ios/Walenje.xcodeproj` in Xcode and run the `Walenje` scheme on a simulator. The Xcode build runs Gradle to build the shared framework.
 
 **macOS (native)**
 
@@ -106,13 +95,14 @@ Or open `app/ios/module.xcodeproj` in Xcode and run the `app` scheme.
 scripts/macos-app.sh --open
 ```
 
-This builds the Kotlin/Native app and packages it with its resources as `build/macos/Walenje.app`. Unlock uses Touch ID.
+This builds the Kotlin/Native app and packages it with its resources as `app/macos/build/macos/Walenje.app`. Unlock uses Touch ID.
 
-**Formatting and checks**
+**Tests and formatting**
 
 ```bash
-./kotlin do ktfmtFormat
-./kotlin check
+./gradlew jvmTest testAndroidHostTest
+./gradlew -Pwalenje.apple=true iosSimulatorArm64Test macosArm64Test
+./gradlew ktfmtFormat
 ```
 
 **Cleaning build output**
@@ -121,7 +111,7 @@ This builds the Kotlin/Native app and packages it with its resources as `build/m
 ./cleanup.sh
 ```
 
-This removes build output, Xcode user data and Kotlin/Native temp files. Add `--ide` to also remove `.idea`, and `--deep` to clear the Kotlin Toolchain download cache.
+This removes build output, Xcode user data and Kotlin/Native temp files. Add `--ide` to also remove `.idea`, and `--deep` to stop the Gradle daemons and remove the project's `.gradle` directory.
 
 ## Screenshots
 

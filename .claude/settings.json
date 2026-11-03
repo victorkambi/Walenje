@@ -8,6 +8,7 @@
     ]
   },
   "enabledPlugins": {
+    "gradle-skills@gradle-skills": true,
     "kotlin-agent-skills@Kotlin": true,
     "android-skills@android-skills": true,
     "koin@koin-skills": true
@@ -61,6 +62,23 @@
               "sha": "dbe42cd11c43bef27b6267a3329a52eb23e7f669"
             },
             "description": "Official Koin skills: setup, writing Koin code, DI migration and diagnostics."
+          }
+        ]
+      }
+    },
+    "gradle-skills": {
+      "source": {
+        "source": "settings",
+        "name": "gradle-skills",
+        "plugins": [
+          {
+            "name": "gradle-skills",
+            "source": {
+              "source": "github",
+              "repo": "gradle/gradle-skills",
+              "sha": "b26b14955e3a3ada5d1e90a4e08e2f10b2b54b5d"
+            },
+            "description": "Gradle skills: build best-practices audit and wrapper upgrade."
           }
         ]
       }
