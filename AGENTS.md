@@ -99,8 +99,9 @@ with `scripts/macos-app.sh`, which bundles them.
   `runTest` from `kotlinx-coroutines-test` (add `$libs.kotlinx.coroutines.test` under `test-dependencies:`). Collect
   effects with `effect.take(n).toList()`.
 - New business logic (ViewModels, use cases, repositories) gets tests in the same change.
-- `.github/workflows/ci.yml` runs `./kotlin build` and `./kotlin check` on `macos-26` for every push to `main` and
-  every pull request. Keep it green.
+- `.github/workflows/ci.yml` runs `./kotlin build` (JVM, Android, macOS) and `./kotlin check` (all platforms,
+  including the iOS simulator) on `macos-26` for every push to `main` and every pull request. It doesn't build the
+  iOS app: that runs `downloadIosPlatform`, which can stall for a multi-GB download on the runner. Keep it green.
 
 ## Git
 
