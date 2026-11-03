@@ -12,11 +12,11 @@ plugins {
 }
 
 kotlin {
-  androidLibrary {
+  android {
     namespace = "kambi.victor.walenje.common"
     compileSdk = libs.versions.compileSdk.get().toInt()
     androidResources.enable = true
-    compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
+    compilerOptions { jvmTarget.set(JvmTarget.JVM_21) }
   }
 
   listOf(iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
@@ -26,7 +26,7 @@ kotlin {
     }
   }
 
-  jvm { compilerOptions.jvmTarget.set(JvmTarget.JVM_17) }
+  jvm { compilerOptions.jvmTarget.set(JvmTarget.JVM_21) }
 
   sourceSets {
     androidMain.dependencies { implementation(libs.biometric) }

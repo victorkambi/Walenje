@@ -12,7 +12,7 @@ kotlin {
   jvm()
   iosArm64()
   iosSimulatorArm64()
-  androidLibrary {
+  android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     minSdk = libs.versions.minSdk.get().toInt()
     androidResources.enable = true

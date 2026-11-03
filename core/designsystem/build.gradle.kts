@@ -4,7 +4,7 @@ plugins {
 }
 
 kotlin {
-  androidLibrary { namespace = "kambi.victor.walenje.core.designsystem" }
+  android { namespace = "kambi.victor.walenje.core.designsystem" }
 
   sourceSets {
     commonMain.dependencies {

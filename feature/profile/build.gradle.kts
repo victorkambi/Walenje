@@ -1,19 +1,17 @@
 plugins {
-    id("walenje-application-feature")
-    id("walenje-koin")
-    id("walenje-logger")
+  id("walenje-application-feature")
+  id("walenje-koin")
+  id("walenje-logger")
 }
 
 kotlin {
-    androidLibrary {
-        namespace = "kambi.victor.walenje.feature.profile"
-    }
+  android { namespace = "kambi.victor.walenje.feature.profile" }
 
-    sourceSets {
-        commonMain.dependencies {
-            api(projects.core.ui)
-            api(projects.core.utils)
-            api(projects.core.authentication)
-        }
+  sourceSets {
+    commonMain.dependencies {
+      api(projects.core.ui)
+      api(projects.core.utils)
+      api(projects.core.authentication)
     }
+  }
 }

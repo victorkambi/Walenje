@@ -15,4 +15,6 @@ sealed class AuthenticationResult {
 }
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-expect class BiometricPromptManager : Biometrics
+expect class BiometricPromptManager : Biometrics {
+  override suspend fun authenticate(): AuthenticationResult
+}

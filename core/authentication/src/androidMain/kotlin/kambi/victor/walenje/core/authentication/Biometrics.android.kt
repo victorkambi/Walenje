@@ -53,7 +53,7 @@ actual class BiometricPromptManager(private val activity: FragmentActivity) : Bi
       },
     )
 
-  override suspend fun authenticate(): AuthenticationResult = coroutineScope {
+  actual override suspend fun authenticate(): AuthenticationResult = coroutineScope {
     var result: AuthenticationResult
     do {
       result = suspendCancellableCoroutine { continuation ->
