@@ -2,6 +2,8 @@
 settings:
   kotlin:
     version: 2.4.21
+    # expect/actual classes are still Beta; opt in instead of warning on every actual
+    freeCompilerArgs: [-Xexpect-actual-classes]
   jvm:
     release: 21
   compose:

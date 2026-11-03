@@ -6,13 +6,11 @@ import kambi.victor.walenje.core.authentication.Biometrics
 import kambi.victor.walenje.core.designsystem.theme.WalenjeTheme
 import kambi.victor.walenje.di.createKoinConfiguration
 import kambi.victor.walenje.navigation.WalenjeNavGraph
-import org.koin.compose.KoinMultiplatformApplication
-import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.compose.KoinApplication
 
-@OptIn(KoinExperimentalAPI::class)
 @Composable
 fun App(biometrics: Biometrics) {
-  KoinMultiplatformApplication(config = createKoinConfiguration()) {
+  KoinApplication(configuration = createKoinConfiguration()) {
     /* Apply Surface to make the icons visible with edgeToEdge */
     WalenjeTheme { Surface { WalenjeNavGraph(biometrics = biometrics) } }
   }
