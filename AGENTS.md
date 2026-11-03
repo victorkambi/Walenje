@@ -72,7 +72,8 @@ The wrapper downloads the CLI and provisions its own JDK. Set `ANDROID_HOME` (fo
 ```sh
 ./kotlin build                       # compile and link everything
 ./kotlin build -p jvm -p android     # skip the iOS targets
-./kotlin check                       # tests plus the ktfmt check
+./kotlin check                       # tests on every platform plus the ktfmt check
+./kotlin test -m onboarding -p jvm   # one module's tests on one platform (fast loop)
 ./kotlin do ktfmtFormat              # format sources (add -m <module> for one module)
 ./kotlin run -m desktop              # desktop app (add --compose-hot-reload for Hot Reload)
 ./kotlin run -m android              # install and start on a device or emulator
@@ -81,13 +82,25 @@ The wrapper downloads the CLI and provisions its own JDK. Set `ANDROID_HOME` (fo
 ./cleanup.sh                         # remove build and IDE output
 ```
 
-Module names in `-m` are directory names (`common`, `designsystem`, `onboarding`, ...). There are no tests yet.
-When you add them, put them in the module's `test/` directory with `kotlin.test`.
+Module names in `-m` are directory names (`common`, `designsystem`, `onboarding`, ...).
+
+## Tests and CI
+
+- Tests live in each module's `test/` directory (common code, so they run on JVM, Android and the iOS simulator)
+  and use `kotlin.test`. Current coverage: `BaseViewModel` (`core/utils`), `SetPinViewModel` (`core/ui`) and
+  `SetPinScreenViewModel` (`feature/onboarding`).
+- ViewModels run on `viewModelScope`, so tests call `Dispatchers.setMain(UnconfinedTestDispatcher())` and use
+  `runTest` from `kotlinx-coroutines-test` (add `$libs.kotlinx.coroutines.test` under `test-dependencies:`). Collect
+  effects with `effect.take(n).toList()`.
+- New business logic (ViewModels, use cases, repositories) gets tests in the same change.
+- `.github/workflows/ci.yml` runs `./kotlin build` and `./kotlin check` on `macos-26` for every push to `main` and
+  every pull request. Keep it green.
 
 ## Git
 
 - `main` is the default branch. Work on a feature branch.
 - Conventional Commits: `type(scope): subject`, for example `build(deps): bump kotlin to 2.4.0`.
 - Don't commit unrelated working-tree changes.
-- To land a branch: rebase it onto `main`, fast-forward merge it into `main` locally, push `main` to `origin`,
-  then delete the local branch. There are no pull requests.
+- To land a branch: `git fetch origin`, rebase the branch onto `origin/main`, fast-forward local `main` to
+  `origin/main` and then to the branch, push `main` to `origin`, and delete the local branch. There are no pull
+  requests.

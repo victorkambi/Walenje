@@ -1,5 +1,7 @@
 # Walenje
 
+[![CI](https://github.com/victorkambi/Walenje/actions/workflows/ci.yml/badge.svg)](https://github.com/victorkambi/Walenje/actions/workflows/ci.yml)
+
 Walenje is a personal finance tracker built as a Kotlin Multiplatform app with Compose Multiplatform. The name is Swahili/Sheng for *wallet*, pronounced `[wah-leh-nje]`.
 
 ![Walenje icon](images/icon.svg)
