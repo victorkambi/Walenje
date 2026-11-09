@@ -1,6 +1,7 @@
 # AGENTS.md
 
-Guidance for coding agents working in this repository. Read `README.md` for the product overview.
+Guidance for coding agents working in this repository. Read `README.md` for the product overview and `DESIGN.md`
+for the visual direction.
 
 ## What this is
 
@@ -61,7 +62,8 @@ Kotlin and Compose versions match Tajji central (`~/work/tajji/central`) so both
 - **Navigation.** Type-safe `@Serializable` routes in `app/common/.../navigation/Navigation.kt`. Screens take
   navigation callbacks; they never receive a `NavController`.
 - **UI.** Shared UI lives in common `src/` and goes through `core/designsystem` (theme, `Text`, `Button`, icons).
-  Don't hard-code colours, fonts or sizes in feature code.
+  Don't hard-code colours, fonts or sizes in feature code. `DESIGN.md` sets the visual direction (principles,
+  tokens, components, screen recipes); check new screens and components against its review checklist.
 - **Platform code.** Keep Android, iOS, macOS and JVM APIs in `src/androidMain/`, `src/iosMain/`, `src/macosMain/`
   and `src/jvmMain/` behind `expect`/`actual`. Every shared module targets all five platforms, so a new `expect` needs an
   `actual` for each. Never put `Context` or other Android types in common `src/`.

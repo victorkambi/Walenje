@@ -54,7 +54,7 @@ feature/
 build-logic/       Gradle convention plugins shared by the modules
 ```
 
-Navigation is declared in `app/common/.../navigation/Navigation.kt`.
+Navigation is declared in `app/common/.../navigation/Navigation.kt`. The visual direction (typography, colour, components and screen recipes) is in [`DESIGN.md`](DESIGN.md).
 
 The project builds with Gradle. Shared module configuration lives in convention plugins under `build-logic/`, and versions live in `gradle/libs.versions.toml`.
 
