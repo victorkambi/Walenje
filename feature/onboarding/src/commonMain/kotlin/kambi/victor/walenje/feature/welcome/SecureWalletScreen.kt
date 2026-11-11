@@ -36,14 +36,14 @@ fun SecureWalletScreen(
   Scaffold { paddingValues ->
     Column(
       modifier =
-        Modifier.fillMaxSize().padding(paddingValues).padding(vertical = 64.dp, horizontal = 16.dp)
+        Modifier.fillMaxSize().padding(paddingValues).padding(vertical = 64.dp, horizontal = 16.dp),
     ) {
       Column(modifier = Modifier.padding(top = 16.dp, bottom = 64.dp)) {
         ProvideTextStyle(
           MaterialTheme.typography.displayLarge.copy(
             fontWeight = FontWeight.Medium,
             fontSize = 68.sp,
-          )
+          ),
         ) {
           Text(
             text =
@@ -51,12 +51,12 @@ fun SecureWalletScreen(
                 append("SECURE\n")
                 append("YOUR\n")
                 append("WALLET\n")
-              }
+              },
           )
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
           ProvideTextStyle(
-            MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
+            MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
           ) {
             Text(text = "We need to be sure that it’s you that’s accessing your wallet")
           }

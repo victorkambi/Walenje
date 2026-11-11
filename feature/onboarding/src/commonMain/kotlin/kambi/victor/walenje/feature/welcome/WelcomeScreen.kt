@@ -39,14 +39,14 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
   Scaffold(contentWindowInsets = ScaffoldDefaults.contentWindowInsets) { paddingValues ->
     Column(
       modifier =
-        Modifier.fillMaxSize().padding(paddingValues).padding(vertical = 64.dp, horizontal = 16.dp)
+        Modifier.fillMaxSize().padding(paddingValues).padding(vertical = 64.dp, horizontal = 16.dp),
     ) {
       Column(modifier = Modifier.padding(top = 16.dp, bottom = 64.dp)) {
         ProvideTextStyle(
           MaterialTheme.typography.displayLarge.copy(
             fontWeight = FontWeight.Medium,
             fontSize = 68.sp,
-          )
+          ),
         ) {
           Text(
             text =
@@ -55,12 +55,12 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
                 append("YOUR\n")
                 append("PRIVATE\n")
                 append("WALLET\n")
-              }
+              },
           )
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
           ProvideTextStyle(
-            WalenjeTextStyle(TextType.TextMedium).copy(fontWeight = FontWeight.Medium)
+            WalenjeTextStyle(TextType.TextMedium).copy(fontWeight = FontWeight.Medium),
           ) {
             Text(
               text =
@@ -68,7 +68,7 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
                   append("Secure your money \n")
                   append("and keep track of your \n")
                   append("finances\n")
-                }
+                },
             )
           }
         }

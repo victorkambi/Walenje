@@ -92,14 +92,14 @@ fun SecureYourWalletScreen(onNavigateToNext: () -> Unit) {
           )
           .fillMaxSize()
           .padding(paddingValues)
-          .padding(start = 16.dp, top = 64.dp, end = 16.dp, bottom = 40.dp)
+          .padding(start = 16.dp, top = 64.dp, end = 16.dp, bottom = 40.dp),
     ) {
       Column {
         ProvideTextStyle(
           MaterialTheme.typography.displayLarge.copy(
             fontWeight = FontWeight.Medium,
             fontSize = 68.sp,
-          )
+          ),
         ) {
           Text(
             text =
@@ -107,12 +107,12 @@ fun SecureYourWalletScreen(onNavigateToNext: () -> Unit) {
                 append("SECURE\n")
                 append("YOUR\n")
                 append("WALLET\n")
-              }
+              },
           )
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
           ProvideTextStyle(
-            MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
+            MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
           ) {
             Text(text = "We need to be sure that it’s you that’s accessing your wallet")
           }
@@ -184,14 +184,14 @@ fun SecureYourWalletScreen2(onNavigateBack: () -> Unit, onNavigateToNext: () -> 
           )
           .fillMaxSize()
           .padding(paddingValues)
-          .padding(vertical = 64.dp)
+          .padding(vertical = 64.dp),
     ) {
       Column(modifier = Modifier.padding(horizontal = 16.dp).padding(top = 16.dp, bottom = 64.dp)) {
         ProvideTextStyle(
           MaterialTheme.typography.displayLarge.copy(
             fontWeight = FontWeight.Medium,
             fontSize = 68.sp,
-          )
+          ),
         ) {
           Text(
             text =
@@ -199,12 +199,12 @@ fun SecureYourWalletScreen2(onNavigateBack: () -> Unit, onNavigateToNext: () -> 
                 append("SECURE\n")
                 append("YOUR\n")
                 append("WALLET\n")
-              }
+              },
           )
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
           ProvideTextStyle(
-            MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
+            MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
           ) {
             Text(text = "We need to be sure that it’s you that’s accessing your wallet")
           }
@@ -260,7 +260,7 @@ fun SwipeUpChevronAnimation() {
     Modifier.graphicsLayer {
       translationY = translate.value
       this.alpha = alpha.value
-    }
+    },
   ) {
     Icon(imageVector = WalenjeIcons.ChevronUp, contentDescription = null)
   }

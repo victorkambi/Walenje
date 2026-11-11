@@ -67,7 +67,7 @@ fun SetPin(
         Text(input, style = MaterialTheme.typography.bodyLarge)
         Row(
           horizontalArrangement =
-            Arrangement.spacedBy(12.dp, alignment = Alignment.CenterHorizontally)
+            Arrangement.spacedBy(12.dp, alignment = Alignment.CenterHorizontally),
         ) {
           for (i in 1..MAX_PIN_LENGTH) {
             if (i <= input.length) {
@@ -92,7 +92,7 @@ fun SetPin(
             onSuccess(pin)
             viewModel.onPinChange("")
           }
-        }
+        },
       )
     }
   }
@@ -134,7 +134,7 @@ fun NumberPad(onValueChange: (String) -> Unit) {
           ) {
             Column(
               //              verticalArrangement = Arrangement.spacedBy(space = 2.dp),
-              horizontalAlignment = Alignment.CenterHorizontally
+              horizontalAlignment = Alignment.CenterHorizontally,
             ) {
               Icon(
                 imageVector = WalenjeIcons.ArrowLeftLong,
@@ -187,14 +187,14 @@ fun NumberPadItem(
             MaterialTheme.colorScheme.onSurface.copy(alpha = .2f)
           } else {
             Color.Unspecified
-          }
+          },
         )
         .then(
           if (onClick != null) {
             Modifier.clickable { onClick() }
           } else {
             Modifier // Apply clickable only if onClick is provided
-          }
+          },
         ),
     contentAlignment = Alignment.Center,
   ) {
