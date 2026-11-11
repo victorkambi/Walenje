@@ -29,7 +29,7 @@ Packages live under `kambi.victor.walenje`.
 
 ## Build
 
-The build uses Gradle 9.8.2 with AGP 9.5 (built-in Kotlin, `com.android.kotlin.multiplatform.library`). Gradle, AGP,
+The build uses Gradle 9.9.1 with AGP 9.5 (built-in Kotlin, `com.android.kotlin.multiplatform.library`). Gradle, AGP,
 Kotlin and Compose versions match Tajji central (`~/work/tajji/central`) so both builds share `~/.gradle` and
 `~/.konan`; bump them together. `MIGRATION_PLAN.md` records the move from Gradle to Kotlin Toolchain and back.
 
