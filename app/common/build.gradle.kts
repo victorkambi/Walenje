@@ -25,7 +25,8 @@ kotlin {
       implementation(projects.feature.home)
       implementation(projects.feature.analytics)
       implementation(projects.feature.profile)
-      implementation(libs.compose.navigation)
+      implementation(libs.compose.navigation3.ui)
+      implementation(libs.jetbrains.lifecycle.viewmodel.navigation3)
     }
   }
 }

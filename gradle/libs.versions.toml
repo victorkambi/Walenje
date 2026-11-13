@@ -10,7 +10,7 @@ androidx-appcompat = "1.8.0"
 androidx-biometric = "1.4.0-beta01"
 compose-hot-reload = "1.2.0"
 compose-material3 = "1.12.0-alpha03"
-compose-navigation = "2.10.0"
+compose-navigation3 = "1.2.0"
 composeMultiplatform = "1.12.2"
 graphics-shapes = "1.0.0-alpha09"
 jetbrains-lifecycle = "2.11.0"
@@ -30,13 +30,14 @@ androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "a
 compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
 compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatform" }
 compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "compose-material3" }
-compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
+compose-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "compose-navigation3" }
 compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
 compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
 graphics-shapes = { module = "org.jetbrains.androidx.graphics:graphics-shapes", version.ref = "graphics-shapes" }
 
 jetbrains-lifecycle-runtime = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime", version.ref = "jetbrains-lifecycle" }
 jetbrains-lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "jetbrains-lifecycle" }
+jetbrains-lifecycle-viewmodel-navigation3 = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "jetbrains-lifecycle" }
 jetbrains-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "jetbrains-lifecycle" }
 
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
@@ -45,7 +46,6 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
-koin-compose-viewmodel-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation" }
 koin-core = { module = "io.insert-koin:koin-core" }
 
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
@@ -56,7 +56,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 ktfmt = { module = "com.facebook:ktfmt", version.ref = "ktfmt" }
 
 [bundles]
-koin = ["koin-core", "koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation"]
+koin = ["koin-core", "koin-compose", "koin-compose-viewmodel"]
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

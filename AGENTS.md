@@ -59,8 +59,9 @@ Kotlin and Compose versions match Tajji central (`~/work/tajji/central`) so both
   `core/utils/.../mvi/BaseViewModel` and changes state only through `setState`, `setEvent` and `setEffect`.
 - **DI.** Use Koin. Each feature exposes a `module { }` (for example `welcomeModules`) and registers ViewModels with
   `viewModelOf`. The app-level configuration is `createKoinConfiguration()` in `app/common/.../di/`.
-- **Navigation.** Type-safe `@Serializable` routes in `app/common/.../navigation/Navigation.kt`. Screens take
-  navigation callbacks; they never receive a `NavController`.
+- **Navigation.** Navigation 3 (JetBrains `navigation3-ui`). `@Serializable` routes implementing `NavKey` and one
+  `NavDisplay` with a saveable back stack live in `app/common/.../navigation/Navigation.kt`. Screens take navigation
+  callbacks; they never receive the back stack.
 - **UI.** Shared UI lives in common `src/` and goes through `core/designsystem` (theme, `Text`, `Button`, icons).
   Don't hard-code colours, fonts or sizes in feature code. `DESIGN.md` sets the visual direction (principles,
   tokens, components, screen recipes); check new screens and components against its review checklist.

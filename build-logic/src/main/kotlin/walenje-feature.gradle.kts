@@ -13,7 +13,6 @@ val libs = the<LibrariesForLibs>()
 kotlin {
   sourceSets {
     commonMain.dependencies {
-      implementation(libs.compose.navigation)
       api(project(":core:ui"))
       api(project(":core:utils"))
       api(project(":core:authentication"))
