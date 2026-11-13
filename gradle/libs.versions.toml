@@ -18,7 +18,7 @@ kermit = "2.2.0"
 koin = "4.2.2"
 kotlin = "2.4.21"
 kotlinx-coroutines = "1.11.0"
-kotlinx-serialization = "1.12.0"
+kotlinx-serialization = "1.13.0"
 ktfmt = "0.64"
 ktfmt-gradle = "0.28.0"
 
