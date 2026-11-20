@@ -78,12 +78,16 @@ fun SetPinScreen(
   val snackbarHostState = remember { SnackbarHostState() }
   val scope = rememberCoroutineScope()
 
-  LaunchedEffect(pin, confirmPin) {
+  // One effect per PIN, so typing the confirmation PIN doesn't resend SetPin.
+  LaunchedEffect(pin) {
     if (pin.length == 4) {
       viewModel.setEvent(SetPinContract.Event.SetPin(pin))
       delay(300) // this is to show the animation
       isConfirmPin = true
     }
+  }
+
+  LaunchedEffect(confirmPin) {
     if (confirmPin.length == 4) {
       viewModel.setEvent(SetPinContract.Event.SetConfirmPin(confirmPin))
     }
