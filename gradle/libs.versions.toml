@@ -33,6 +33,7 @@ compose-material3 = { module = "org.jetbrains.compose.material3:material3", vers
 compose-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "compose-navigation3" }
 compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
 compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
+compose-ui-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "composeMultiplatform" }
 graphics-shapes = { module = "org.jetbrains.androidx.graphics:graphics-shapes", version.ref = "graphics-shapes" }
 
 jetbrains-lifecycle-runtime = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime", version.ref = "jetbrains-lifecycle" }

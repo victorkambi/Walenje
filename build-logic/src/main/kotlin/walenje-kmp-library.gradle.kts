@@ -25,4 +25,13 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
   }
+
+  sourceSets {
+    // Compose UI tests run on the JVM only: in commonTest they would also run as Android host
+    // tests, which need Robolectric.
+    jvmTest.dependencies {
+      implementation(libs.compose.ui.test)
+      implementation(compose.desktop.currentOs)
+    }
+  }
 }

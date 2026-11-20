@@ -104,6 +104,9 @@ runs `./gradlew -Pwalenje.ios=true :app:common:embedAndSignAppleFrameworkForXcod
 - Tests live in each module's `src/commonTest/kotlin`, so they run on JVM, Android (host tests), the iOS simulator,
   and use `kotlin.test`. Current coverage: `BaseViewModel` (`core/utils`), `SetPinViewModel`
   (`core/ui`) and `SetPinScreenViewModel` (`feature/onboarding`).
+- Compose UI tests (`runComposeUiTest`) live in `src/jvmTest/kotlin` and run on the JVM only: in `commonTest` they
+  would also run as Android host tests, which need Robolectric. `walenje-kmp-library` adds `compose-ui-test` to
+  `jvmTest`. Pass the ViewModel to the screen instead of starting Koin. Example: `SetPinScreenTest`.
 - ViewModels run on `viewModelScope`, so tests call `Dispatchers.setMain(UnconfinedTestDispatcher())` and use
   `runTest` from `kotlinx-coroutines-test` (every module's tests have it through `walenje-kmp`). Collect effects
   with `effect.take(n).toList()`.
