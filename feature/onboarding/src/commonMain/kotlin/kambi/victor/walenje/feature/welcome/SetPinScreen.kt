@@ -200,7 +200,7 @@ internal fun PinScreenTitle(isConfirmPin: Boolean = false) {
     append(" the app")
   }
   Column(
-    modifier = Modifier.padding(top = 128.dp).padding(horizontal = 32.dp),
+    modifier = Modifier.fillMaxWidth().padding(top = 128.dp).padding(horizontal = 32.dp),
     horizontalAlignment = Alignment.CenterHorizontally,
   ) {
     WalenjeText(
