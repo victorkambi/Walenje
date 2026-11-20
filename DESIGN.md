@@ -176,14 +176,17 @@ Check every new screen and component:
 
 ## Current state
 
-The design system follows this file for typography and colour. Shape, spacing and the components are still to
-come. Move to this direction in this order:
+The design system follows this file for typography, colour, shape and spacing. The components are still to come.
+Onboarding and the PIN keypad still hold some sizes off the scale (64, 128 and 40dp gaps; 40, 60 and 70dp
+buttons); steps 4 and 5 replace them. Move to this direction in this order:
 
 1. Typography: done. `WalenjeTheme.typography` holds the seven styles; `TextType` names them;
    `WalenjeText(muted = true)` gives the muted variant.
 2. Colour: done. `WalenjeTheme.colors` holds the tokens for light and dark; the theme follows the system
    setting and maps the tokens onto the Material roles (aqua is `primary`, no tonal tint).
-3. Shape and spacing: add the radius, rule and spacing tokens to the theme.
+3. Shape and spacing: done. `WalenjeTheme.spacing` (steps named by 4dp units: `x4` = 16dp, plus roles such as
+   `margin`), `WalenjeTheme.shapes` (`small`, `medium`, `full`) and `WalenjeTheme.lines` (`hairline`, `strong`).
+   Material shapes stay on 4dp and 8dp.
 4. Components: build `TwoToneHeading`, `MetricReadout`, `PillButton`, `CircleIconButton`, `Tile` and `ReceiptRow`
    first, then the rest as screens need them.
 5. Restyle onboarding against the checklist. Then build Home from its recipe.

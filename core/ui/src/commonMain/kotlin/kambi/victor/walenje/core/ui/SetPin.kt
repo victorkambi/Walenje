@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
@@ -51,9 +50,12 @@ fun SetPin(
         item {
             @Suppress("ktlint:standard:property-naming") val MAX_PIN_LENGTH = 6
             Column(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
+                modifier = Modifier.fillMaxWidth().padding(vertical = WalenjeTheme.spacing.x4),
                 verticalArrangement =
-                    Arrangement.spacedBy(8.dp, alignment = Alignment.CenterVertically),
+                    Arrangement.spacedBy(
+                        WalenjeTheme.spacing.x2,
+                        alignment = Alignment.CenterVertically,
+                    ),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -63,7 +65,10 @@ fun SetPin(
                 Text(input, style = WalenjeTheme.typography.body)
                 Row(
                     horizontalArrangement =
-                        Arrangement.spacedBy(12.dp, alignment = Alignment.CenterHorizontally),
+                        Arrangement.spacedBy(
+                            WalenjeTheme.spacing.x3,
+                            alignment = Alignment.CenterHorizontally,
+                        ),
                 ) {
                     for (i in 1..MAX_PIN_LENGTH) {
                         if (i <= input.length) {
@@ -106,8 +111,12 @@ fun NumberPad(onValueChange: (String) -> Unit) {
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement =
-                Arrangement.spacedBy(space = 16.dp, alignment = Alignment.CenterHorizontally),
-            verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
+                Arrangement.spacedBy(
+                    space = WalenjeTheme.spacing.x4,
+                    alignment = Alignment.CenterHorizontally,
+                ),
+            verticalArrangement =
+                Arrangement.spacedBy(WalenjeTheme.spacing.x2, Alignment.CenterVertically),
             maxItemsInEachRow = 3,
         ) {
             for (i in 1..12) {
@@ -181,7 +190,7 @@ fun NumberPadItem(
         modifier =
             modifier
                 .size(60.dp)
-                .clip(CircleShape)
+                .clip(WalenjeTheme.shapes.full)
                 .background(
                     if (backgroundVisible) {
                         WalenjeTheme.colors.tile

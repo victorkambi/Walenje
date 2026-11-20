@@ -90,7 +90,12 @@ fun SecureYourWalletScreen(onNavigateToNext: () -> Unit) {
                     )
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .padding(start = 16.dp, top = 64.dp, end = 16.dp, bottom = 40.dp),
+                    .padding(
+                        start = WalenjeTheme.spacing.margin,
+                        top = 64.dp,
+                        end = WalenjeTheme.spacing.margin,
+                        bottom = 40.dp,
+                    ),
         ) {
             Column {
                 ProvideTextStyle(WalenjeTheme.typography.display) {
@@ -120,7 +125,7 @@ fun SecureYourWalletScreen(onNavigateToNext: () -> Unit) {
                     shape = MaterialTheme.shapes.medium,
                 ) {
                     Icon(WalenjeIcons.Lock, contentDescription = null)
-                    Spacer(Modifier.padding(4.dp))
+                    Spacer(Modifier.padding(WalenjeTheme.spacing.x1))
                     WalenjeText("Proceed to secure Wallet", fontWeight = FontWeight.Bold)
                 }
             }

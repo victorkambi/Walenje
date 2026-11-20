@@ -17,6 +17,18 @@ object WalenjeTheme {
     /** The text styles in DESIGN.md > Typography. */
     val typography: WalenjeTypography
         @Composable @ReadOnlyComposable get() = LocalWalenjeTypography.current
+
+    /** The spacing scale in DESIGN.md > Grid and spacing. */
+    val spacing: WalenjeSpacing
+        @Composable @ReadOnlyComposable get() = LocalWalenjeSpacing.current
+
+    /** The radii in DESIGN.md > Shape and lines. */
+    val shapes: WalenjeShapes
+        @Composable @ReadOnlyComposable get() = LocalWalenjeShapes.current
+
+    /** The line widths in DESIGN.md > Shape and lines. */
+    val lines: WalenjeLines
+        @Composable @ReadOnlyComposable get() = LocalWalenjeLines.current
 }
 
 /** Applies the Walenje tokens. The theme follows the system's light or dark setting. */
@@ -25,13 +37,18 @@ object WalenjeTheme {
 fun WalenjeTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) DarkWalenjeColors else LightWalenjeColors
     val typography = interTightTypography()
+    val shapes = WalenjeShapes()
     CompositionLocalProvider(
         LocalWalenjeColors provides colors,
         LocalWalenjeTypography provides typography,
+        LocalWalenjeSpacing provides WalenjeSpacing(),
+        LocalWalenjeShapes provides shapes,
+        LocalWalenjeLines provides WalenjeLines(),
     ) {
         MaterialExpressiveTheme(
             colorScheme = colors.toMaterialColorScheme(darkTheme),
             motionScheme = MotionScheme.expressive(),
+            shapes = shapes.toMaterialShapes(),
             typography = typography.toMaterialTypography(),
             content = content,
         )

@@ -115,7 +115,7 @@ runs `./gradlew -Pwalenje.ios=true :app:common:embedAndSignAppleFrameworkForXcod
 
 - Tests live in each module's `src/commonTest/kotlin`, so they run on JVM, Android (host tests), the iOS simulator,
   and use `kotlin.test`. Current coverage: `BaseViewModel` (`core/utils`), `SetPinViewModel`
-  (`core/ui`), `SetPinScreenViewModel` (`feature/onboarding`) and the type scale and colour contrast (`core/designsystem`).
+  (`core/ui`), `SetPinScreenViewModel` (`feature/onboarding`) and the design tokens (`core/designsystem`).
 - Compose UI tests (`runComposeUiTest` from `androidx.compose.ui.test.v2`; the v1 one is deprecated) live in
   `src/jvmTest/kotlin` and run on the JVM only: in `commonTest` they would also run as Android host tests, which
   need Robolectric. `walenje.compose` adds `compose-ui-test` to

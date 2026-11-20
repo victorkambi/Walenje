@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -131,13 +130,13 @@ fun SetPinScreen(
         topBar = {
             TopAppBar(
                 title = {},
-                modifier = Modifier.padding(horizontal = 8.dp),
+                modifier = Modifier.padding(horizontal = WalenjeTheme.spacing.x2),
                 navigationIcon = {
                     IconButton(
                         onClick = {
                             scope.launch { viewModel.setEvent(SetPinContract.Event.NavigateBack) }
                         },
-                        modifier = Modifier.clip(CircleShape).size(40.dp),
+                        modifier = Modifier.clip(WalenjeTheme.shapes.full).size(40.dp),
                         colors =
                             IconButtonDefaults.iconButtonColors()
                                 .copy(containerColor = WalenjeTheme.colors.tile),
@@ -149,7 +148,10 @@ fun SetPinScreen(
         },
     ) { paddingValues ->
         Column(
-            modifier = Modifier.fillMaxSize().padding(paddingValues).padding(bottom = 32.dp),
+            modifier =
+                Modifier.fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(bottom = WalenjeTheme.spacing.x8),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Column {
@@ -157,7 +159,7 @@ fun SetPinScreen(
                     Icon(
                         imageVector = WalenjeIcons.LockKey,
                         contentDescription = null,
-                        modifier = Modifier.size(48.dp),
+                        modifier = Modifier.size(WalenjeTheme.spacing.touchTarget),
                     )
                 }
                 PinScreenTitle(isConfirmPin = isConfirmPin)
@@ -167,7 +169,7 @@ fun SetPinScreen(
                 }
 
                 Box(
-                    modifier = Modifier.fillMaxWidth().padding(top = 32.dp),
+                    modifier = Modifier.fillMaxWidth().padding(top = WalenjeTheme.spacing.x8),
                     contentAlignment = Alignment.Center,
                 ) {
                     PinVisualization(
@@ -206,14 +208,17 @@ internal fun PinScreenTitle(isConfirmPin: Boolean = false) {
         append(" the app")
     }
     Column(
-        modifier = Modifier.fillMaxWidth().padding(top = 128.dp).padding(horizontal = 32.dp),
+        modifier =
+            Modifier.fillMaxWidth()
+                .padding(top = 128.dp)
+                .padding(horizontal = WalenjeTheme.spacing.x8),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         WalenjeText(
             if (isConfirmPin) "Re-enter your PIN" else "Enter your PIN",
             textType = TextType.Title,
         )
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(WalenjeTheme.spacing.x2))
         if (!isConfirmPin) {
             WalenjeText(
                 "Please enter any 4 digits that you will use to unlock your Walenje app",
@@ -271,7 +276,8 @@ fun PinVisualization(
     }
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+        horizontalArrangement =
+            Arrangement.spacedBy(WalenjeTheme.spacing.x2, Alignment.CenterHorizontally),
         modifier = Modifier.graphicsLayer { translationX = shake.value },
     ) {
         for (index in 0 until pins) {

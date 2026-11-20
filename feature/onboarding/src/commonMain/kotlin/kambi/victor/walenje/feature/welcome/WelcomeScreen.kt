@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ProvideTextStyle
@@ -38,9 +37,9 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
             modifier =
                 Modifier.fillMaxSize()
                     .padding(paddingValues)
-                    .padding(vertical = 64.dp, horizontal = 16.dp),
+                    .padding(vertical = 64.dp, horizontal = WalenjeTheme.spacing.margin),
         ) {
-            Column(modifier = Modifier.padding(top = 16.dp, bottom = 64.dp)) {
+            Column(modifier = Modifier.padding(top = WalenjeTheme.spacing.x4, bottom = 64.dp)) {
                 ProvideTextStyle(WalenjeTheme.typography.display) {
                     Text(
                         text =
@@ -74,7 +73,7 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
             ) {
                 Box(
                     modifier =
-                        Modifier.clip(CircleShape)
+                        Modifier.clip(WalenjeTheme.shapes.full)
                             .clickable(role = Role.Button) {
                                 haptic.confirm()
                                 onNavigateToSecureWallet()
