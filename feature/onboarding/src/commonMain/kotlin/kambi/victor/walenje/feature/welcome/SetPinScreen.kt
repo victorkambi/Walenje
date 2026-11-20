@@ -158,7 +158,9 @@ fun SetPinScreen(
         }
         PinScreenTitle(isConfirmPin = isConfirmPin)
 
-        val pinMatched by derivedStateOf { pin == confirmPin && confirmPin.length == 4 }
+        val pinMatched by remember {
+          derivedStateOf { pin == confirmPin && confirmPin.length == 4 }
+        }
 
         Box(
           modifier = Modifier.fillMaxWidth().padding(top = 32.dp),
