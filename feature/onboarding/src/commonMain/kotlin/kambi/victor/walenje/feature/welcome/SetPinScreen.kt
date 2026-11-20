@@ -211,18 +211,17 @@ internal fun PinScreenTitle(isConfirmPin: Boolean = false) {
     ) {
         WalenjeText(
             if (isConfirmPin) "Re-enter your PIN" else "Enter your PIN",
-            textType = TextType.TitleBase,
-            fontWeight = FontWeight.SemiBold,
+            textType = TextType.Title,
         )
         Spacer(Modifier.height(8.dp))
         if (!isConfirmPin) {
             WalenjeText(
                 "Please enter any 4 digits that you will use to unlock your Walenje app",
-                textType = TextType.LabelBase,
+                textType = TextType.Body,
                 textAlign = TextAlign.Center,
             )
         } else {
-            WalenjeText(confirmPinText, textType = TextType.LabelBase, textAlign = TextAlign.Center)
+            WalenjeText(confirmPinText, textType = TextType.Body, textAlign = TextAlign.Center)
         }
     }
 }

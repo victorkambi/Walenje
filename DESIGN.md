@@ -43,7 +43,7 @@ Tokens live in `core/designsystem/theme/`. Feature code never hard-codes them (s
 | Columns | 4 |
 | Side margin | 16dp |
 | Gutter | 8dp |
-| Baseline | 4dp: every size, line height and gap is a multiple of 4 |
+| Baseline | 4dp: every line height, gap and component size is a multiple of 4 |
 | Spacing scale | 4, 8, 12, 16, 24, 32, 48 |
 | Tile padding | 12dp |
 | Gap between blocks | 16dp |
@@ -64,7 +64,7 @@ One family: **Inter Tight** (OFL). Hero numbers use it too. Amounts always use t
 | Body | 16 / 24 | 400 | 0 | Running text, field values |
 | Amount | 16 / 24 | 500 | 0 | Amounts in lists and fields, tabular figures |
 | Label | 12 / 16 | 600 | +4%, capitals | Section labels, column heads, units ("KES") |
-| Caption | 13 / 18 | 400 | 0 | Secondary lines (date and category) |
+| Caption | 14 / 20 | 400 | 0 | Secondary lines (date and category) |
 
 Every heading style has a muted variant for the two-tone pattern. Text scales with the system font size: rows
 wrap, they never clip.
@@ -174,10 +174,11 @@ Check every new screen and component:
 
 ## Current state
 
-The design system does not follow this file yet. It uses Inter Tight on the Material 3 type scale and a generated
-mint palette (`primaryLight = #1CFDD6` and Material roles). Move to this direction in this order:
+The design system follows this file for typography only. Colour still uses a generated mint palette
+(`primaryLight = #1CFDD6` and Material roles). Move to this direction in this order:
 
-1. Typography: rebuild `Type.kt` and `TextType` around the seven styles above, with muted variants.
+1. Typography: done. `WalenjeTheme.typography` holds the seven styles; `TextType` names them;
+   `WalenjeText(muted = true)` gives the muted variant.
 2. Colour: replace the generated palette in `Color.kt` with the tokens above.
 3. Shape and spacing: add the radius, rule and spacing tokens to the theme.
 4. Components: build `TwoToneHeading`, `MetricReadout`, `PillButton`, `CircleIconButton`, `Tile` and `ReceiptRow`

@@ -6,7 +6,9 @@ import androidx.compose.material3.MotionScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 
 private val lightScheme =
@@ -251,13 +253,23 @@ data class ColorFamily(
     val onColorContainer: Color,
 )
 
+/** Reads the Walenje design tokens inside [WalenjeTheme]. */
+object WalenjeTheme {
+    /** The text styles in DESIGN.md > Typography. */
+    val typography: WalenjeTypography
+        @Composable @ReadOnlyComposable get() = LocalWalenjeTypography.current
+}
+
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun WalenjeTheme(content: @Composable () -> Unit) {
-    MaterialExpressiveTheme(
-        colorScheme = lightScheme,
-        motionScheme = MotionScheme.expressive(),
-        typography = interTightTypography(),
-        content = content,
-    )
+    val typography = interTightTypography()
+    CompositionLocalProvider(LocalWalenjeTypography provides typography) {
+        MaterialExpressiveTheme(
+            colorScheme = lightScheme,
+            motionScheme = MotionScheme.expressive(),
+            typography = typography.toMaterialTypography(),
+            content = content,
+        )
+    }
 }

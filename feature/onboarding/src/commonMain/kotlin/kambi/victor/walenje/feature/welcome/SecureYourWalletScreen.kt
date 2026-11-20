@@ -32,9 +32,9 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import kambi.victor.walenje.core.designsystem.WalenjeText
 import kambi.victor.walenje.core.designsystem.icons.WalenjeIcons
+import kambi.victor.walenje.core.designsystem.theme.WalenjeTheme
 import kotlin.math.abs
 import kotlinx.coroutines.launch
 
@@ -93,12 +93,7 @@ fun SecureYourWalletScreen(onNavigateToNext: () -> Unit) {
                     .padding(start = 16.dp, top = 64.dp, end = 16.dp, bottom = 40.dp),
         ) {
             Column {
-                ProvideTextStyle(
-                    MaterialTheme.typography.displayLarge.copy(
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 68.sp,
-                    ),
-                ) {
+                ProvideTextStyle(WalenjeTheme.typography.display) {
                     Text(
                         text =
                             buildAnnotatedString {
@@ -109,9 +104,7 @@ fun SecureYourWalletScreen(onNavigateToNext: () -> Unit) {
                     )
                 }
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                    ProvideTextStyle(
-                        MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
-                    ) {
+                    ProvideTextStyle(WalenjeTheme.typography.body) {
                         Text(text = "We need to be sure that it’s you that’s accessing your wallet")
                     }
                 }

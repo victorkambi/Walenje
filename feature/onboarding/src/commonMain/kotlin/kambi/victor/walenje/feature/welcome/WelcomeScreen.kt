@@ -25,13 +25,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import kambi.victor.walenje.core.designsystem.TextType
-import kambi.victor.walenje.core.designsystem.WalenjeTextStyle
 import kambi.victor.walenje.core.designsystem.confirm
 import kambi.victor.walenje.core.designsystem.icons.WalenjeIcons
+import kambi.victor.walenje.core.designsystem.theme.WalenjeTheme
 
 @Composable
 fun Welcome(onNavigateToSecureWallet: () -> Unit) {
@@ -45,12 +42,7 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
                     .padding(vertical = 64.dp, horizontal = 16.dp),
         ) {
             Column(modifier = Modifier.padding(top = 16.dp, bottom = 64.dp)) {
-                ProvideTextStyle(
-                    MaterialTheme.typography.displayLarge.copy(
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 68.sp,
-                    ),
-                ) {
+                ProvideTextStyle(WalenjeTheme.typography.display) {
                     Text(
                         text =
                             buildAnnotatedString {
@@ -62,9 +54,7 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
                     )
                 }
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    ProvideTextStyle(
-                        WalenjeTextStyle(TextType.TextMedium).copy(fontWeight = FontWeight.Medium),
-                    ) {
+                    ProvideTextStyle(WalenjeTheme.typography.body) {
                         Text(
                             text =
                                 buildAnnotatedString {

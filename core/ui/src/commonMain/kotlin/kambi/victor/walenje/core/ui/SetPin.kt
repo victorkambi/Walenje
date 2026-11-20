@@ -30,10 +30,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kambi.victor.walenje.core.designsystem.icons.WalenjeIcons
+import kambi.victor.walenje.core.designsystem.theme.WalenjeTheme
 import kambi.victor.walenje.core.designsystem.virtualKey
 import kambi.victor.walenje.core.ui.view_models.SetPinViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -59,13 +59,9 @@ fun SetPin(
             ) {
                 Text(
                     text = title ?: "Enter your new 6-digit PIN",
-                    style =
-                        MaterialTheme.typography.titleLarge.copy(
-                            fontWeight = FontWeight.SemiBold,
-                            textAlign = TextAlign.Center,
-                        ),
+                    style = WalenjeTheme.typography.title.copy(textAlign = TextAlign.Center),
                 )
-                Text(input, style = MaterialTheme.typography.bodyLarge)
+                Text(input, style = WalenjeTheme.typography.body)
                 Row(
                     horizontalArrangement =
                         Arrangement.spacedBy(12.dp, alignment = Alignment.CenterHorizontally),
@@ -107,7 +103,7 @@ fun SetPin(
 fun NumberPad(onValueChange: (String) -> Unit) {
     val haptic = LocalHapticFeedback.current
     var input by remember { mutableStateOf("") }
-    ProvideTextStyle(MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Medium)) {
+    ProvideTextStyle(WalenjeTheme.typography.headline) {
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement =
