@@ -1,1 +1,1 @@
-plugins { alias(libs.plugins.walenje.feature) }
+plugins { alias(libs.plugins.convention.feature) }

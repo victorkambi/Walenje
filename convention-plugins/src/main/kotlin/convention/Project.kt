@@ -1,4 +1,4 @@
-package kambi.victor.walenje.convention
+package convention
 
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Plugin

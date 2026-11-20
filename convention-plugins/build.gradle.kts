@@ -20,27 +20,27 @@ dependencies {
 kotlin { jvmToolchain(25) }
 
 // Each id also has a `[plugins]` entry in libs.versions.toml, so modules apply them with
-// `alias(libs.plugins.walenje.<name>)`.
+// `alias(libs.plugins.convention.<name>)`.
 gradlePlugin {
     plugins {
         fun convention(id: String, className: String) {
             register(id) {
                 this.id = id
-                implementationClass = "kambi.victor.walenje.convention.$className"
+                implementationClass = "convention.$className"
             }
         }
         // Roles: one per module.
-        convention("walenje.android-app", "AndroidAppConventionPlugin")
-        convention("walenje.library", "LibraryConventionPlugin")
-        convention("walenje.feature", "FeatureConventionPlugin")
+        convention("convention.android-app", "AndroidAppConventionPlugin")
+        convention("convention.library", "LibraryConventionPlugin")
+        convention("convention.feature", "FeatureConventionPlugin")
         // Capabilities: opt-in on top of a role.
-        convention("walenje.compose", "ComposeConventionPlugin")
-        convention("walenje.koin", "KoinConventionPlugin")
-        convention("walenje.serialization", "SerializationConventionPlugin")
-        convention("walenje.logging", "LoggingConventionPlugin")
+        convention("convention.compose", "ComposeConventionPlugin")
+        convention("convention.koin", "KoinConventionPlugin")
+        convention("convention.serialization", "SerializationConventionPlugin")
+        convention("convention.logging", "LoggingConventionPlugin")
         // Shared bases.
-        convention("walenje.multiplatform", "MultiplatformConventionPlugin")
-        convention("walenje.formatting", "FormattingConventionPlugin")
+        convention("convention.multiplatform", "MultiplatformConventionPlugin")
+        convention("convention.formatting", "FormattingConventionPlugin")
     }
 }
 

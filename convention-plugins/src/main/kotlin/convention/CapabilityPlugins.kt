@@ -1,9 +1,9 @@
-package kambi.victor.walenje.convention
+package convention
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-/** `walenje.koin`: Koin core, Compose and ViewModel support, plus `koin-android` on Android. */
+/** `convention.koin`: Koin core, Compose and ViewModel support, plus `koin-android` on Android. */
 class KoinConventionPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit =
         with(target) {
@@ -19,7 +19,7 @@ class KoinConventionPlugin : Plugin<Project> {
         }
 }
 
-/** `walenje.serialization`: the kotlinx.serialization compiler plugin and its JSON library. */
+/** `convention.serialization`: the kotlinx.serialization compiler plugin and its JSON library. */
 class SerializationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit =
         with(target) {
@@ -34,7 +34,7 @@ class SerializationConventionPlugin : Plugin<Project> {
         }
 }
 
-/** `walenje.logging`: Kermit, exposed as `api` so callers can use the module's logger types. */
+/** `convention.logging`: Kermit, exposed as `api` so callers can use the module's logger types. */
 class LoggingConventionPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit =
         with(target) {

@@ -1,4 +1,4 @@
-package kambi.victor.walenje.convention
+package convention
 
 import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryExtension
 import org.gradle.api.Plugin
@@ -7,9 +7,9 @@ import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.configure
 
 /**
- * `walenje.library`: a shared module for Android, iOS (with `-Pwalenje.ios=true`) and JVM. The JVM
- * target exists only for the desktop dev app (Compose Hot Reload) and fast tests; it isn't shipped.
- * It adds no Compose: apply [ComposeConventionPlugin] for UI.
+ * `convention.library`: a shared module for Android, iOS (with `-Pwalenje.ios=true`) and JVM. The
+ * JVM target exists only for the desktop dev app (Compose Hot Reload) and fast tests; it isn't
+ * shipped. It adds no Compose: apply [ComposeConventionPlugin] for UI.
  */
 class LibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit =

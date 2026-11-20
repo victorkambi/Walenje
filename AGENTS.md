@@ -39,18 +39,18 @@ Kotlin and Compose versions match Tajji central (`~/work/tajji/central`) so both
 
 - `settings.gradle.kts` lists the modules and the repositories (content-filtered; projects can't add their own).
 - Shared configuration lives in convention plugins: Kotlin classes in
-  `convention-plugins/src/main/kotlin/kambi/victor/walenje/convention/`, registered in `convention-plugins/build.gradle.kts`.
-  Each id has a `[plugins]` entry in `libs.versions.toml`; apply it with `alias(libs.plugins.walenje.<name>)`.
+  `convention-plugins/src/main/kotlin/convention/`, registered in `convention-plugins/build.gradle.kts`.
+  Each id has a `[plugins]` entry in `libs.versions.toml`; apply it with `alias(libs.plugins.convention.<name>)`.
 
   | Kind | Plugin | Adds |
   |---|---|---|
-  | Role (one per module) | `walenje.android-app` | Android app: SDK levels, Compose, JDK 25 |
-  | | `walenje.library` | Android (namespace from the project path), iOS, JVM (dev only). No Compose |
-  | | `walenje.feature` | library + compose + serialization + koin + logging + `core:ui`, `core:utils` |
-  | Capability (opt-in) | `walenje.compose` | Compose Multiplatform, lifecycle, JVM UI tests, Android resources |
-  | | `walenje.koin`, `walenje.serialization`, `walenje.logging` | Koin, kotlinx.serialization, Kermit |
-  | Base | `walenje.multiplatform` | Kotlin Multiplatform, JDK 25, `-Xexpect-actual-classes`, test libraries |
-  | | `walenje.formatting` | ktfmt (every module and the root) |
+  | Role (one per module) | `convention.android-app` | Android app: SDK levels, Compose, JDK 25 |
+  | | `convention.library` | Android (namespace from the project path), iOS, JVM (dev only). No Compose |
+  | | `convention.feature` | library + compose + serialization + koin + logging + `core:ui`, `core:utils` |
+  | Capability (opt-in) | `convention.compose` | Compose Multiplatform, lifecycle, JVM UI tests, Android resources |
+  | | `convention.koin`, `convention.serialization`, `convention.logging` | Koin, kotlinx.serialization, Kermit |
+  | Base | `convention.multiplatform` | Kotlin Multiplatform, JDK 25, `-Xexpect-actual-classes`, test libraries |
+  | | `convention.formatting` | ktfmt (every module and the root) |
 
   Change a setting in the convention plugin, not in each module. Build-wide constants (JDK, root namespace) live in
   `WalenjeBuild` (`Project.kt`). A new plugin needs a class, a `gradlePlugin` entry and a catalog entry.
@@ -118,10 +118,10 @@ runs `./gradlew -Pwalenje.ios=true :app:common:embedAndSignAppleFrameworkForXcod
   (`core/ui`), `SetPinScreenViewModel` (`feature/onboarding`) and the design tokens (`core/designsystem`).
 - Compose UI tests (`runComposeUiTest` from `androidx.compose.ui.test.v2`; the v1 one is deprecated) live in
   `src/jvmTest/kotlin` and run on the JVM only: in `commonTest` they would also run as Android host tests, which
-  need Robolectric. `walenje.compose` adds `compose-ui-test` to
+  need Robolectric. `convention.compose` adds `compose-ui-test` to
   `jvmTest`. Pass the ViewModel to the screen instead of starting Koin. Example: `SetPinScreenTest`.
 - ViewModels run on `viewModelScope`, so tests call `Dispatchers.setMain(UnconfinedTestDispatcher())` and use
-  `runTest` from `kotlinx-coroutines-test` (every module's tests have it through `walenje.multiplatform`). Collect effects
+  `runTest` from `kotlinx-coroutines-test` (every module's tests have it through `convention.multiplatform`). Collect effects
   with `effect.take(n).toList()`.
 - New business logic (ViewModels, use cases, repositories) gets tests in the same change.
 - `.github/workflows/ci.yml` runs on `macos-26` for every push to `main` and every pull request: the Android APK,

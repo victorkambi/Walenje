@@ -1,10 +1,10 @@
-package kambi.victor.walenje.convention
+package convention
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 /**
- * `walenje.feature`: a feature module. Screens, ViewModels and a Koin module on top of `core:ui`
+ * `convention.feature`: a feature module. Screens, ViewModels and a Koin module on top of `core:ui`
  * and `core:utils`. Add other core modules in the feature's own build script.
  */
 class FeatureConventionPlugin : Plugin<Project> {

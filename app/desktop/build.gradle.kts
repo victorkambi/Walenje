@@ -1,9 +1,9 @@
-import kambi.victor.walenje.convention.composeDesktopCurrentOs
+import convention.composeDesktopCurrentOs
 
 // Desktop (JVM) dev app for Compose Hot Reload: ./gradlew :app:desktop:hotRunJvm. It isn't a
 // shipped target, so it has no installer packaging.
 plugins {
-    alias(libs.plugins.walenje.compose)
+    alias(libs.plugins.convention.compose)
     id("org.jetbrains.compose.hot-reload")
 }
 

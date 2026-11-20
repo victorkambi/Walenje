@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.walenje.library)
-    alias(libs.plugins.walenje.compose)
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.compose)
 }
 
 kotlin {

@@ -1,4 +1,4 @@
-package kambi.victor.walenje.convention
+package convention
 
 import com.ncorti.ktfmt.gradle.KtfmtExtension
 import org.gradle.api.Plugin
@@ -7,7 +7,7 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
 /**
- * `walenje.formatting`: ktfmt, kotlinlang style (4-space indent). `check` runs `ktfmtCheck`;
+ * `convention.formatting`: ktfmt, kotlinlang style (4-space indent). `check` runs `ktfmtCheck`;
  * nothing reformats during a build, so run `ktfmtFormat`. `convention-plugins/build.gradle.kts`
  * repeats these settings because an included build can't apply its own plugins.
  */

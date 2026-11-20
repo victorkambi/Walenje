@@ -1,12 +1,12 @@
-import kambi.victor.walenje.convention.iosTargets
+import convention.iosTargets
 
 // Shared app entry: App(), navigation, Koin wiring, and the iOS framework the Xcode project embeds.
 plugins {
-    alias(libs.plugins.walenje.library)
-    alias(libs.plugins.walenje.compose)
-    alias(libs.plugins.walenje.serialization)
-    alias(libs.plugins.walenje.koin)
-    alias(libs.plugins.walenje.logging)
+    alias(libs.plugins.convention.library)
+    alias(libs.plugins.convention.compose)
+    alias(libs.plugins.convention.serialization)
+    alias(libs.plugins.convention.koin)
+    alias(libs.plugins.convention.logging)
 }
 
 kotlin {

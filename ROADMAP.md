@@ -11,7 +11,7 @@ target stays a dev and test target.
 
 - Follow `AGENTS.md`: an MVI contract per screen, ViewModels on `BaseViewModel`, Koin `module { viewModelOf(...) }`,
   routes in `app/common/.../navigation/Navigation.kt`.
-- Give each new module one convention plugin role (`walenje.library` or `walenje.feature`).
+- Give each new module one convention plugin role (`convention.library` or `convention.feature`).
 - Put versions only in `gradle/libs.versions.toml`.
 - Add tests for business logic in the same change.
 - Keep platform APIs in `androidMain`, `iosMain` and `jvmMain` behind `expect`/`actual`. The JVM actual can be a

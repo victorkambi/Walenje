@@ -1,4 +1,4 @@
-package kambi.victor.walenje.convention
+package convention
 
 import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryExtension
 import org.gradle.api.Plugin
@@ -7,8 +7,8 @@ import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.configure
 
 /**
- * `walenje.compose`: Compose Multiplatform, its common libraries and Compose UI tests on the JVM.
- * In an Android library it also turns on Android resources, which Compose resources need.
+ * `convention.compose`: Compose Multiplatform, its common libraries and Compose UI tests on the
+ * JVM. In an Android library it also turns on Android resources, which Compose resources need.
  */
 class ComposeConventionPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit =

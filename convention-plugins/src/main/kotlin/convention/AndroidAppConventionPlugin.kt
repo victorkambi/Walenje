@@ -1,4 +1,4 @@
-package kambi.victor.walenje.convention
+package convention
 
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.JavaVersion
@@ -8,7 +8,7 @@ import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 
 /**
- * `walenje.android-app`: the Android app entry module. Uses AGP 9 built-in Kotlin: do not apply
+ * `convention.android-app`: the Android app entry module. Uses AGP 9 built-in Kotlin: do not apply
  * `org.jetbrains.kotlin.android`.
  */
 class AndroidAppConventionPlugin : Plugin<Project> {

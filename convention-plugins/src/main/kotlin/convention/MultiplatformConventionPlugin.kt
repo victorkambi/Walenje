@@ -1,10 +1,10 @@
-package kambi.victor.walenje.convention
+package convention
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 /**
- * `walenje.multiplatform`: the base for every Kotlin module. Kotlin Multiplatform, the JDK,
+ * `convention.multiplatform`: the base for every Kotlin module. Kotlin Multiplatform, the JDK,
  * `-Xexpect-actual-classes`, test libraries and ktfmt. It adds no targets:
  * [LibraryConventionPlugin] or the app module does that.
  */

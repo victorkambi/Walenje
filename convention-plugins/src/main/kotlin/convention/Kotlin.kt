@@ -1,4 +1,4 @@
-package kambi.victor.walenje.convention
+package convention
 
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project

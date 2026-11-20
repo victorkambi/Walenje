@@ -55,7 +55,7 @@ kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
-# Formatter engine for the ktfmt Gradle plugin (walenje.formatting)
+# Formatter engine for the ktfmt Gradle plugin (convention.formatting)
 ktfmt = { module = "com.facebook:ktfmt", version.ref = "ktfmt" }
 
 [bundles]
@@ -72,12 +72,12 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 ktfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "ktfmt-gradle" }
 
 # Walenje convention plugins from convention-plugins (no version: an included build provides them)
-walenje-android-app = { id = "walenje.android-app" }
-walenje-compose = { id = "walenje.compose" }
-walenje-feature = { id = "walenje.feature" }
-walenje-formatting = { id = "walenje.formatting" }
-walenje-koin = { id = "walenje.koin" }
-walenje-library = { id = "walenje.library" }
-walenje-logging = { id = "walenje.logging" }
-walenje-multiplatform = { id = "walenje.multiplatform" }
-walenje-serialization = { id = "walenje.serialization" }
+convention-android-app = { id = "convention.android-app" }
+convention-compose = { id = "convention.compose" }
+convention-feature = { id = "convention.feature" }
+convention-formatting = { id = "convention.formatting" }
+convention-koin = { id = "convention.koin" }
+convention-library = { id = "convention.library" }
+convention-logging = { id = "convention.logging" }
+convention-multiplatform = { id = "convention.multiplatform" }
+convention-serialization = { id = "convention.serialization" }
