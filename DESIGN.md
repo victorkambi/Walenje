@@ -36,7 +36,7 @@ Tokens live in `core/designsystem/theme/`. Feature code never hard-codes them (s
 ### Typography
 
 - **Text family:** a neo-grotesque sans. Inter Tight / Inter Display is the default choice (OFL, free); Hanken
-  Grotesk or Schibsted Grotesk are alternatives. It replaces Montserrat.
+  Grotesk or Schibsted Grotesk are alternatives. The design system uses Inter Tight.
 - **Numeric display face:** one face only for hero numbers: Doto for a dot-matrix look or Geist Mono for a calmer
   one. Never use it in lists, body text or anywhere dense.
 - **Figures:** amounts use tabular figures (`fontFeatureSettings = "tnum"`) so columns line up.
@@ -109,11 +109,11 @@ Run through this for every new screen or component:
 
 ## Current state
 
-The design system does not follow this yet: it uses Montserrat and a Material 3-generated mint palette in which
+The design system does not follow this yet: it uses Inter Tight on the Material 3 scale and a generated mint palette in which
 primary, secondary and tertiary are the same green, and the components above don't exist. Moving to this
 direction, in order:
 
-1. Typography: add the text family and the numeric face to `composeResources/font`, and rebuild `Type.kt` and
+1. Typography: add the numeric face to `composeResources/font`, and rebuild `Type.kt` and
    `TextType` around the new scale and the muted variant.
 2. Colour: replace the generated palette in `Color.kt` with the neutral ramp, brand, category and semantic tokens.
 3. Shape: add the radius and spacing tokens to the theme.

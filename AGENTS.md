@@ -18,7 +18,7 @@ early development. Onboarding (welcome, secure-wallet explainer, PIN setup) and 
 | `app/desktop` | Desktop (JVM) dev app for Compose Hot Reload (`main.kt`); not shipped, no packaging |
 | `app/ios` | SwiftUI host (`Walenje.xcodeproj`); its build phase runs Gradle and imports the shared `common` framework |
 | `core/authentication` | `Biometrics` expect/actual per platform |
-| `core/designsystem` | Material 3 theme, Montserrat typography, icons, shared components |
+| `core/designsystem` | Material 3 theme, Inter Tight typography, icons, shared components |
 | `core/ui` | Shared UI pieces such as the PIN keypad and its ViewModel |
 | `core/utils` | MVI base classes (`mvi/`), UI state types |
 | `feature/onboarding` | Welcome, secure-wallet and PIN setup screens (package `feature.welcome`) |

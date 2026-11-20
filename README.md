@@ -13,7 +13,7 @@ Walenje is a personal finance tracker built as a Kotlin Multiplatform app with C
 **Implemented**
 - Onboarding: welcome screen, "secure your wallet" explainer, and PIN setup with confirmation
 - Biometric authentication on Android; iOS and the desktop dev app use placeholders for now
-- Material 3 theming with light and dark color schemes and Montserrat typography
+- Material 3 theming with light and dark color schemes and Inter Tight typography
 
 **Planned**
 - Expense and income tracking

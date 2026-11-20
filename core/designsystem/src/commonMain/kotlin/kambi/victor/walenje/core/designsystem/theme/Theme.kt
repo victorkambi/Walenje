@@ -257,7 +257,7 @@ fun WalenjeTheme(content: @Composable () -> Unit) {
   MaterialExpressiveTheme(
     colorScheme = lightScheme,
     motionScheme = MotionScheme.expressive(),
-    typography = montserratTypography(),
+    typography = interTightTypography(),
     content = content,
   )
 }
