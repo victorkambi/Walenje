@@ -3,9 +3,16 @@
 This file sets how Walenje looks. Read it before you design or build a screen or a `core/designsystem` component.
 `AGENTS.md` > Architecture rules decides where UI code lives. `PRODUCT.md` decides what each screen is for.
 
-The design specimen shows these rules on four phase 1 screens:
-<https://claude.ai/artifact/5cMjtzhzWKswLpAwqfPCA9> (private to the owner). Where the specimen and this file
-disagree, this file wins.
+Screens and components are refined in Claude Design (private to the owner):
+
+| Artifact | What it holds |
+|---|---|
+| [Walenje Design System](https://claude.ai/artifact/Lwkuq8TGXVW84WH4sTJQoK) | Tokens, type, the 13 components as live React renditions, brand book |
+| [Walenje Phase 1 Screens](https://claude.ai/artifact/F4cTFTSfY4ey53wWoTSTuM) | Home, Review, Receipts and Reports on a canvas, built from the design system |
+| [Design specimen](https://claude.ai/artifact/5cMjtzhzWKswLpAwqfPCA9) | The first exploration (superseded by the two above) |
+
+When a refinement there changes a rule, token or recipe, update this file in the same step. Where they disagree,
+this file wins until it is updated.
 
 ## Direction
 
