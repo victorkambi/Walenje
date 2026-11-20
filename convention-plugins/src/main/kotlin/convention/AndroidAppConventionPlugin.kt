@@ -27,11 +27,11 @@ class AndroidAppConventionPlugin : Plugin<Project> {
                 buildFeatures { compose = true }
                 packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
                 compileOptions {
-                    sourceCompatibility = JavaVersion.toVersion(WalenjeBuild.JDK)
-                    targetCompatibility = JavaVersion.toVersion(WalenjeBuild.JDK)
+                    sourceCompatibility = JavaVersion.toVersion(ProjectBuild.JDK)
+                    targetCompatibility = JavaVersion.toVersion(ProjectBuild.JDK)
                 }
             }
 
-            extensions.configure<KotlinProjectExtension> { jvmToolchain(WalenjeBuild.JDK) }
+            extensions.configure<KotlinProjectExtension> { jvmToolchain(ProjectBuild.JDK) }
         }
 }

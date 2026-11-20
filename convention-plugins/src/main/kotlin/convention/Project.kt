@@ -8,7 +8,7 @@ import org.gradle.kotlin.dsl.the
 import org.gradle.plugin.use.PluginDependency
 
 /** Build-wide constants. Change them here, not in the plugins. */
-internal object WalenjeBuild {
+internal object ProjectBuild {
     /** JDK for compilation and the Android bytecode level. Matches Tajji central. */
     const val JDK = 25
 
@@ -36,4 +36,4 @@ internal inline fun <reified T : Plugin<Project>> Project.apply() {
 
 /** The module's Android namespace: `:feature:home` becomes `kambi.victor.walenje.feature.home`. */
 internal val Project.androidNamespace: String
-    get() = WalenjeBuild.NAMESPACE + path.replace(':', '.')
+    get() = ProjectBuild.NAMESPACE + path.replace(':', '.')

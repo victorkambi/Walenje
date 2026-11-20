@@ -53,7 +53,7 @@ Kotlin and Compose versions match Tajji central (`~/work/tajji/central`) so both
   | | `convention.formatting` | ktfmt (every module and the root) |
 
   Change a setting in the convention plugin, not in each module. Build-wide constants (JDK, root namespace) live in
-  `WalenjeBuild` (`Project.kt`). A new plugin needs a class, a `gradlePlugin` entry and a catalog entry.
+  `ProjectBuild` (`Project.kt`). A new plugin needs a class, a `gradlePlugin` entry and a catalog entry.
 - iOS targets are opt-in: `-Pwalenje.ios=true` (CI and the Xcode build phase pass it). Without it Gradle skips
   Kotlin/Native entirely.
 - Release targets are Android and iOS. The JVM target exists for `:app:desktop:hotRunJvm` and fast tests only. Don't

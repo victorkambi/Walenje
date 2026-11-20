@@ -15,7 +15,7 @@ class MultiplatformConventionPlugin : Plugin<Project> {
             apply<FormattingConventionPlugin>()
 
             kotlin {
-                jvmToolchain(WalenjeBuild.JDK)
+                jvmToolchain(ProjectBuild.JDK)
                 compilerOptions { freeCompilerArgs.add("-Xexpect-actual-classes") }
                 sourceSets.commonTest.dependencies {
                     implementation(kotlin("test"))
