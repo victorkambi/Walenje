@@ -1,13 +1,18 @@
 # AGENTS.md
 
-Guidance for coding agents working in this repository. Read `README.md` for the product overview and `DESIGN.md`
-for the visual direction.
+Guidance for coding agents working in this repository. Read `PRODUCT.md` for the product (users, journeys,
+roadmap), `ROADMAP.md` for the build plan and `DESIGN.md` for the visual direction.
 
 ## What this is
 
-Walenje is a personal finance tracker: a Kotlin Multiplatform app with a Compose Multiplatform UI that targets
-Android and iOS, plus a desktop (JVM) build used only for Compose Hot Reload during development. It is in
-early development. Onboarding (welcome, secure-wallet explainer, PIN setup) and biometrics work; Home, Analytics and Profile are placeholders.
+Walenje is a receipts app for freelancers and sole traders in Kenya: capture a receipt, extract and tag its data
+on the device, and export records for accounting. It is local first (no account, no server) until `PRODUCT.md`
+says otherwise. It is a Kotlin Multiplatform app with a Compose Multiplatform UI that targets Android and iOS, plus
+a desktop (JVM) build used only for Compose Hot Reload during development. It is in early development. Onboarding
+(welcome, secure-wallet explainer, PIN setup) and biometrics work; Home, Analytics and Profile are placeholders.
+Phase 1 in `ROADMAP.md` adds the planned modules `core/receipts`, `core/database`, `core/scanner`, `core/export`,
+`feature/capture` and `feature/receipts`, and replaces `feature/analytics` with `feature/reports` and
+`feature/profile` with `feature/settings`.
 
 ## Modules
 

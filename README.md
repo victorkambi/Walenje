@@ -2,11 +2,13 @@
 
 [![CI](https://github.com/victorkambi/Walenje/actions/workflows/ci.yml/badge.svg)](https://github.com/victorkambi/Walenje/actions/workflows/ci.yml)
 
-Walenje is a personal finance tracker built as a Kotlin Multiplatform app with Compose Multiplatform. The name is Swahili/Sheng for *wallet*, pronounced `[wah-leh-nje]`.
+Walenje is a receipts app for freelancers and sole traders in Kenya. You capture a receipt, Walenje extracts and tags the data, and you export clean records for KRA and your accountant. Data stays on your device. It is a Kotlin Multiplatform app with Compose Multiplatform.
+
+The name is Swahili/Sheng for *wallet*, pronounced `[wah-leh-nje]`. It is a working name: a rename is an open decision in [`PRODUCT.md`](PRODUCT.md).
 
 ![Walenje icon](images/icon.svg)
 
-> **Status:** early development. The onboarding flow (welcome, wallet explainer, PIN setup) and biometric authentication are in place. The Home, Analytics, and Profile screens are placeholders.
+> **Status:** early development. The onboarding flow (welcome, explainer, PIN setup) and biometric authentication are in place. The Home, Analytics, and Profile screens are placeholders. Phase 1 (receipt capture) is next: see [`ROADMAP.md`](ROADMAP.md).
 
 ## Features
 
@@ -15,10 +17,11 @@ Walenje is a personal finance tracker built as a Kotlin Multiplatform app with C
 - Biometric authentication on Android; iOS and the desktop dev app use placeholders for now
 - Material 3 theming with light and dark color schemes and Inter Tight typography
 
-**Planned**
-- Expense and income tracking
-- Analytics
-- Profile and settings
+**Planned** (details in [`PRODUCT.md`](PRODUCT.md))
+- Phase 1: scan or import receipts, on-device extraction (eTIMS QR code and OCR), review, categories, search, CSV and PDF reports, backup and restore
+- Phase 2: M-Pesa statement import
+- Phase 3: email receipts shared into the app
+- Phase 4: dictated receipts with a map pin
 
 ## Tech stack
 
