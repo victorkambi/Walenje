@@ -1,7 +1,8 @@
 plugins {
-    id("walenje.library")
-    id("walenje.koin")
-    id("walenje.logging")
+    alias(libs.plugins.walenje.library)
+    alias(libs.plugins.walenje.compose)
+    alias(libs.plugins.walenje.koin)
+    alias(libs.plugins.walenje.logging)
 }
 
 kotlin { sourceSets { commonMain.dependencies { api(projects.core.designsystem) } } }

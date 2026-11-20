@@ -33,15 +33,22 @@ Kotlin and Compose versions match Tajji central (`~/work/tajji/central`) so both
 `~/.konan`; bump them together. `MIGRATION_PLAN.md` records the move from Gradle to Kotlin Toolchain and back.
 
 - `settings.gradle.kts` lists the modules and the repositories (content-filtered; projects can't add their own).
-- Shared configuration lives in convention plugins in `convention-plugins/src/main/kotlin/`:
-  - `walenje.multiplatform`: Kotlin Multiplatform, JDK 25 toolchain, `-Xexpect-actual-classes`, `kotlin.test` and
-    `kotlinx-coroutines-test` for every module's tests, ktfmt
-  - `walenje.compose`: Compose Multiplatform and its common dependencies
-  - `walenje.library`: a shared library: Android (namespace from the project path), iOS, and JVM (dev only)
-  - `walenje.feature`: a feature module (library + kotlinx + Koin + Kermit + the core modules)
-  - `walenje.serialization`, `walenje.koin`, `walenje.logging`, `walenje.android-app`, `walenje.formatting`
+- Shared configuration lives in convention plugins: Kotlin classes in
+  `convention-plugins/src/main/kotlin/kambi/victor/walenje/convention/`, registered in `convention-plugins/build.gradle.kts`.
+  Each id has a `[plugins]` entry in `libs.versions.toml`; apply it with `alias(libs.plugins.walenje.<name>)`.
 
-  Change a setting in the convention plugin, not in each module.
+  | Kind | Plugin | Adds |
+  |---|---|---|
+  | Role (one per module) | `walenje.android-app` | Android app: SDK levels, Compose, JDK 25 |
+  | | `walenje.library` | Android (namespace from the project path), iOS, JVM (dev only). No Compose |
+  | | `walenje.feature` | library + compose + serialization + koin + logging + `core:ui`, `core:utils` |
+  | Capability (opt-in) | `walenje.compose` | Compose Multiplatform, lifecycle, JVM UI tests, Android resources |
+  | | `walenje.koin`, `walenje.serialization`, `walenje.logging` | Koin, kotlinx.serialization, Kermit |
+  | Base | `walenje.multiplatform` | Kotlin Multiplatform, JDK 25, `-Xexpect-actual-classes`, test libraries |
+  | | `walenje.formatting` | ktfmt (every module and the root) |
+
+  Change a setting in the convention plugin, not in each module. Build-wide constants (JDK, root namespace) live in
+  `WalenjeBuild` (`Project.kt`). A new plugin needs a class, a `gradlePlugin` entry and a catalog entry.
 - iOS targets are opt-in: `-Pwalenje.ios=true` (CI and the Xcode build phase pass it). Without it Gradle skips
   Kotlin/Native entirely.
 - Release targets are Android and iOS. The JVM target exists for `:app:desktop:hotRunJvm` and fast tests only. Don't
@@ -106,7 +113,7 @@ runs `./gradlew -Pwalenje.ios=true :app:common:embedAndSignAppleFrameworkForXcod
   (`core/ui`) and `SetPinScreenViewModel` (`feature/onboarding`).
 - Compose UI tests (`runComposeUiTest` from `androidx.compose.ui.test.v2`; the v1 one is deprecated) live in
   `src/jvmTest/kotlin` and run on the JVM only: in `commonTest` they would also run as Android host tests, which
-  need Robolectric. `walenje.library` adds `compose-ui-test` to
+  need Robolectric. `walenje.compose` adds `compose-ui-test` to
   `jvmTest`. Pass the ViewModel to the screen instead of starting Koin. Example: `SetPinScreenTest`.
 - ViewModels run on `viewModelScope`, so tests call `Dispatchers.setMain(UnconfinedTestDispatcher())` and use
   `runTest` from `kotlinx-coroutines-test` (every module's tests have it through `walenje.multiplatform`). Collect effects

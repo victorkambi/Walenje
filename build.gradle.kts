@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.ktfmt) apply false
     // Formats the root build scripts; each module formats its own.
-    id("walenje.formatting")
+    alias(libs.plugins.walenje.formatting)
 }
 
 // Root ktfmtCheck/ktfmtFormat also cover the convention plugins in the included build.

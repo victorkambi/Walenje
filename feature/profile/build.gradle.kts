@@ -1,1 +1,1 @@
-plugins { id("walenje.feature") }
+plugins { alias(libs.plugins.walenje.feature) }

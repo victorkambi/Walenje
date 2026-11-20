@@ -1,4 +1,7 @@
-plugins { id("walenje.library") }
+plugins {
+    alias(libs.plugins.walenje.library)
+    alias(libs.plugins.walenje.compose)
+}
 
 kotlin {
     sourceSets {

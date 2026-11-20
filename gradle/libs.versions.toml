@@ -68,3 +68,14 @@ composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMul
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ktfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "ktfmt-gradle" }
+
+# Walenje convention plugins from convention-plugins (no version: an included build provides them)
+walenje-android-app = { id = "walenje.android-app" }
+walenje-compose = { id = "walenje.compose" }
+walenje-feature = { id = "walenje.feature" }
+walenje-formatting = { id = "walenje.formatting" }
+walenje-koin = { id = "walenje.koin" }
+walenje-library = { id = "walenje.library" }
+walenje-logging = { id = "walenje.logging" }
+walenje-multiplatform = { id = "walenje.multiplatform" }
+walenje-serialization = { id = "walenje.serialization" }
