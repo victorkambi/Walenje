@@ -19,91 +19,91 @@ import kotlinx.coroutines.test.setMain
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SetPinScreenViewModelTest {
-  private val dispatcher = UnconfinedTestDispatcher()
+    private val dispatcher = UnconfinedTestDispatcher()
 
-  @BeforeTest
-  fun setUp() {
-    Dispatchers.setMain(dispatcher)
-  }
-
-  @AfterTest
-  fun tearDown() {
-    Dispatchers.resetMain()
-  }
-
-  @Test
-  fun startsIdle() {
-    val viewModel = SetPinScreenViewModel()
-
-    assertEquals(
-      State(
-        pin = ResourceUiState.Idle,
-        confirmPin = ResourceUiState.Idle,
-        validPin = ResourceUiState.Idle,
-      ),
-      viewModel.state.value,
-    )
-  }
-
-  @Test
-  fun settingThePinStoresItAndReportsIt() =
-    runTest(dispatcher) {
-      val viewModel = SetPinScreenViewModel()
-
-      viewModel.setEvent(Event.SetPin("1234"))
-
-      assertEquals(ResourceUiState.Success("1234"), viewModel.state.value.pin)
-      assertEquals(listOf<Effect>(Effect.PinConfigured), viewModel.effect.take(1).toList())
+    @BeforeTest
+    fun setUp() {
+        Dispatchers.setMain(dispatcher)
     }
 
-  @Test
-  fun matchingConfirmationValidatesThePin() =
-    runTest(dispatcher) {
-      val viewModel = SetPinScreenViewModel()
-
-      viewModel.setEvent(Event.SetPin("1234"))
-      viewModel.setEvent(Event.SetConfirmPin("1234"))
-
-      assertEquals(ResourceUiState.Success(true), viewModel.state.value.validPin)
-      assertEquals(
-        listOf(Effect.PinConfigured, Effect.ConfirmPinConfigured, Effect.PinMatched),
-        viewModel.effect.take(3).toList(),
-      )
+    @AfterTest
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 
-  @Test
-  fun mismatchedConfirmationResetsBothPins() =
-    runTest(dispatcher) {
-      val viewModel = SetPinScreenViewModel()
+    @Test
+    fun startsIdle() {
+        val viewModel = SetPinScreenViewModel()
 
-      viewModel.setEvent(Event.SetPin("1234"))
-      viewModel.setEvent(Event.SetConfirmPin("4321"))
-
-      assertEquals(
-        State(
-          pin = ResourceUiState.Idle,
-          confirmPin = ResourceUiState.Idle,
-          validPin = ResourceUiState.Error(),
-        ),
-        viewModel.state.value,
-      )
-      assertEquals(
-        listOf(Effect.PinConfigured, Effect.ConfirmPinConfigured, Effect.PinMismatched),
-        viewModel.effect.take(3).toList(),
-      )
+        assertEquals(
+            State(
+                pin = ResourceUiState.Idle,
+                confirmPin = ResourceUiState.Idle,
+                validPin = ResourceUiState.Idle,
+            ),
+            viewModel.state.value,
+        )
     }
 
-  @Test
-  fun navigationEventsBecomeNavigationEffects() =
-    runTest(dispatcher) {
-      val viewModel = SetPinScreenViewModel()
+    @Test
+    fun settingThePinStoresItAndReportsIt() =
+        runTest(dispatcher) {
+            val viewModel = SetPinScreenViewModel()
 
-      viewModel.setEvent(Event.NavigateBack)
-      viewModel.setEvent(Event.NavigateNext)
+            viewModel.setEvent(Event.SetPin("1234"))
 
-      assertEquals(
-        listOf(Effect.NavigateToBackScreen, Effect.NavigateToNextScreen),
-        viewModel.effect.take(2).toList(),
-      )
-    }
+            assertEquals(ResourceUiState.Success("1234"), viewModel.state.value.pin)
+            assertEquals(listOf<Effect>(Effect.PinConfigured), viewModel.effect.take(1).toList())
+        }
+
+    @Test
+    fun matchingConfirmationValidatesThePin() =
+        runTest(dispatcher) {
+            val viewModel = SetPinScreenViewModel()
+
+            viewModel.setEvent(Event.SetPin("1234"))
+            viewModel.setEvent(Event.SetConfirmPin("1234"))
+
+            assertEquals(ResourceUiState.Success(true), viewModel.state.value.validPin)
+            assertEquals(
+                listOf(Effect.PinConfigured, Effect.ConfirmPinConfigured, Effect.PinMatched),
+                viewModel.effect.take(3).toList(),
+            )
+        }
+
+    @Test
+    fun mismatchedConfirmationResetsBothPins() =
+        runTest(dispatcher) {
+            val viewModel = SetPinScreenViewModel()
+
+            viewModel.setEvent(Event.SetPin("1234"))
+            viewModel.setEvent(Event.SetConfirmPin("4321"))
+
+            assertEquals(
+                State(
+                    pin = ResourceUiState.Idle,
+                    confirmPin = ResourceUiState.Idle,
+                    validPin = ResourceUiState.Error(),
+                ),
+                viewModel.state.value,
+            )
+            assertEquals(
+                listOf(Effect.PinConfigured, Effect.ConfirmPinConfigured, Effect.PinMismatched),
+                viewModel.effect.take(3).toList(),
+            )
+        }
+
+    @Test
+    fun navigationEventsBecomeNavigationEffects() =
+        runTest(dispatcher) {
+            val viewModel = SetPinScreenViewModel()
+
+            viewModel.setEvent(Event.NavigateBack)
+            viewModel.setEvent(Event.NavigateNext)
+
+            assertEquals(
+                listOf(Effect.NavigateToBackScreen, Effect.NavigateToNextScreen),
+                viewModel.effect.take(2).toList(),
+            )
+        }
 }

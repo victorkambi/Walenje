@@ -1,21 +1,21 @@
 // Desktop (JVM) dev app for Compose Hot Reload: ./gradlew :app:desktop:hotRunJvm. It isn't a
 // shipped target, so it has no installer packaging.
 plugins {
-  id("walenje.compose")
-  id("org.jetbrains.compose.hot-reload")
+    id("walenje.compose")
+    id("org.jetbrains.compose.hot-reload")
 }
 
 kotlin {
-  jvm()
+    jvm()
 
-  sourceSets {
-    jvmMain.dependencies {
-      implementation(projects.app.common)
-      implementation(projects.core.authentication)
-      implementation(compose.desktop.currentOs)
-      implementation(libs.kotlinx.coroutines.swing)
+    sourceSets {
+        jvmMain.dependencies {
+            implementation(projects.app.common)
+            implementation(projects.core.authentication)
+            implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
+        }
     }
-  }
 }
 
 compose.desktop { application { mainClass = "kambi.victor.walenje.MainKt" } }

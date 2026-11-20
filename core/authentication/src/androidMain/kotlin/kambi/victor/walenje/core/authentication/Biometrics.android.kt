@@ -11,56 +11,60 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.suspendCancellableCoroutine
 
 actual class BiometricPromptManager(private val activity: FragmentActivity) : Biometrics {
-  private val executor = ContextCompat.getMainExecutor(activity)
-  private lateinit var biometricPrompt: BiometricPrompt
-  private lateinit var promptInfo: PromptInfo
+    private val executor = ContextCompat.getMainExecutor(activity)
+    private lateinit var biometricPrompt: BiometricPrompt
+    private lateinit var promptInfo: PromptInfo
 
-  private fun buildBiometricPrompt(
-    title: String = "Walenje",
-    description: String = "",
-  ): PromptInfo {
-    val authenticators = BIOMETRIC_STRONG
+    private fun buildBiometricPrompt(
+        title: String = "Walenje",
+        description: String = "",
+    ): PromptInfo {
+        val authenticators = BIOMETRIC_STRONG
 
-    promptInfo =
-      PromptInfo.Builder()
-        .setTitle(title)
-        .setDescription(description)
-        .setNegativeButtonText("Cancel")
-        .setAllowedAuthenticators(authenticators)
-        .build()
-    return promptInfo
-  }
+        promptInfo =
+            PromptInfo.Builder()
+                .setTitle(title)
+                .setDescription(description)
+                .setNegativeButtonText("Cancel")
+                .setAllowedAuthenticators(authenticators)
+                .build()
+        return promptInfo
+    }
 
-  private fun createBiometricPrompt(onResult: (AuthenticationResult) -> Unit): BiometricPrompt =
-    BiometricPrompt(
-      activity,
-      executor,
-      object : AuthenticationCallback() {
-        override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-          super.onAuthenticationSucceeded(result)
-          onResult(AuthenticationResult.Success)
-        }
+    private fun createBiometricPrompt(onResult: (AuthenticationResult) -> Unit): BiometricPrompt =
+        BiometricPrompt(
+            activity,
+            executor,
+            object : AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult,
+                ) {
+                    super.onAuthenticationSucceeded(result)
+                    onResult(AuthenticationResult.Success)
+                }
 
-        override fun onAuthenticationFailed() {
-          super.onAuthenticationFailed()
-          onResult(AuthenticationResult.Failure)
-        }
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    onResult(AuthenticationResult.Failure)
+                }
 
-        override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-          super.onAuthenticationError(errorCode, errString)
-          onResult(AuthenticationResult.Error("$errorCode,$errString"))
-        }
-      },
-    )
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    onResult(AuthenticationResult.Error("$errorCode,$errString"))
+                }
+            },
+        )
 
-  actual override suspend fun authenticate(): AuthenticationResult = coroutineScope {
-    var result: AuthenticationResult
-    do {
-      result = suspendCancellableCoroutine { continuation ->
-        biometricPrompt = createBiometricPrompt { authResult -> continuation.resume(authResult) }
-        biometricPrompt.authenticate(buildBiometricPrompt())
-      }
-    } while (result == AuthenticationResult.Failure)
-    result
-  }
+    actual override suspend fun authenticate(): AuthenticationResult = coroutineScope {
+        var result: AuthenticationResult
+        do {
+            result = suspendCancellableCoroutine { continuation ->
+                biometricPrompt = createBiometricPrompt { authResult ->
+                    continuation.resume(authResult)
+                }
+                biometricPrompt.authenticate(buildBiometricPrompt())
+            }
+        } while (result == AuthenticationResult.Failure)
+        result
+    }
 }

@@ -73,10 +73,10 @@ Kotlin and Compose versions match Tajji central (`~/work/tajji/central`) so both
 
 ## Code style
 
-- ktfmt, Google style, max width 100, unused imports removed. `ktfmtCheck` checks it and nothing reformats during a
-  build, so run `./gradlew ktfmtFormat` before committing. `@Composable` functions are
-  PascalCase. ktlint is not used: it disagrees with ktfmt's output.
-- Two-space indentation, trailing commas allowed.
+- ktfmt, kotlinlang style, max width 100, unused imports removed. It covers module sources, all build scripts and
+  `build-plugins`. `ktfmtCheck` checks it and nothing reformats during a build, so run `./gradlew ktfmtFormat`
+  before committing. `@Composable` functions are PascalCase. ktlint is not used: it disagrees with ktfmt's output.
+- Four-space indentation, trailing commas allowed.
 
 ## Commands
 

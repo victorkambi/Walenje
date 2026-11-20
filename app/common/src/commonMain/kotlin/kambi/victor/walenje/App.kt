@@ -10,8 +10,8 @@ import org.koin.compose.KoinApplication
 
 @Composable
 fun App(biometrics: Biometrics) {
-  KoinApplication(configuration = createKoinConfiguration()) {
-    /* Apply Surface to make the icons visible with edgeToEdge */
-    WalenjeTheme { Surface { WalenjeNavGraph(biometrics = biometrics) } }
-  }
+    KoinApplication(configuration = createKoinConfiguration()) {
+        /* Apply Surface to make the icons visible with edgeToEdge */
+        WalenjeTheme { Surface { WalenjeNavGraph(biometrics = biometrics) } }
+    }
 }

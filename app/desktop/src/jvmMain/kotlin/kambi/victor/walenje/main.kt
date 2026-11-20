@@ -13,23 +13,23 @@ private const val APP_NAME = "Walenje"
 private val biometrics by lazy { BiometricPromptManager() }
 
 fun main() {
-  // macOS reads the app name for the menu bar and Dock when AWT starts, so set it first.
-  System.setProperty("apple.awt.application.name", APP_NAME)
+    // macOS reads the app name for the menu bar and Dock when AWT starts, so set it first.
+    System.setProperty("apple.awt.application.name", APP_NAME)
 
-  val icon =
-    checkNotNull(object {}.javaClass.getResourceAsStream("/walenje_icon.png")).use {
-      ImageIO.read(it)
+    val icon =
+        checkNotNull(object {}.javaClass.getResourceAsStream("/walenje_icon.png")).use {
+            ImageIO.read(it)
+        }
+    if (
+        Taskbar.isTaskbarSupported() && Taskbar.getTaskbar().isSupported(Taskbar.Feature.ICON_IMAGE)
+    ) {
+        Taskbar.getTaskbar().iconImage = icon
     }
-  if (
-    Taskbar.isTaskbarSupported() && Taskbar.getTaskbar().isSupported(Taskbar.Feature.ICON_IMAGE)
-  ) {
-    Taskbar.getTaskbar().iconImage = icon
-  }
-  val windowIcon = BitmapPainter(icon.toComposeImageBitmap())
+    val windowIcon = BitmapPainter(icon.toComposeImageBitmap())
 
-  application {
-    Window(onCloseRequest = ::exitApplication, title = APP_NAME, icon = windowIcon) {
-      App(biometrics)
+    application {
+        Window(onCloseRequest = ::exitApplication, title = APP_NAME, icon = windowIcon) {
+            App(biometrics)
+        }
     }
-  }
 }

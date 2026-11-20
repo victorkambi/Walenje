@@ -64,266 +64,270 @@ import org.koin.compose.viewmodel.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SetPinScreen(
-  onNavigateBack: () -> Unit,
-  viewModel: SetPinScreenViewModel = koinViewModel(),
-  onNavigateToHomeScreen: () -> Unit,
+    onNavigateBack: () -> Unit,
+    viewModel: SetPinScreenViewModel = koinViewModel(),
+    onNavigateToHomeScreen: () -> Unit,
 ) {
-  val haptics = LocalHapticFeedback.current
+    val haptics = LocalHapticFeedback.current
 
-  var pin by remember { mutableStateOf("") }
-  var confirmPin by remember { mutableStateOf("") }
-  var isConfirmPin by remember { mutableStateOf(false) }
-  var isPinMismatch by remember { mutableStateOf(false) }
+    var pin by remember { mutableStateOf("") }
+    var confirmPin by remember { mutableStateOf("") }
+    var isConfirmPin by remember { mutableStateOf(false) }
+    var isPinMismatch by remember { mutableStateOf(false) }
 
-  val snackbarHostState = remember { SnackbarHostState() }
-  val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
 
-  // One effect per PIN, so typing the confirmation PIN doesn't resend SetPin.
-  LaunchedEffect(pin) {
-    if (pin.length == 4) {
-      viewModel.setEvent(SetPinContract.Event.SetPin(pin))
-      delay(300) // this is to show the animation
-      isConfirmPin = true
+    // One effect per PIN, so typing the confirmation PIN doesn't resend SetPin.
+    LaunchedEffect(pin) {
+        if (pin.length == 4) {
+            viewModel.setEvent(SetPinContract.Event.SetPin(pin))
+            delay(300) // this is to show the animation
+            isConfirmPin = true
+        }
     }
-  }
 
-  LaunchedEffect(confirmPin) {
-    if (confirmPin.length == 4) {
-      viewModel.setEvent(SetPinContract.Event.SetConfirmPin(confirmPin))
+    LaunchedEffect(confirmPin) {
+        if (confirmPin.length == 4) {
+            viewModel.setEvent(SetPinContract.Event.SetConfirmPin(confirmPin))
+        }
     }
-  }
 
-  LaunchedEffect(Unit) {
-    viewModel.effect.collect { effect ->
-      when (effect) {
-        SetPinContract.Effect.NavigateToBackScreen -> onNavigateBack()
-        SetPinContract.Effect.NavigateToNextScreen -> {
-          onNavigateToHomeScreen()
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                SetPinContract.Effect.NavigateToBackScreen -> onNavigateBack()
+                SetPinContract.Effect.NavigateToNextScreen -> {
+                    onNavigateToHomeScreen()
+                }
+                SetPinContract.Effect.PinConfigured -> {
+                    logger.i { "The pin is configured" }
+                }
+                SetPinContract.Effect.ConfirmPinConfigured -> {
+                    //          log.i { "The confirm pin is configured" }
+                }
+                SetPinContract.Effect.PinMatched -> {
+                    delay(400) // animate before transitioning to the homescreen
+                    haptics.confirm()
+                    onNavigateToHomeScreen()
+                }
+                SetPinContract.Effect.PinMismatched -> {
+                    isPinMismatch = true
+                    //          log.i { "The pins mismatched" }
+                    haptics.reject()
+                    scope.launch {
+                        snackbarHostState.showSnackbar(message = "Try entering a new Pin")
+                    }
+                    pin = ""
+                    confirmPin = ""
+                    isConfirmPin = false
+                }
+            }
         }
-        SetPinContract.Effect.PinConfigured -> {
-          logger.i { "The pin is configured" }
-        }
-        SetPinContract.Effect.ConfirmPinConfigured -> {
-          //          log.i { "The confirm pin is configured" }
-        }
-        SetPinContract.Effect.PinMatched -> {
-          delay(400) // animate before transitioning to the homescreen
-          haptics.confirm()
-          onNavigateToHomeScreen()
-        }
-        SetPinContract.Effect.PinMismatched -> {
-          isPinMismatch = true
-          //          log.i { "The pins mismatched" }
-          haptics.reject()
-          scope.launch { snackbarHostState.showSnackbar(message = "Try entering a new Pin") }
-          pin = ""
-          confirmPin = ""
-          isConfirmPin = false
-        }
-      }
     }
-  }
 
-  Scaffold(
-    snackbarHost = { SnackbarHost(snackbarHostState) },
-    topBar = {
-      TopAppBar(
-        title = {},
-        modifier = Modifier.padding(horizontal = 8.dp),
-        navigationIcon = {
-          IconButton(
-            onClick = { scope.launch { viewModel.setEvent(SetPinContract.Event.NavigateBack) } },
-            modifier = Modifier.clip(CircleShape).size(40.dp),
-            colors =
-              IconButtonDefaults.iconButtonColors()
-                .copy(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-          ) {
-            Icon(imageVector = WalenjeIcons.ArrowLeft, contentDescription = null)
-          }
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+        topBar = {
+            TopAppBar(
+                title = {},
+                modifier = Modifier.padding(horizontal = 8.dp),
+                navigationIcon = {
+                    IconButton(
+                        onClick = {
+                            scope.launch { viewModel.setEvent(SetPinContract.Event.NavigateBack) }
+                        },
+                        modifier = Modifier.clip(CircleShape).size(40.dp),
+                        colors =
+                            IconButtonDefaults.iconButtonColors()
+                                .copy(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                    ) {
+                        Icon(imageVector = WalenjeIcons.ArrowLeft, contentDescription = null)
+                    }
+                },
+            )
         },
-      )
-    },
-  ) { paddingValues ->
-    Column(
-      modifier = Modifier.fillMaxSize().padding(paddingValues).padding(bottom = 32.dp),
-      verticalArrangement = Arrangement.SpaceBetween,
-    ) {
-      Column {
-        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
-          Icon(
-            imageVector = WalenjeIcons.LockKey,
-            contentDescription = null,
-            modifier = Modifier.size(48.dp),
-          )
-        }
-        PinScreenTitle(isConfirmPin = isConfirmPin)
-
-        val pinMatched by remember {
-          derivedStateOf { pin == confirmPin && confirmPin.length == 4 }
-        }
-
-        Box(
-          modifier = Modifier.fillMaxWidth().padding(top = 32.dp),
-          contentAlignment = Alignment.Center,
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier.fillMaxSize().padding(paddingValues).padding(bottom = 32.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
-          PinVisualization(
-            pinInput = if (isConfirmPin) confirmPin else pin,
-            triggerSuccess = isConfirmPin && pinMatched,
-            showError = isPinMismatch,
-          )
-        }
-      }
-      NumberPad { input ->
-        if (isPinMismatch) isPinMismatch = false
-        var targetInput = if (isConfirmPin) confirmPin else pin
-        val updatedPin =
-          when (input) {
-            "del" -> targetInput.dropLast(1)
-            else -> (targetInput + input).takeIf { it.length <= 4 } ?: targetInput
-          }
+            Column {
+                Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
+                    Icon(
+                        imageVector = WalenjeIcons.LockKey,
+                        contentDescription = null,
+                        modifier = Modifier.size(48.dp),
+                    )
+                }
+                PinScreenTitle(isConfirmPin = isConfirmPin)
 
-        if (isConfirmPin) {
-          confirmPin = updatedPin
-        } else {
-          pin = updatedPin
+                val pinMatched by remember {
+                    derivedStateOf { pin == confirmPin && confirmPin.length == 4 }
+                }
+
+                Box(
+                    modifier = Modifier.fillMaxWidth().padding(top = 32.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    PinVisualization(
+                        pinInput = if (isConfirmPin) confirmPin else pin,
+                        triggerSuccess = isConfirmPin && pinMatched,
+                        showError = isPinMismatch,
+                    )
+                }
+            }
+            NumberPad { input ->
+                if (isPinMismatch) isPinMismatch = false
+                var targetInput = if (isConfirmPin) confirmPin else pin
+                val updatedPin =
+                    when (input) {
+                        "del" -> targetInput.dropLast(1)
+                        else -> (targetInput + input).takeIf { it.length <= 4 } ?: targetInput
+                    }
+
+                if (isConfirmPin) {
+                    confirmPin = updatedPin
+                } else {
+                    pin = updatedPin
+                }
+            }
         }
-      }
     }
-  }
 }
 
 @Composable
 internal fun PinScreenTitle(isConfirmPin: Boolean = false) {
-  val confirmPinText = buildAnnotatedString {
-    append("If you forget your passcode, you’ll need to")
-    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) { append(" logout") }
-    append(" or")
-    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) { append(" reinstall") }
-    append(" the app")
-  }
-  Column(
-    modifier = Modifier.fillMaxWidth().padding(top = 128.dp).padding(horizontal = 32.dp),
-    horizontalAlignment = Alignment.CenterHorizontally,
-  ) {
-    WalenjeText(
-      if (isConfirmPin) "Re-enter your PIN" else "Enter your PIN",
-      textType = TextType.TitleBase,
-      fontWeight = FontWeight.SemiBold,
-    )
-    Spacer(Modifier.height(8.dp))
-    if (!isConfirmPin) {
-      WalenjeText(
-        "Please enter any 4 digits that you will use to unlock your Walenje app",
-        textType = TextType.LabelBase,
-        textAlign = TextAlign.Center,
-      )
-    } else {
-      WalenjeText(confirmPinText, textType = TextType.LabelBase, textAlign = TextAlign.Center)
+    val confirmPinText = buildAnnotatedString {
+        append("If you forget your passcode, you’ll need to")
+        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) { append(" logout") }
+        append(" or")
+        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) { append(" reinstall") }
+        append(" the app")
     }
-  }
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(top = 128.dp).padding(horizontal = 32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        WalenjeText(
+            if (isConfirmPin) "Re-enter your PIN" else "Enter your PIN",
+            textType = TextType.TitleBase,
+            fontWeight = FontWeight.SemiBold,
+        )
+        Spacer(Modifier.height(8.dp))
+        if (!isConfirmPin) {
+            WalenjeText(
+                "Please enter any 4 digits that you will use to unlock your Walenje app",
+                textType = TextType.LabelBase,
+                textAlign = TextAlign.Center,
+            )
+        } else {
+            WalenjeText(confirmPinText, textType = TextType.LabelBase, textAlign = TextAlign.Center)
+        }
+    }
 }
 
 @Composable
 fun PinVisualization(
-  pins: Int = 4,
-  pinInput: String = "",
-  triggerSuccess: Boolean = false,
-  showError: Boolean = false,
+    pins: Int = 4,
+    pinInput: String = "",
+    triggerSuccess: Boolean = false,
+    showError: Boolean = false,
 ) {
-  val successStates = remember { List(pins) { mutableStateOf(false) } }
+    val successStates = remember { List(pins) { mutableStateOf(false) } }
 
-  val shake = remember { Animatable(0f) }
+    val shake = remember { Animatable(0f) }
 
-  LaunchedEffect(triggerSuccess) {
-    if (triggerSuccess) {
-      successStates.forEachIndexed { _, state ->
-        state.value = true
-        delay(100)
-      }
+    LaunchedEffect(triggerSuccess) {
+        if (triggerSuccess) {
+            successStates.forEachIndexed { _, state ->
+                state.value = true
+                delay(100)
+            }
+        }
     }
-  }
 
-  LaunchedEffect(showError) {
-    if (showError) {
-      shake.snapTo(0f)
-      shake.animateTo(
-        targetValue = 0f,
-        animationSpec =
-          keyframes {
-            durationMillis = 500
-            val intensity = 16f
-            0f at 0
-            -intensity at 50
-            intensity at 100
-            -intensity at 150
-            intensity at 200
-            -intensity / 2 at 250
-            intensity / 2 at 300
-            -intensity / 4 at 350
-            intensity / 4 at 400
-            0f at 500
-          },
-      )
+    LaunchedEffect(showError) {
+        if (showError) {
+            shake.snapTo(0f)
+            shake.animateTo(
+                targetValue = 0f,
+                animationSpec =
+                    keyframes {
+                        durationMillis = 500
+                        val intensity = 16f
+                        0f at 0
+                        -intensity at 50
+                        intensity at 100
+                        -intensity at 150
+                        intensity at 200
+                        -intensity / 2 at 250
+                        intensity / 2 at 300
+                        -intensity / 4 at 350
+                        intensity / 4 at 400
+                        0f at 500
+                    },
+            )
+        }
     }
-  }
 
-  Row(
-    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
-    modifier = Modifier.graphicsLayer { translationX = shake.value },
-  ) {
-    for (index in 0 until pins) {
-      val filled = index < pinInput.length
-      PinBubble(
-        filled = filled,
-        success = successStates[index].value,
-        failure = showError,
-        animate = triggerSuccess,
-      )
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+        modifier = Modifier.graphicsLayer { translationX = shake.value },
+    ) {
+        for (index in 0 until pins) {
+            val filled = index < pinInput.length
+            PinBubble(
+                filled = filled,
+                success = successStates[index].value,
+                failure = showError,
+                animate = triggerSuccess,
+            )
+        }
     }
-  }
 }
 
 @Composable
 fun PinBubble(filled: Boolean, success: Boolean, failure: Boolean, animate: Boolean) {
-  val scale = remember { Animatable(1f) }
-  LaunchedEffect(success) {
-    if (success && animate) {
-      scale.snapTo(1f)
-      scale.animateTo(
-        targetValue = 1.2f,
-        animationSpec = tween(durationMillis = 200, easing = FastOutSlowInEasing),
-      )
-      scale.animateTo(1f, animationSpec = tween(150))
-    }
-  }
-
-  val targetIcon =
-    when {
-      success -> WalenjeIcons.Circle // ✅ Green filled circle
-      filled -> WalenjeIcons.Star // ✅ Input progress
-      else -> WalenjeIcons.CircleOutline // Default state
+    val scale = remember { Animatable(1f) }
+    LaunchedEffect(success) {
+        if (success && animate) {
+            scale.snapTo(1f)
+            scale.animateTo(
+                targetValue = 1.2f,
+                animationSpec = tween(durationMillis = 200, easing = FastOutSlowInEasing),
+            )
+            scale.animateTo(1f, animationSpec = tween(150))
+        }
     }
 
-  val tintColor =
-    when {
-      success -> MaterialTheme.colorScheme.secondaryContainer
-      filled -> MaterialTheme.colorScheme.onSurface
-      failure -> MaterialTheme.colorScheme.error
-      else -> MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
-    }
+    val targetIcon =
+        when {
+            success -> WalenjeIcons.Circle // ✅ Green filled circle
+            filled -> WalenjeIcons.Star // ✅ Input progress
+            else -> WalenjeIcons.CircleOutline // Default state
+        }
 
-  AnimatedContent(
-    targetState = targetIcon,
-    transitionSpec = {
-      slideInVertically { it } + fadeIn() togetherWith slideOutVertically { -it } + fadeOut()
-    },
-    contentAlignment = Alignment.Center,
-  ) { icon ->
-    Icon(
-      imageVector = icon,
-      contentDescription = null,
-      modifier = Modifier.size(24.dp).scale(scale.value),
-      tint = tintColor,
-    )
-  }
+    val tintColor =
+        when {
+            success -> MaterialTheme.colorScheme.secondaryContainer
+            filled -> MaterialTheme.colorScheme.onSurface
+            failure -> MaterialTheme.colorScheme.error
+            else -> MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
+        }
+
+    AnimatedContent(
+        targetState = targetIcon,
+        transitionSpec = {
+            slideInVertically { it } + fadeIn() togetherWith slideOutVertically { -it } + fadeOut()
+        },
+        contentAlignment = Alignment.Center,
+    ) { icon ->
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = Modifier.size(24.dp).scale(scale.value),
+            tint = tintColor,
+        )
+    }
 }

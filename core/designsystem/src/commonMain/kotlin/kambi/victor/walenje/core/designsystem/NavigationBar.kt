@@ -20,29 +20,29 @@ data class NavItem(val name: String, val icon: ImageVector)
 
 @Immutable
 data class NavigationItem(
-  val label: String,
-  val icon: ImageVector,
-  val selectedIcon: ImageVector,
-  val iconLabel: ImageVector,
+    val label: String,
+    val icon: ImageVector,
+    val selectedIcon: ImageVector,
+    val iconLabel: ImageVector,
 )
 
 @Composable
 fun WalenjeNavigationBar(items: Map<Int, NavItem>, selectedItem: Int) {
-  var selectedNavItem by remember { mutableIntStateOf(selectedItem) }
-  NavigationBar(containerColor = Color.Transparent) {
-    Row(horizontalArrangement = Arrangement.Center) {
-      items.forEach { item ->
-        NavigationBarItem(
-          selected = selectedNavItem == item.key,
-          onClick = { selectedNavItem = item.key },
-          icon = {
-            AnimatedContent(targetState = item) {
-              Icon(imageVector = item.value.icon, contentDescription = null)
+    var selectedNavItem by remember { mutableIntStateOf(selectedItem) }
+    NavigationBar(containerColor = Color.Transparent) {
+        Row(horizontalArrangement = Arrangement.Center) {
+            items.forEach { item ->
+                NavigationBarItem(
+                    selected = selectedNavItem == item.key,
+                    onClick = { selectedNavItem = item.key },
+                    icon = {
+                        AnimatedContent(targetState = item) {
+                            Icon(imageVector = item.value.icon, contentDescription = null)
+                        }
+                    },
+                    label = { Text(item.value.name) },
+                )
             }
-          },
-          label = { Text(item.value.name) },
-        )
-      }
+        }
     }
-  }
 }

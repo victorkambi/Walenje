@@ -6,5 +6,5 @@ import co.touchlab.kermit.loggerConfigInit
 import co.touchlab.kermit.platformLogWriter
 
 internal val logger by lazy {
-  Logger(loggerConfigInit(platformLogWriter(NoTagFormatter)), "LOGGER")
+    Logger(loggerConfigInit(platformLogWriter(NoTagFormatter)), "LOGGER")
 }

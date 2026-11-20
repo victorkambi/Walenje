@@ -15,20 +15,20 @@ import kambi.victor.walenje.core.designsystem.icons.WalenjeIcons
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(onNavigateBack: () -> Unit) {
-  val navigationItems =
-    mapOf(
-      1 to NavItem("Home", WalenjeIcons.Home),
-      2 to NavItem("Analytics", WalenjeIcons.Analytics),
-      3 to NavItem("Profile", WalenjeIcons.Profile),
-    )
+    val navigationItems =
+        mapOf(
+            1 to NavItem("Home", WalenjeIcons.Home),
+            2 to NavItem("Analytics", WalenjeIcons.Analytics),
+            3 to NavItem("Profile", WalenjeIcons.Profile),
+        )
 
-  Scaffold(
-    topBar = { TopAppBar(title = { Text("Home Screen") }) },
-    bottomBar = { WalenjeNavigationBar(navigationItems, 1) },
-  ) { innerPadding ->
-    LazyColumn(modifier = Modifier.padding(innerPadding)) {
-      item {}
-      item {}
+    Scaffold(
+        topBar = { TopAppBar(title = { Text("Home Screen") }) },
+        bottomBar = { WalenjeNavigationBar(navigationItems, 1) },
+    ) { innerPadding ->
+        LazyColumn(modifier = Modifier.padding(innerPadding)) {
+            item {}
+            item {}
+        }
     }
-  }
 }

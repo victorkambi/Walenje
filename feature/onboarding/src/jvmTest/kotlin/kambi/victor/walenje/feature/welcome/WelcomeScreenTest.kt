@@ -16,31 +16,31 @@ import kotlin.test.assertEquals
 
 @OptIn(ExperimentalTestApi::class)
 class WelcomeScreenTest {
-  @Test
-  fun showsTheHeadlineAndTagline() = runComposeUiTest {
-    setContent { Welcome(onNavigateToSecureWallet = {}) }
+    @Test
+    fun showsTheHeadlineAndTagline() = runComposeUiTest {
+        setContent { Welcome(onNavigateToSecureWallet = {}) }
 
-    onNodeWithText("CREATE\nYOUR\nPRIVATE\nWALLET", substring = true).assertIsDisplayed()
-    onNodeWithText("Secure your money", substring = true).assertIsDisplayed()
-  }
+        onNodeWithText("CREATE\nYOUR\nPRIVATE\nWALLET", substring = true).assertIsDisplayed()
+        onNodeWithText("Secure your money", substring = true).assertIsDisplayed()
+    }
 
-  @Test
-  fun theContinueButtonIsAnAccessibleButton() = runComposeUiTest {
-    setContent { Welcome(onNavigateToSecureWallet = {}) }
+    @Test
+    fun theContinueButtonIsAnAccessibleButton() = runComposeUiTest {
+        setContent { Welcome(onNavigateToSecureWallet = {}) }
 
-    onNodeWithContentDescription("Continue")
-      .assertIsDisplayed()
-      .assertHasClickAction()
-      .assert(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Button))
-  }
+        onNodeWithContentDescription("Continue")
+            .assertIsDisplayed()
+            .assertHasClickAction()
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Button))
+    }
 
-  @Test
-  fun continuingNavigatesToTheSecureWalletScreenOnce() = runComposeUiTest {
-    var navigations = 0
-    setContent { Welcome(onNavigateToSecureWallet = { navigations++ }) }
+    @Test
+    fun continuingNavigatesToTheSecureWalletScreenOnce() = runComposeUiTest {
+        var navigations = 0
+        setContent { Welcome(onNavigateToSecureWallet = { navigations++ }) }
 
-    onNodeWithContentDescription("Continue").performClick()
+        onNodeWithContentDescription("Continue").performClick()
 
-    assertEquals(1, navigations)
-  }
+        assertEquals(1, navigations)
+    }
 }

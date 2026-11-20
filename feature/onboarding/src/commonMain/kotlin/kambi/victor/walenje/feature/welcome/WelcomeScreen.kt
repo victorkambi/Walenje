@@ -35,66 +35,71 @@ import kambi.victor.walenje.core.designsystem.icons.WalenjeIcons
 
 @Composable
 fun Welcome(onNavigateToSecureWallet: () -> Unit) {
-  val haptic = LocalHapticFeedback.current
+    val haptic = LocalHapticFeedback.current
 
-  Scaffold(contentWindowInsets = ScaffoldDefaults.contentWindowInsets) { paddingValues ->
-    Column(
-      modifier =
-        Modifier.fillMaxSize().padding(paddingValues).padding(vertical = 64.dp, horizontal = 16.dp),
-    ) {
-      Column(modifier = Modifier.padding(top = 16.dp, bottom = 64.dp)) {
-        ProvideTextStyle(
-          MaterialTheme.typography.displayLarge.copy(
-            fontWeight = FontWeight.Medium,
-            fontSize = 68.sp,
-          ),
+    Scaffold(contentWindowInsets = ScaffoldDefaults.contentWindowInsets) { paddingValues ->
+        Column(
+            modifier =
+                Modifier.fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(vertical = 64.dp, horizontal = 16.dp),
         ) {
-          Text(
-            text =
-              buildAnnotatedString {
-                append("CREATE\n")
-                append("YOUR\n")
-                append("PRIVATE\n")
-                append("WALLET\n")
-              },
-          )
-        }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-          ProvideTextStyle(
-            WalenjeTextStyle(TextType.TextMedium).copy(fontWeight = FontWeight.Medium),
-          ) {
-            Text(
-              text =
-                buildAnnotatedString {
-                  append("Secure your money \n")
-                  append("and keep track of your \n")
-                  append("finances\n")
-                },
-            )
-          }
-        }
-      }
+            Column(modifier = Modifier.padding(top = 16.dp, bottom = 64.dp)) {
+                ProvideTextStyle(
+                    MaterialTheme.typography.displayLarge.copy(
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 68.sp,
+                    ),
+                ) {
+                    Text(
+                        text =
+                            buildAnnotatedString {
+                                append("CREATE\n")
+                                append("YOUR\n")
+                                append("PRIVATE\n")
+                                append("WALLET\n")
+                            },
+                    )
+                }
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                    ProvideTextStyle(
+                        WalenjeTextStyle(TextType.TextMedium).copy(fontWeight = FontWeight.Medium),
+                    ) {
+                        Text(
+                            text =
+                                buildAnnotatedString {
+                                    append("Secure your money \n")
+                                    append("and keep track of your \n")
+                                    append("finances\n")
+                                },
+                        )
+                    }
+                }
+            }
 
-      HorizontalDivider()
-      Row(
-        modifier = Modifier.fillMaxSize(),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically,
-      ) {
-        Box(
-          modifier =
-            Modifier.clip(CircleShape)
-              .clickable(role = Role.Button) {
-                haptic.confirm()
-                onNavigateToSecureWallet()
-              }
-              .background(MaterialTheme.colorScheme.primary)
-              .size(70.dp),
-          contentAlignment = Alignment.Center,
-        ) {
-          Icon(imageVector = WalenjeIcons.ArrowChevronRight, contentDescription = "Continue")
+            HorizontalDivider()
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Box(
+                    modifier =
+                        Modifier.clip(CircleShape)
+                            .clickable(role = Role.Button) {
+                                haptic.confirm()
+                                onNavigateToSecureWallet()
+                            }
+                            .background(MaterialTheme.colorScheme.primary)
+                            .size(70.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        imageVector = WalenjeIcons.ArrowChevronRight,
+                        contentDescription = "Continue",
+                    )
+                }
+            }
         }
-      }
     }
-  }
 }

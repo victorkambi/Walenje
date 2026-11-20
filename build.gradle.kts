@@ -1,11 +1,18 @@
 plugins {
-  // Declared once here so every module shares one classloader for these plugins.
-  alias(libs.plugins.androidApplication) apply false
-  alias(libs.plugins.androidKmpLibrary) apply false
-  alias(libs.plugins.kotlinMultiplatform) apply false
-  alias(libs.plugins.composeMultiplatform) apply false
-  alias(libs.plugins.composeCompiler) apply false
-  alias(libs.plugins.composeHotReload) apply false
-  alias(libs.plugins.kotlinx.serialization) apply false
-  alias(libs.plugins.ktfmt) apply false
+    // Declared once here so every module shares one classloader for these plugins.
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.androidKmpLibrary) apply false
+    alias(libs.plugins.kotlinMultiplatform) apply false
+    alias(libs.plugins.composeMultiplatform) apply false
+    alias(libs.plugins.composeCompiler) apply false
+    alias(libs.plugins.composeHotReload) apply false
+    alias(libs.plugins.kotlinx.serialization) apply false
+    alias(libs.plugins.ktfmt) apply false
+    // Formats the root build scripts; each module formats its own.
+    id("walenje.formatting")
+}
+
+// Root ktfmtCheck/ktfmtFormat also cover the convention plugins in the included build.
+listOf("ktfmtCheck", "ktfmtFormat").forEach { name ->
+    tasks.named(name) { dependsOn(gradle.includedBuild("build-plugins").task(":$name")) }
 }

@@ -7,12 +7,12 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
  * Without it Gradle skips Kotlin/Native, so Android and desktop work stays fast.
  */
 val Project.iosTargetsEnabled: Boolean
-  get() = providers.gradleProperty("walenje.ios").map(String::toBoolean).getOrElse(false)
+    get() = providers.gradleProperty("walenje.ios").map(String::toBoolean).getOrElse(false)
 
 /**
  * Configures each iOS target, e.g. with an app's `binaries.framework`. iOS targets exist only with
  * `-Pwalenje.ios=true`, so without it this does nothing.
  */
 fun KotlinMultiplatformExtension.iosTargets(configure: KotlinNativeTarget.() -> Unit) {
-  targets.withType(KotlinNativeTarget::class.java).configureEach(configure)
+    targets.withType(KotlinNativeTarget::class.java).configureEach(configure)
 }

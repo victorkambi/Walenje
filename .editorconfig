@@ -1,7 +1,7 @@
 root = true
 
 [*.{kt,kts}]
-indent_size = 2
+indent_size = 4
 indent_style = space
 ij_any_align_multiline_parameters = true
 ij_kotlin_allow_trailing_comma = true

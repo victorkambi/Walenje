@@ -5,11 +5,11 @@ plugins { id("walenje.multiplatform") }
 val libs = the<LibrariesForLibs>()
 
 kotlin {
-  sourceSets {
-    commonMain.dependencies {
-      implementation(project.dependencies.platform(libs.koin.bom))
-      implementation(libs.bundles.koin)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.bundles.koin)
+        }
+        androidMain.dependencies { implementation(libs.koin.android) }
     }
-    androidMain.dependencies { implementation(libs.koin.android) }
-  }
 }

@@ -40,92 +40,97 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SecureYourWalletScreen(onNavigateToNext: () -> Unit) {
-  val coroutineScope = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
 
-  val translationY = remember { Animatable(0f) }
-  var columnHeight by remember { mutableFloatStateOf(0f) }
-  var totalDrag by remember { mutableFloatStateOf(0f) }
+    val translationY = remember { Animatable(0f) }
+    var columnHeight by remember { mutableFloatStateOf(0f) }
+    var totalDrag by remember { mutableFloatStateOf(0f) }
 
-  val draggableState = rememberDraggableState { dragAmount ->
-    coroutineScope.launch {
-      totalDrag += dragAmount
-      translationY.snapTo(translationY.value + dragAmount)
+    val draggableState = rememberDraggableState { dragAmount ->
+        coroutineScope.launch {
+            totalDrag += dragAmount
+            translationY.snapTo(translationY.value + dragAmount)
+        }
     }
-  }
 
-  val decay = rememberSplineBasedDecay<Float>()
+    val decay = rememberSplineBasedDecay<Float>()
 
-  Scaffold { paddingValues ->
-    Column(
-      modifier =
-        Modifier.onGloballyPositioned { coordinates ->
-            columnHeight = coordinates.size.height.toFloat()
-          }
-          .graphicsLayer { this.translationY = translationY.value }
-          .draggable(
-            draggableState,
-            Orientation.Vertical,
-            onDragStopped = { velocity ->
-              coroutineScope.launch {
-                val decayTarget = decay.calculateTargetValue(translationY.value, velocity)
-                val dragDistance = abs(totalDrag)
-                val isFlickUp = velocity < 0 && decayTarget < -columnHeight * 0.5f
-                val isSlowDragUp = totalDrag < 0 && dragDistance > columnHeight * 0.3f
+    Scaffold { paddingValues ->
+        Column(
+            modifier =
+                Modifier.onGloballyPositioned { coordinates ->
+                        columnHeight = coordinates.size.height.toFloat()
+                    }
+                    .graphicsLayer { this.translationY = translationY.value }
+                    .draggable(
+                        draggableState,
+                        Orientation.Vertical,
+                        onDragStopped = { velocity ->
+                            coroutineScope.launch {
+                                val decayTarget =
+                                    decay.calculateTargetValue(translationY.value, velocity)
+                                val dragDistance = abs(totalDrag)
+                                val isFlickUp = velocity < 0 && decayTarget < -columnHeight * 0.5f
+                                val isSlowDragUp =
+                                    totalDrag < 0 && dragDistance > columnHeight * 0.3f
 
-                if (isFlickUp || isSlowDragUp) {
-                  onNavigateToNext()
-                  translationY.animateDecay(initialVelocity = velocity, animationSpec = decay)
-                } else {
-                  translationY.animateTo(0f)
+                                if (isFlickUp || isSlowDragUp) {
+                                    onNavigateToNext()
+                                    translationY.animateDecay(
+                                        initialVelocity = velocity,
+                                        animationSpec = decay,
+                                    )
+                                } else {
+                                    translationY.animateTo(0f)
+                                }
+
+                                totalDrag = 0f // reset
+                            }
+                        },
+                    )
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(start = 16.dp, top = 64.dp, end = 16.dp, bottom = 40.dp),
+        ) {
+            Column {
+                ProvideTextStyle(
+                    MaterialTheme.typography.displayLarge.copy(
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 68.sp,
+                    ),
+                ) {
+                    Text(
+                        text =
+                            buildAnnotatedString {
+                                append("SECURE\n")
+                                append("YOUR\n")
+                                append("WALLET\n")
+                            },
+                    )
                 }
-
-                totalDrag = 0f // reset
-              }
-            },
-          )
-          .fillMaxSize()
-          .padding(paddingValues)
-          .padding(start = 16.dp, top = 64.dp, end = 16.dp, bottom = 40.dp),
-    ) {
-      Column {
-        ProvideTextStyle(
-          MaterialTheme.typography.displayLarge.copy(
-            fontWeight = FontWeight.Medium,
-            fontSize = 68.sp,
-          ),
-        ) {
-          Text(
-            text =
-              buildAnnotatedString {
-                append("SECURE\n")
-                append("YOUR\n")
-                append("WALLET\n")
-              },
-          )
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+                    ProvideTextStyle(
+                        MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
+                    ) {
+                        Text(text = "We need to be sure that it’s you that’s accessing your wallet")
+                    }
+                }
+            }
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Button(
+                    onClick = { onNavigateToNext() },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = MaterialTheme.shapes.medium,
+                ) {
+                    Icon(WalenjeIcons.Lock, contentDescription = null)
+                    Spacer(Modifier.padding(4.dp))
+                    WalenjeText("Proceed to secure Wallet", fontWeight = FontWeight.Bold)
+                }
+            }
         }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-          ProvideTextStyle(
-            MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
-          ) {
-            Text(text = "We need to be sure that it’s you that’s accessing your wallet")
-          }
-        }
-      }
-      Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.CenterHorizontally,
-      ) {
-        Button(
-          onClick = { onNavigateToNext() },
-          modifier = Modifier.fillMaxWidth(),
-          shape = MaterialTheme.shapes.medium,
-        ) {
-          Icon(WalenjeIcons.Lock, contentDescription = null)
-          Spacer(Modifier.padding(4.dp))
-          WalenjeText("Proceed to secure Wallet", fontWeight = FontWeight.Bold)
-        }
-      }
     }
-  }
 }

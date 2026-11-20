@@ -1,5 +1,5 @@
 plugins {
-  id("walenje.library")
-  id("walenje.serialization")
-  id("walenje.logging")
+    id("walenje.library")
+    id("walenje.serialization")
+    id("walenje.logging")
 }

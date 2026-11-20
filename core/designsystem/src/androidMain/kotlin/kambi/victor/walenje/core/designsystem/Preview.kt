@@ -5,7 +5,7 @@ import kambi.victor.walenje.core.designsystem.theme.WalenjeTheme
 
 @Composable
 fun WalenjeNavPreview() {
-  WalenjeTheme {
-    //        WalenjeNavigationBar(navMappedItems, 1)
-  }
+    WalenjeTheme {
+        //        WalenjeNavigationBar(navMappedItems, 1)
+    }
 }

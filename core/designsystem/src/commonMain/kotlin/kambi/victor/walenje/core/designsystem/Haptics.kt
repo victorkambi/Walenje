@@ -18,7 +18,7 @@ fun HapticFeedback.gestureEnd() = performHapticFeedback(HapticFeedbackType.Gestu
  * the threshold.
  */
 fun HapticFeedback.gestureThresholdActivate() =
-  performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
+    performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
 
 /**
  * The user has performed a long press on an object that is resulting in an action being performed.
@@ -33,7 +33,7 @@ fun HapticFeedback.reject() = performHapticFeedback(HapticFeedbackType.Reject)
  * face, or individual percentages.
  */
 fun HapticFeedback.segmentFrequentTick() =
-  performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
+    performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
 
 /**
  * The user is switching between a series of potential choices, for example items in a list or
