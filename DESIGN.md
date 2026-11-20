@@ -83,6 +83,8 @@ wrap, they never clip.
 | `warn` | `#E8A300` | `#F2B230` | "Needs review" square and badge |
 | `warnText` | `#875800` | `#F5BD4F` | "Review" and "Check" words |
 | `income` | `#0E7A3E` | `#4ADE80` | Income amounts, always with `+` |
+| `error` | `#C4271B` | `#FF6B5E` | Errors such as a PIN mismatch, always with a message |
+| `onError` | `#FFFFFF` | `#050505` | Text and icons on `error` |
 
 Rules for aqua:
 
@@ -174,12 +176,13 @@ Check every new screen and component:
 
 ## Current state
 
-The design system follows this file for typography only. Colour still uses a generated mint palette
-(`primaryLight = #1CFDD6` and Material roles). Move to this direction in this order:
+The design system follows this file for typography and colour. Shape, spacing and the components are still to
+come. Move to this direction in this order:
 
 1. Typography: done. `WalenjeTheme.typography` holds the seven styles; `TextType` names them;
    `WalenjeText(muted = true)` gives the muted variant.
-2. Colour: replace the generated palette in `Color.kt` with the tokens above.
+2. Colour: done. `WalenjeTheme.colors` holds the tokens for light and dark; the theme follows the system
+   setting and maps the tokens onto the Material roles (aqua is `primary`, no tonal tint).
 3. Shape and spacing: add the radius, rule and spacing tokens to the theme.
 4. Components: build `TwoToneHeading`, `MetricReadout`, `PillButton`, `CircleIconButton`, `Tile` and `ReceiptRow`
    first, then the rest as screens need them.

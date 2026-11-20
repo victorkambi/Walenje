@@ -25,7 +25,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -55,6 +54,7 @@ import kambi.victor.walenje.core.designsystem.WalenjeText
 import kambi.victor.walenje.core.designsystem.confirm
 import kambi.victor.walenje.core.designsystem.icons.WalenjeIcons
 import kambi.victor.walenje.core.designsystem.reject
+import kambi.victor.walenje.core.designsystem.theme.WalenjeTheme
 import kambi.victor.walenje.core.ui.NumberPad
 import kambi.victor.walenje.feature.welcome.view_models.SetPinScreenViewModel
 import kotlinx.coroutines.delay
@@ -140,7 +140,7 @@ fun SetPinScreen(
                         modifier = Modifier.clip(CircleShape).size(40.dp),
                         colors =
                             IconButtonDefaults.iconButtonColors()
-                                .copy(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                                .copy(containerColor = WalenjeTheme.colors.tile),
                     ) {
                         Icon(imageVector = WalenjeIcons.ArrowLeft, contentDescription = null)
                     }
@@ -302,17 +302,17 @@ fun PinBubble(filled: Boolean, success: Boolean, failure: Boolean, animate: Bool
 
     val targetIcon =
         when {
-            success -> WalenjeIcons.Circle // ✅ Green filled circle
-            filled -> WalenjeIcons.Star // ✅ Input progress
+            success -> WalenjeIcons.Circle // Filled circle: PIN accepted
+            filled -> WalenjeIcons.Star // Input progress
             else -> WalenjeIcons.CircleOutline // Default state
         }
 
+    // The icon shape carries the state; colour only supports it (DESIGN.md: never colour alone).
     val tintColor =
         when {
-            success -> MaterialTheme.colorScheme.secondaryContainer
-            filled -> MaterialTheme.colorScheme.onSurface
-            failure -> MaterialTheme.colorScheme.error
-            else -> MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
+            success || filled -> WalenjeTheme.colors.ink
+            failure -> WalenjeTheme.colors.error
+            else -> WalenjeTheme.colors.muted
         }
 
     AnimatedContent(

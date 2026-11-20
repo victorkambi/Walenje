@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScaffoldDefaults
@@ -80,13 +79,14 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
                                 haptic.confirm()
                                 onNavigateToSecureWallet()
                             }
-                            .background(MaterialTheme.colorScheme.primary)
+                            .background(WalenjeTheme.colors.accent)
                             .size(70.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Icon(
                         imageVector = WalenjeIcons.ArrowChevronRight,
                         contentDescription = "Continue",
+                        tint = WalenjeTheme.colors.onAccent,
                     )
                 }
             }

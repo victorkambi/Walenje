@@ -1,6 +1,5 @@
 package kambi.victor.walenje.core.designsystem
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
@@ -42,15 +41,11 @@ fun WalenjeTextStyle(textType: TextType): TextStyle {
     }
 }
 
-/**
- * The muted colour for the second line of a two-tone heading and for captions.
- *
- * Uses the Material palette until the DESIGN.md colour tokens replace it.
- */
+/** The muted colour for the second line of a two-tone heading and for captions. */
 @Composable
 @ReadOnlyComposable
 private fun mutedColor(color: Color, muted: Boolean): Color =
-    if (muted && color == Color.Unspecified) MaterialTheme.colorScheme.onSurfaceVariant else color
+    if (muted && color == Color.Unspecified) WalenjeTheme.colors.muted else color
 
 /**
  * Text in a Walenje style. [TextType.Label] is set in capitals. [muted] picks the muted colour when

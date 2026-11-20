@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -185,7 +184,7 @@ fun NumberPadItem(
                 .clip(CircleShape)
                 .background(
                     if (backgroundVisible) {
-                        MaterialTheme.colorScheme.onSurface.copy(alpha = .2f)
+                        WalenjeTheme.colors.tile
                     } else {
                         Color.Unspecified
                     },
