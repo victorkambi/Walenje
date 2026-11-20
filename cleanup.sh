@@ -30,8 +30,8 @@ if [ "$deep" = true ]; then
   pkill -f KotlinCompileDaemon 2>/dev/null || true
 fi
 
-# Build output: the root, build-plugins and every module (./gradlew clean does the same, but needs a daemon)
-rm -rf build build-plugins/build build-plugins/.kotlin
+# Build output: the root, convention-plugins and every module (./gradlew clean does the same, but needs a daemon)
+rm -rf build convention-plugins/build convention-plugins/.kotlin
 find app core feature -maxdepth 2 -type d -name build -prune -exec rm -rf {} +
 rm -rf .kotlin
 
@@ -50,7 +50,7 @@ if [ "$ide" = true ]; then
 fi
 
 if [ "$deep" = true ]; then
-  rm -rf .gradle build-plugins/.gradle
+  rm -rf .gradle convention-plugins/.gradle
 fi
 
 echo "Free space: $before -> $(free_space)"

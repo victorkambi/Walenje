@@ -14,5 +14,5 @@ plugins {
 
 // Root ktfmtCheck/ktfmtFormat also cover the convention plugins in the included build.
 listOf("ktfmtCheck", "ktfmtFormat").forEach { name ->
-    tasks.named(name) { dependsOn(gradle.includedBuild("build-plugins").task(":$name")) }
+    tasks.named(name) { dependsOn(gradle.includedBuild("convention-plugins").task(":$name")) }
 }

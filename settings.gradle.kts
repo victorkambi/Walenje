@@ -3,7 +3,7 @@ rootProject.name = "Walenje"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
-    includeBuild("build-plugins")
+    includeBuild("convention-plugins")
     repositories {
         google {
             mavenContent {

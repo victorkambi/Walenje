@@ -33,7 +33,7 @@ Kotlin and Compose versions match Tajji central (`~/work/tajji/central`) so both
 `~/.konan`; bump them together. `MIGRATION_PLAN.md` records the move from Gradle to Kotlin Toolchain and back.
 
 - `settings.gradle.kts` lists the modules and the repositories (content-filtered; projects can't add their own).
-- Shared configuration lives in convention plugins in `build-plugins/src/main/kotlin/`:
+- Shared configuration lives in convention plugins in `convention-plugins/src/main/kotlin/`:
   - `walenje.multiplatform`: Kotlin Multiplatform, JDK 25 toolchain, `-Xexpect-actual-classes`, `kotlin.test` and
     `kotlinx-coroutines-test` for every module's tests, ktfmt
   - `walenje.compose`: Compose Multiplatform and its common dependencies
@@ -74,7 +74,7 @@ Kotlin and Compose versions match Tajji central (`~/work/tajji/central`) so both
 ## Code style
 
 - ktfmt, kotlinlang style, max width 100, unused imports removed. It covers module sources, all build scripts and
-  `build-plugins`. `ktfmtCheck` checks it and nothing reformats during a build, so run `./gradlew ktfmtFormat`
+  `convention-plugins`. `ktfmtCheck` checks it and nothing reformats during a build, so run `./gradlew ktfmtFormat`
   before committing. `@Composable` functions are PascalCase. ktlint is not used: it disagrees with ktfmt's output.
 - Four-space indentation, trailing commas allowed.
 
