@@ -111,3 +111,9 @@ Afterwards the catalog moved from `gradle/libs.versions.toml` to the root `libs.
 - [x] iOS app (Toolchain-built `Walenje.app`, bundle id `kambi.victor.Walenje`) runs in the iPhone 17 Pro
   simulator: Montserrat and icons render from Compose resources; PIN entry → confirmation → Home works
 - [ ] Android app on an emulator: the AVD needs more free disk than is available; APK builds
+
+## Later: Android and iOS only (2026-11-20)
+
+The native macOS app (`:app:macos`, `scripts/macos-app.sh`, the `macosArm64` target and Touch ID biometrics) and
+the desktop installers are gone. Release targets are Android and iOS; `-Pwalenje.apple` became `-Pwalenje.ios`.
+`app/desktop` stays as a JVM dev app for Compose Hot Reload.

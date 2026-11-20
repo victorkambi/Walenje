@@ -1,6 +1,7 @@
 import org.gradle.accessors.dm.LibrariesForLibs
 
-// A shared Compose Multiplatform library: Android, desktop (JVM) and, with -Pwalenje.apple=true, iOS and macOS.
+// A shared Compose Multiplatform library: Android, iOS (with -Pwalenje.ios=true) and JVM. The JVM
+// target exists only for the desktop dev app (Compose Hot Reload) and fast tests; it isn't shipped.
 plugins {
   id("com.android.kotlin.multiplatform.library")
   id("walenje-cmp")
@@ -20,9 +21,8 @@ kotlin {
 
   jvm()
 
-  if (appleTargetsEnabled) {
+  if (iosTargetsEnabled) {
     iosArm64()
     iosSimulatorArm64()
-    macosArm64()
   }
 }

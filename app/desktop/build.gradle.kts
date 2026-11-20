@@ -1,7 +1,5 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
-// Desktop (JVM) app. Run it with ./gradlew :app:desktop:run, or :app:desktop:hotRunJvm for
-// Compose Hot Reload.
+// Desktop (JVM) dev app for Compose Hot Reload: ./gradlew :app:desktop:hotRunJvm. It isn't a
+// shipped target, so it has no installer packaging.
 plugins {
   id("walenje-cmp")
   id("org.jetbrains.compose.hot-reload")
@@ -20,13 +18,4 @@ kotlin {
   }
 }
 
-compose.desktop {
-  application {
-    mainClass = "kambi.victor.walenje.MainKt"
-    nativeDistributions {
-      packageName = "Walenje"
-      packageVersion = "1.0.0"
-      targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-    }
-  }
-}
+compose.desktop { application { mainClass = "kambi.victor.walenje.MainKt" } }

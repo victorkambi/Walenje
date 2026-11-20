@@ -12,7 +12,7 @@ Walenje is a personal finance tracker built as a Kotlin Multiplatform app with C
 
 **Implemented**
 - Onboarding: welcome screen, "secure your wallet" explainer, and PIN setup with confirmation
-- Biometric authentication on Android and macOS (Touch ID); iOS and desktop (JVM) use placeholders for now
+- Biometric authentication on Android; iOS and the desktop dev app use placeholders for now
 - Material 3 theming with light and dark color schemes and Montserrat typography
 
 **Planned**
@@ -22,7 +22,7 @@ Walenje is a personal finance tracker built as a Kotlin Multiplatform app with C
 
 ## Tech stack
 
-- [Kotlin](https://kotlinlang.org/) 2.4 and [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) for shared logic across Android, iOS, macOS, and desktop
+- [Kotlin](https://kotlinlang.org/) 2.4 and [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) for shared logic across Android and iOS (plus a desktop JVM build for development)
 - [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform) for UI, with [Material 3](https://m3.material.io/components) components
 - [Compose Navigation](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html) with type-safe, serializable routes
 - [Koin](https://github.com/InsertKoinIO/koin) for dependency injection
@@ -38,9 +38,8 @@ The app follows MVI (Model-View-Intent) with a clean-architecture module split. 
 app/
   common/    shared app entry point, navigation, DI wiring (KMP)
   android/   Android application
-  desktop/   desktop (JVM) application
+  desktop/   desktop (JVM) dev app for Compose Hot Reload; not shipped
   ios/       SwiftUI host for the shared Compose UI
-  macos/     native macOS application (no JVM)
 core/
   authentication/  biometric abstraction with per-platform actuals
   designsystem/    theme, typography, icons, shared components
@@ -62,12 +61,12 @@ The project builds with Gradle. Shared module configuration lives in convention 
 
 - JDK 21 or newer to start Gradle. The Gradle daemon and the compilers run on JetBrains Runtime 25, which Gradle downloads if it isn't installed.
 - Android SDK with compile SDK 37 (min SDK 24), with `ANDROID_HOME` pointing at it.
-- A Mac with Xcode for the iOS and macOS targets. Run `sudo xcodebuild -runFirstLaunch` once after installing or updating Xcode.
+- A Mac with Xcode for the iOS targets. Run `sudo xcodebuild -runFirstLaunch` once after installing or updating Xcode.
 - Optional: Android Studio or IntelliJ IDEA.
 
 ## Getting started
 
-Clone the repository and run commands from its root. iOS and macOS targets are opt-in: pass `-Pwalenje.apple=true` to build or test them.
+Clone the repository and run commands from its root. Walenje ships on Android and iOS. iOS targets are opt-in: pass `-Pwalenje.ios=true` to build or test them.
 
 **Android**
 
@@ -77,31 +76,23 @@ Clone the repository and run commands from its root. iOS and macOS targets are o
 
 This builds the app and installs it on a connected device or emulator.
 
-**Desktop**
+**Desktop (development only)**
 
 ```bash
-./gradlew :app:desktop:run
+./gradlew :app:desktop:hotRunJvm
 ```
 
-Use `:app:desktop:hotRunJvm` instead to update the UI while the app runs (Compose Hot Reload), or `:app:desktop:packageDmg` for an installer.
+This runs the shared UI on the JVM with Compose Hot Reload, so UI changes show while the app runs. It isn't a release target.
 
 **iOS**
 
 Open `app/ios/Walenje.xcodeproj` in Xcode and run the `Walenje` scheme on a simulator. The Xcode build runs Gradle to build the shared framework.
 
-**macOS (native)**
-
-```bash
-scripts/macos-app.sh --open
-```
-
-This builds the Kotlin/Native app and packages it with its resources as `app/macos/build/macos/Walenje.app`. Unlock uses Touch ID.
-
 **Tests and formatting**
 
 ```bash
 ./gradlew jvmTest testAndroidHostTest
-./gradlew -Pwalenje.apple=true iosSimulatorArm64Test macosArm64Test
+./gradlew -Pwalenje.ios=true iosSimulatorArm64Test
 ./gradlew ktfmtFormat
 ```
 

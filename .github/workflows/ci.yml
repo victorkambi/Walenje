@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   build:
-    # macOS for the iOS and macOS targets; the image also ships the Android SDK (ANDROID_HOME).
+    # macOS for the iOS targets; the image also ships the Android SDK (ANDROID_HOME).
     runs-on: macos-26
     timeout-minutes: 60
     steps:
@@ -48,15 +48,15 @@ jobs:
           xcrun simctl list runtimes
 
       # Specific debug and test tasks, never `build`: it would also link release binaries for every
-      # Apple target, the slowest Kotlin/Native work. The iOS app itself is built by Xcode, which
+      # iOS target, the slowest Kotlin/Native work. The desktop JAR only checks that the Hot Reload
+      # dev app still compiles. The iOS app itself is built by Xcode, which
       # can need a multi-GB iOS platform download on the runner, so CI stops at its framework.
       - name: Build, test and check formatting
         timeout-minutes: 45
         run: >-
-          ./gradlew -Pwalenje.apple=true --continue
+          ./gradlew -Pwalenje.ios=true --continue
           :app:android:assembleDebug
           :app:desktop:jvmJar
           :app:common:linkDebugFrameworkIosSimulatorArm64
-          :app:macos:assembleMacosAppDebug
-          jvmTest testAndroidHostTest iosSimulatorArm64Test macosArm64Test
+          jvmTest testAndroidHostTest iosSimulatorArm64Test
           ktfmtCheck

@@ -7,12 +7,10 @@ plugins {
 }
 
 kotlin {
-  appleTargets {
-    if (konanTarget.family.isAppleFamily && name.startsWith("ios")) {
-      binaries.framework {
-        baseName = "common"
-        isStatic = true
-      }
+  iosTargets {
+    binaries.framework {
+      baseName = "common"
+      isStatic = true
     }
   }
 
