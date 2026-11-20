@@ -1,7 +1,7 @@
 // Desktop (JVM) dev app for Compose Hot Reload: ./gradlew :app:desktop:hotRunJvm. It isn't a
 // shipped target, so it has no installer packaging.
 plugins {
-  id("walenje-cmp")
+  id("walenje.compose")
   id("org.jetbrains.compose.hot-reload")
 }
 

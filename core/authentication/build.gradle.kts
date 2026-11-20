@@ -1,6 +1,6 @@
 plugins {
-  id("walenje-kmp-library")
-  id("walenje-logger")
+  id("walenje.library")
+  id("walenje.logging")
 }
 
 kotlin { sourceSets { androidMain.dependencies { implementation(libs.androidx.biometric) } } }

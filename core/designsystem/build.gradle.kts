@@ -1,4 +1,4 @@
-plugins { id("walenje-kmp-library") }
+plugins { id("walenje.library") }
 
 kotlin {
   sourceSets {

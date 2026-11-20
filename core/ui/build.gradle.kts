@@ -1,7 +1,7 @@
 plugins {
-  id("walenje-kmp-library")
-  id("walenje-koin")
-  id("walenje-logger")
+  id("walenje.library")
+  id("walenje.koin")
+  id("walenje.logging")
 }
 
 kotlin { sourceSets { commonMain.dependencies { api(projects.core.designsystem) } } }

@@ -1,1 +1,1 @@
-plugins { id("walenje-feature") }
+plugins { id("walenje.feature") }

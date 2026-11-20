@@ -1,9 +1,9 @@
 // Shared app entry: App(), navigation, Koin wiring, and the iOS framework the Xcode project embeds.
 plugins {
-  id("walenje-kmp-library")
-  id("walenje-kotlinx")
-  id("walenje-koin")
-  id("walenje-logger")
+  id("walenje.library")
+  id("walenje.serialization")
+  id("walenje.koin")
+  id("walenje.logging")
 }
 
 kotlin {

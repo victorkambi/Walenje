@@ -4,7 +4,7 @@ import org.gradle.accessors.dm.LibrariesForLibs
 // target exists only for the desktop dev app (Compose Hot Reload) and fast tests; it isn't shipped.
 plugins {
   id("com.android.kotlin.multiplatform.library")
-  id("walenje-cmp")
+  id("walenje.compose")
 }
 
 val libs = the<LibrariesForLibs>()

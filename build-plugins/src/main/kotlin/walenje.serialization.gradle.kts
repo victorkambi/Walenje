@@ -1,7 +1,7 @@
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
-  id("walenje-kmp")
+  id("walenje.multiplatform")
   id("org.jetbrains.kotlin.plugin.serialization")
 }
 

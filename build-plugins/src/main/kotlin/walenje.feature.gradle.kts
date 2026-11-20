@@ -2,10 +2,10 @@ import org.gradle.accessors.dm.LibrariesForLibs
 
 // A feature module: screens, ViewModels and a Koin module, on top of the core modules.
 plugins {
-  id("walenje-kmp-library")
-  id("walenje-kotlinx")
-  id("walenje-koin")
-  id("walenje-logger")
+  id("walenje.library")
+  id("walenje.serialization")
+  id("walenje.koin")
+  id("walenje.logging")
 }
 
 val libs = the<LibrariesForLibs>()

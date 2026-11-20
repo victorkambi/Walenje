@@ -1,4 +1,4 @@
-plugins { id("walenje-android-application") }
+plugins { id("walenje.android-app") }
 
 android {
   namespace = "kambi.victor.walenje"

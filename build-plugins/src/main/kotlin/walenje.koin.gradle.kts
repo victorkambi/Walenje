@@ -1,6 +1,6 @@
 import org.gradle.accessors.dm.LibrariesForLibs
 
-plugins { id("walenje-kmp") }
+plugins { id("walenje.multiplatform") }
 
 val libs = the<LibrariesForLibs>()
 

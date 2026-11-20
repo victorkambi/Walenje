@@ -50,12 +50,12 @@ feature/
   home/            home screen (placeholder)
   analytics/       analytics (not yet implemented)
   profile/         profile (not yet implemented)
-build-logic/       Gradle convention plugins shared by the modules
+build-plugins/       Gradle convention plugins shared by the modules
 ```
 
 Navigation is declared in `app/common/.../navigation/Navigation.kt`. The visual direction (typography, colour, components and screen recipes) is in [`DESIGN.md`](DESIGN.md).
 
-The project builds with Gradle. Shared module configuration lives in convention plugins under `build-logic/`, and versions live in `gradle/libs.versions.toml`.
+The project builds with Gradle. Shared module configuration lives in convention plugins under `build-plugins/`, and versions live in `gradle/libs.versions.toml`.
 
 ## Requirements
 

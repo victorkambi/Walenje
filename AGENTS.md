@@ -33,13 +33,13 @@ Kotlin and Compose versions match Tajji central (`~/work/tajji/central`) so both
 `~/.konan`; bump them together. `MIGRATION_PLAN.md` records the move from Gradle to Kotlin Toolchain and back.
 
 - `settings.gradle.kts` lists the modules and the repositories (content-filtered; projects can't add their own).
-- Shared configuration lives in convention plugins in `build-logic/src/main/kotlin/`:
-  - `walenje-kmp`: Kotlin Multiplatform, JDK 25 toolchain, `-Xexpect-actual-classes`, `kotlin.test` and
+- Shared configuration lives in convention plugins in `build-plugins/src/main/kotlin/`:
+  - `walenje.multiplatform`: Kotlin Multiplatform, JDK 25 toolchain, `-Xexpect-actual-classes`, `kotlin.test` and
     `kotlinx-coroutines-test` for every module's tests, ktfmt
-  - `walenje-cmp`: Compose Multiplatform and its common dependencies
-  - `walenje-kmp-library`: a shared library: Android (namespace from the project path), iOS, and JVM (dev only)
-  - `walenje-feature`: a feature module (library + kotlinx + Koin + Kermit + the core modules)
-  - `walenje-kotlinx`, `walenje-koin`, `walenje-logger`, `walenje-android-application`, `walenje-code-format`
+  - `walenje.compose`: Compose Multiplatform and its common dependencies
+  - `walenje.library`: a shared library: Android (namespace from the project path), iOS, and JVM (dev only)
+  - `walenje.feature`: a feature module (library + kotlinx + Koin + Kermit + the core modules)
+  - `walenje.serialization`, `walenje.koin`, `walenje.logging`, `walenje.android-app`, `walenje.formatting`
 
   Change a setting in the convention plugin, not in each module.
 - iOS targets are opt-in: `-Pwalenje.ios=true` (CI and the Xcode build phase pass it). Without it Gradle skips
@@ -106,10 +106,10 @@ runs `./gradlew -Pwalenje.ios=true :app:common:embedAndSignAppleFrameworkForXcod
   (`core/ui`) and `SetPinScreenViewModel` (`feature/onboarding`).
 - Compose UI tests (`runComposeUiTest` from `androidx.compose.ui.test.v2`; the v1 one is deprecated) live in
   `src/jvmTest/kotlin` and run on the JVM only: in `commonTest` they would also run as Android host tests, which
-  need Robolectric. `walenje-kmp-library` adds `compose-ui-test` to
+  need Robolectric. `walenje.library` adds `compose-ui-test` to
   `jvmTest`. Pass the ViewModel to the screen instead of starting Koin. Example: `SetPinScreenTest`.
 - ViewModels run on `viewModelScope`, so tests call `Dispatchers.setMain(UnconfinedTestDispatcher())` and use
-  `runTest` from `kotlinx-coroutines-test` (every module's tests have it through `walenje-kmp`). Collect effects
+  `runTest` from `kotlinx-coroutines-test` (every module's tests have it through `walenje.multiplatform`). Collect effects
   with `effect.take(n).toList()`.
 - New business logic (ViewModels, use cases, repositories) gets tests in the same change.
 - `.github/workflows/ci.yml` runs on `macos-26` for every push to `main` and every pull request: the Android APK,

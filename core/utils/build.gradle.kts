@@ -1,5 +1,5 @@
 plugins {
-  id("walenje-kmp-library")
-  id("walenje-kotlinx")
-  id("walenje-logger")
+  id("walenje.library")
+  id("walenje.serialization")
+  id("walenje.logging")
 }

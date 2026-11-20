@@ -4,7 +4,7 @@ import org.gradle.accessors.dm.LibrariesForLibs
 plugins {
   id("com.android.application")
   id("org.jetbrains.kotlin.plugin.compose")
-  id("walenje-code-format")
+  id("walenje.formatting")
 }
 
 val libs = the<LibrariesForLibs>()
