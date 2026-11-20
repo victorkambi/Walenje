@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -83,7 +84,7 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
         Box(
           modifier =
             Modifier.clip(CircleShape)
-              .clickable {
+              .clickable(role = Role.Button) {
                 haptic.confirm()
                 onNavigateToSecureWallet()
               }
@@ -91,7 +92,7 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
               .size(70.dp),
           contentAlignment = Alignment.Center,
         ) {
-          Icon(imageVector = WalenjeIcons.ArrowChevronRight, contentDescription = null)
+          Icon(imageVector = WalenjeIcons.ArrowChevronRight, contentDescription = "Continue")
         }
       }
     }
