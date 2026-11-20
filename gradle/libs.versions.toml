@@ -28,6 +28,8 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "androidx-biometric" }
 
 compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
+# Base of the per-OS desktop artifact; see composeDesktopCurrentOs in convention-plugins
+compose-desktop = { module = "org.jetbrains.compose.desktop:desktop", version.ref = "composeMultiplatform" }
 compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatform" }
 compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "compose-material3" }
 compose-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "compose-navigation3" }

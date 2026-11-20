@@ -1,3 +1,5 @@
+import kambi.victor.walenje.convention.composeDesktopCurrentOs
+
 // Desktop (JVM) dev app for Compose Hot Reload: ./gradlew :app:desktop:hotRunJvm. It isn't a
 // shipped target, so it has no installer packaging.
 plugins {
@@ -12,7 +14,7 @@ kotlin {
         jvmMain.dependencies {
             implementation(projects.app.common)
             implementation(projects.core.authentication)
-            implementation(compose.desktop.currentOs)
+            implementation(composeDesktopCurrentOs)
             implementation(libs.kotlinx.coroutines.swing)
         }
     }

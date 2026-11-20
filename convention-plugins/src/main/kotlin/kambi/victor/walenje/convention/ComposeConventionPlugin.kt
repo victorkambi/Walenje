@@ -5,7 +5,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.compose.ComposePlugin
 
 /**
  * `walenje.compose`: Compose Multiplatform, its common libraries and Compose UI tests on the JVM.
@@ -32,7 +31,7 @@ class ComposeConventionPlugin : Plugin<Project> {
                 // Android host tests, which need Robolectric.
                 sourceSets.whenAdded("jvmTest") {
                     implementation(libs.compose.ui.test)
-                    implementation(ComposePlugin.DesktopDependencies.currentOs)
+                    implementation(composeDesktopCurrentOs)
                 }
             }
 
